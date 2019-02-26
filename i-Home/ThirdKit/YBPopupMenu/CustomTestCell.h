@@ -10,6 +10,10 @@
 
 @interface CustomTestCell : UITableViewCell
 
+
+
+
+
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UIView *badge;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
