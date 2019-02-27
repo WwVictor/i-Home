@@ -9,6 +9,7 @@
 #import "YBPopupMenu.h"
 #import "YBPopupMenuPath.h"
 #import "FMDatabaseModel.h"
+#import "UIColor+YTExtension.h"
 //#import "iThingHeader.h"
 #define YBScreenWidth [UIScreen mainScreen].bounds.size.width
 #define YBScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -185,7 +186,7 @@ UITableViewDataSource
         cell = [[YBPopupMenuCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
         cell.textLabel.numberOfLines = 0;
     }
-    cell.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
+    cell.backgroundColor = [UIColor whiteColor];
     cell.textLabel.textColor = _textColor;
     cell.textLabel.font = [UIFont systemFontOfSize:_fontSize];
     if ([_titles[indexPath.row] isKindOfClass:[NSAttributedString class]]) {
@@ -202,7 +203,7 @@ UITableViewDataSource
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
     }else {
-        cell.textLabel.text = nil;
+        cell.textLabel.text = _titles[indexPath.row];
     }
     cell.separatorColor = _separatorColor;
     if (_images.count >= indexPath.row + 1) {
@@ -211,10 +212,10 @@ UITableViewDataSource
         }else if ([_images[indexPath.row] isKindOfClass:[UIImage class]]){
             cell.imageView.image = _images[indexPath.row];
         }else {
-            cell.imageView.image = nil;
+            cell.imageView.image = _images[indexPath.row];
         }
     }else {
-        cell.imageView.image = nil;
+        cell.imageView.image = _images[indexPath.row];
     }
     
     
@@ -300,7 +301,7 @@ UITableViewDataSource
     _dismissOnSelected = YES;
     _dismissOnTouchOutside = YES;
     _fontSize = 15;
-    _textColor = [UIColor whiteColor];
+    _textColor = [UIColor colorWithHexString:@"28a7ff"];
     _offset = 0.0;
     _relyRect = CGRectZero;
     _point = CGPointZero;
@@ -308,7 +309,7 @@ UITableViewDataSource
     _borderColor = [UIColor lightGrayColor];
     _arrowWidth = 15.0;
     _arrowHeight = 10.0;
-    _backColor = [UIColor colorWithWhite:0 alpha:0.8];
+    _backColor = [UIColor whiteColor];
     _type = YBPopupMenuTypeDefault;
     _arrowDirection = YBPopupMenuArrowDirectionTop;
     _priorityDirection = YBPopupMenuPriorityDirectionTop;

@@ -25,14 +25,14 @@
     self.titleImageView = [[UIImageView alloc] init];
     [self addSubview:self.titleImageView];
     self.titleImageView.sd_layout
-    .topSpaceToView(self, 8)
+    .topSpaceToView(self, 7.5)
     .rightSpaceToView(self, 0)
-    .widthIs(8)
-    .bottomSpaceToView(self, 8);
+    .widthIs(15)
+    .bottomSpaceToView(self, 7.5);
     
     self.titleLabel = [[UILabel alloc] init];
-    self.titleLabel.font = [UIFont systemFontOfSize:17.0];
-    self.titleLabel.textColor = [UIColor colorWithHexString:@"008DD4"];
+    self.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    self.titleLabel.textColor = [UIColor colorWithHexString:@"FFFFFF"];
     self.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self addSubview:self.titleLabel];
     self.titleLabel.sd_layout
