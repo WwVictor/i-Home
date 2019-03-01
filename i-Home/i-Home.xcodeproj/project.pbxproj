@@ -46,6 +46,18 @@
 		0128FC652227CE5B0076879A /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC5A2227CE5B0076879A /* UIView+Extension.m */; };
 		0128FC682227D1D00076879A /* SelectDeviceTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC672227D1D00076879A /* SelectDeviceTypeCell.m */; };
 		0128FC6B2227D4BC0076879A /* GetDeviceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC6A2227D4BC0076879A /* GetDeviceController.m */; };
+		0128FC6E2228C88C0076879A /* JoinNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC6D2228C88C0076879A /* JoinNetworkController.m */; };
+		0128FC722228C8DB0076879A /* TuYeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC712228C8DB0076879A /* TuYeTextField.m */; };
+		0128FC752228C9040076879A /* GetDeviceNetworkIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC732228C9040076879A /* GetDeviceNetworkIP.m */; };
+		0128FC872228CB380076879A /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC7D2228CB380076879A /* SVRadialGradientLayer.m */; };
+		0128FC882228CB380076879A /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC802228CB380076879A /* SVProgressAnimatedView.m */; };
+		0128FC892228CB380076879A /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC822228CB380076879A /* SVProgressHUD.m */; };
+		0128FC8A2228CB380076879A /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC832228CB380076879A /* SVIndefiniteAnimatedView.m */; };
+		0128FC8B2228CB380076879A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0128FC842228CB380076879A /* SVProgressHUD.bundle */; };
+		0128FC8C2228CB380076879A /* SVProgressHUD+DoAnythingAfter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC862228CB380076879A /* SVProgressHUD+DoAnythingAfter.m */; };
+		0128FC912228D42F0076879A /* RoomManagementController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC902228D42F0076879A /* RoomManagementController.m */; };
+		0128FC952228D65C0076879A /* RoomManageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC942228D65C0076879A /* RoomManageCell.m */; };
+		0128FC982228E7260076879A /* AddRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC972228E7260076879A /* AddRoomViewController.m */; };
 		F20311B8221A7B210026336E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F20311B7221A7B210026336E /* AppDelegate.m */; };
 		F20311BB221A7B210026336E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20311BA221A7B210026336E /* ViewController.m */; };
 		F20311BE221A7B220026336E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F20311BC221A7B220026336E /* Main.storyboard */; };
@@ -202,6 +214,29 @@
 		0128FC672227D1D00076879A /* SelectDeviceTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectDeviceTypeCell.m; sourceTree = "<group>"; };
 		0128FC692227D4BC0076879A /* GetDeviceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDeviceController.h; sourceTree = "<group>"; };
 		0128FC6A2227D4BC0076879A /* GetDeviceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetDeviceController.m; sourceTree = "<group>"; };
+		0128FC6C2228C88C0076879A /* JoinNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinNetworkController.h; sourceTree = "<group>"; };
+		0128FC6D2228C88C0076879A /* JoinNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinNetworkController.m; sourceTree = "<group>"; };
+		0128FC702228C8DB0076879A /* TuYeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuYeTextField.h; sourceTree = "<group>"; };
+		0128FC712228C8DB0076879A /* TuYeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuYeTextField.m; sourceTree = "<group>"; };
+		0128FC732228C9040076879A /* GetDeviceNetworkIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetDeviceNetworkIP.m; sourceTree = "<group>"; };
+		0128FC742228C9040076879A /* GetDeviceNetworkIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDeviceNetworkIP.h; sourceTree = "<group>"; };
+		0128FC7B2228CB380076879A /* SVProgressHUD+DoAnythingAfter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+DoAnythingAfter.h"; sourceTree = "<group>"; };
+		0128FC7D2228CB380076879A /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		0128FC7E2228CB380076879A /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		0128FC7F2228CB380076879A /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		0128FC802228CB380076879A /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		0128FC812228CB380076879A /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		0128FC822228CB380076879A /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		0128FC832228CB380076879A /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		0128FC842228CB380076879A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		0128FC852228CB380076879A /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		0128FC862228CB380076879A /* SVProgressHUD+DoAnythingAfter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+DoAnythingAfter.m"; sourceTree = "<group>"; };
+		0128FC8F2228D42F0076879A /* RoomManagementController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomManagementController.h; sourceTree = "<group>"; };
+		0128FC902228D42F0076879A /* RoomManagementController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomManagementController.m; sourceTree = "<group>"; };
+		0128FC932228D65C0076879A /* RoomManageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomManageCell.h; sourceTree = "<group>"; };
+		0128FC942228D65C0076879A /* RoomManageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomManageCell.m; sourceTree = "<group>"; };
+		0128FC962228E7260076879A /* AddRoomViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddRoomViewController.h; sourceTree = "<group>"; };
+		0128FC972228E7260076879A /* AddRoomViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddRoomViewController.m; sourceTree = "<group>"; };
 		F20311B3221A7B200026336E /* i-Home.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "i-Home.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F20311B6221A7B210026336E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F20311B7221A7B210026336E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -429,15 +464,15 @@
 		0128FC2F2227AFE10076879A /* 我的家 */ = {
 			isa = PBXGroup;
 			children = (
+				0128FC922228D5500076879A /* 添加设备 */,
+				0128FC8E2228D3E90076879A /* 房间管理 */,
+				0128FC8D2228D3C90076879A /* 配网 */,
+				0128FC6F2228C8DB0076879A /* TuYeTextField */,
 				0128FC312227B01A0076879A /* Views */,
 				F2391C2A221BAA21002B3B68 /* MYHomeViewController.h */,
 				F2391C2B221BAA21002B3B68 /* MYHomeViewController.m */,
-				0128FC692227D4BC0076879A /* GetDeviceController.h */,
-				0128FC6A2227D4BC0076879A /* GetDeviceController.m */,
 				0128FC22222783E80076879A /* DeviceListViewController.h */,
 				0128FC23222783E80076879A /* DeviceListViewController.m */,
-				0128FC412227CC660076879A /* SelectDeviceTypeController.h */,
-				0128FC422227CC660076879A /* SelectDeviceTypeController.m */,
 			);
 			path = "我的家";
 			sourceTree = "<group>";
@@ -480,6 +515,74 @@
 				0128FC5A2227CE5B0076879A /* UIView+Extension.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		0128FC6F2228C8DB0076879A /* TuYeTextField */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC702228C8DB0076879A /* TuYeTextField.h */,
+				0128FC712228C8DB0076879A /* TuYeTextField.m */,
+			);
+			path = TuYeTextField;
+			sourceTree = "<group>";
+		};
+		0128FC7A2228CB380076879A /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC7B2228CB380076879A /* SVProgressHUD+DoAnythingAfter.h */,
+				0128FC7C2228CB380076879A /* SVProgressHUD */,
+				0128FC862228CB380076879A /* SVProgressHUD+DoAnythingAfter.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		0128FC7C2228CB380076879A /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC7D2228CB380076879A /* SVRadialGradientLayer.m */,
+				0128FC7E2228CB380076879A /* SVIndefiniteAnimatedView.h */,
+				0128FC7F2228CB380076879A /* SVProgressHUD.h */,
+				0128FC802228CB380076879A /* SVProgressAnimatedView.m */,
+				0128FC812228CB380076879A /* SVRadialGradientLayer.h */,
+				0128FC822228CB380076879A /* SVProgressHUD.m */,
+				0128FC832228CB380076879A /* SVIndefiniteAnimatedView.m */,
+				0128FC842228CB380076879A /* SVProgressHUD.bundle */,
+				0128FC852228CB380076879A /* SVProgressAnimatedView.h */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		0128FC8D2228D3C90076879A /* 配网 */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC692227D4BC0076879A /* GetDeviceController.h */,
+				0128FC6A2227D4BC0076879A /* GetDeviceController.m */,
+				0128FC6C2228C88C0076879A /* JoinNetworkController.h */,
+				0128FC6D2228C88C0076879A /* JoinNetworkController.m */,
+			);
+			path = "配网";
+			sourceTree = "<group>";
+		};
+		0128FC8E2228D3E90076879A /* 房间管理 */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC8F2228D42F0076879A /* RoomManagementController.h */,
+				0128FC902228D42F0076879A /* RoomManagementController.m */,
+				0128FC932228D65C0076879A /* RoomManageCell.h */,
+				0128FC942228D65C0076879A /* RoomManageCell.m */,
+				0128FC962228E7260076879A /* AddRoomViewController.h */,
+				0128FC972228E7260076879A /* AddRoomViewController.m */,
+			);
+			path = "房间管理";
+			sourceTree = "<group>";
+		};
+		0128FC922228D5500076879A /* 添加设备 */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC412227CC660076879A /* SelectDeviceTypeController.h */,
+				0128FC422227CC660076879A /* SelectDeviceTypeController.m */,
+			);
+			path = "添加设备";
 			sourceTree = "<group>";
 		};
 		F20311AA221A7B200026336E = {
@@ -546,6 +649,7 @@
 		F20311E8221A7C220026336E /* ThirdKit */ = {
 			isa = PBXGroup;
 			children = (
+				0128FC7A2228CB380076879A /* SVProgressHUD */,
 				0128FC442227CE5B0076879A /* Categories */,
 				0128FC252227AEE30076879A /* 无数据时提示 */,
 				0128FC062227792B0076879A /* SGPagingView */,
@@ -673,6 +777,8 @@
 		F2391C59221BD849002B3B68 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				0128FC742228C9040076879A /* GetDeviceNetworkIP.h */,
+				0128FC732228C9040076879A /* GetDeviceNetworkIP.m */,
 				F2391C5A221BD87D002B3B68 /* CommonTools.h */,
 				F2391C5B221BD87D002B3B68 /* CommonTools.m */,
 			);
@@ -835,6 +941,7 @@
 				F20311C0221A7B220026336E /* Assets.xcassets in Resources */,
 				F2391C1E221BA6F9002B3B68 /* gesture_normal@2x.png in Resources */,
 				F20311BE221A7B220026336E /* Main.storyboard in Resources */,
+				0128FC8B2228CB380076879A /* SVProgressHUD.bundle in Resources */,
 				0128FC0022268F4A0076879A /* README.md in Resources */,
 				F2391C21221BA6F9002B3B68 /* 灰色椭圆.png in Resources */,
 				F2F25D2A2223DDD70056A598 /* CustomTestCell.xib in Resources */,
@@ -879,12 +986,14 @@
 				0128FC612227CE5B0076879A /* NSString+Extension.m in Sources */,
 				0128FBFC22268F4A0076879A /* View+MASAdditions.m in Sources */,
 				0128FC2E2227AEF00076879A /* UITableView+XY.m in Sources */,
+				0128FC6E2228C88C0076879A /* JoinNetworkController.m in Sources */,
 				0128FC1F2227792B0076879A /* SGPageTitleViewConfigure.m in Sources */,
 				F2F25D292223DDD70056A598 /* CustomTestCell.m in Sources */,
 				0128FC03222695DD0076879A /* AddMoodButton.m in Sources */,
 				0128FC6B2227D4BC0076879A /* GetDeviceController.m in Sources */,
 				F2391C2C221BAA21002B3B68 /* MYHomeViewController.m in Sources */,
 				F2391C7F221D4EE2002B3B68 /* TQGestureLockDrawManager.m in Sources */,
+				0128FC982228E7260076879A /* AddRoomViewController.m in Sources */,
 				F2391C06221BA634002B3B68 /* FMDatabaseQueue.m in Sources */,
 				0128FC24222783E80076879A /* DeviceListViewController.m in Sources */,
 				F2391C2F221BAA51002B3B68 /* SmartViewController.m in Sources */,
@@ -892,12 +1001,18 @@
 				0128FC642227CE5B0076879A /* UIButton+Extension.m in Sources */,
 				0128FC5B2227CE5B0076879A /* NSString+MD5Addition.m in Sources */,
 				F2391C09221BA634002B3B68 /* UIView+SDAutoLayout.m in Sources */,
+				0128FC8C2228CB380076879A /* SVProgressHUD+DoAnythingAfter.m in Sources */,
 				0128FC652227CE5B0076879A /* UIView+Extension.m in Sources */,
+				0128FC882228CB380076879A /* SVProgressAnimatedView.m in Sources */,
+				0128FC892228CB380076879A /* SVProgressHUD.m in Sources */,
 				F2391C5C221BD87D002B3B68 /* CommonTools.m in Sources */,
 				F2F25D2D2223DDD70056A598 /* YBRectConst.m in Sources */,
+				0128FC8A2228CB380076879A /* SVIndefiniteAnimatedView.m in Sources */,
 				0128FC5F2227CE5B0076879A /* NSDate+YYAdd.m in Sources */,
+				0128FC952228D65C0076879A /* RoomManageCell.m in Sources */,
 				0128FBFB22268F4A0076879A /* NSArray+MASAdditions.m in Sources */,
 				F2391C80221D4EE2002B3B68 /* TQGestureLockPreview.m in Sources */,
+				0128FC722228C8DB0076879A /* TuYeTextField.m in Sources */,
 				0128FC622227CE5B0076879A /* LotteryNumberPanModel.m in Sources */,
 				0128FC682227D1D00076879A /* SelectDeviceTypeCell.m in Sources */,
 				0128FC5C2227CE5B0076879A /* CALayer+XibConfiguration.m in Sources */,
@@ -911,6 +1026,7 @@
 				F2391C07221BA634002B3B68 /* FMResultSet.m in Sources */,
 				0128FBFF22268F4A0076879A /* MASViewAttribute.m in Sources */,
 				0128FC1A2227792B0076879A /* UIButton+SGPagingView.m in Sources */,
+				0128FC752228C9040076879A /* GetDeviceNetworkIP.m in Sources */,
 				0128FC1D2227792B0076879A /* SGPageContentCollectionView.m in Sources */,
 				0128FC2D2227AEF00076879A /* UICollectionView+XY.m in Sources */,
 				F2391C78221D4E1F002B3B68 /* CheckGesturePwdController.m in Sources */,
@@ -919,6 +1035,7 @@
 				0128FBF722268F4A0076879A /* ViewController+MASAdditions.m in Sources */,
 				0128FC342227B0470076879A /* DeviceListCell.m in Sources */,
 				0128FBF622268F4A0076879A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				0128FC872228CB380076879A /* SVRadialGradientLayer.m in Sources */,
 				0128FC1E2227792B0076879A /* SGPageTitleView.m in Sources */,
 				F2391C81221D4EE2002B3B68 /* TQGestureLockView.m in Sources */,
 				F2F25D302223DE740056A598 /* RoomControl.m in Sources */,
@@ -934,6 +1051,7 @@
 				F2391C75221D4DF6002B3B68 /* SetGesturePwdController.m in Sources */,
 				F2391C04221BA634002B3B68 /* FMDatabaseAdditions.m in Sources */,
 				F2391C35221BAEEA002B3B68 /* LTNavigationController.m in Sources */,
+				0128FC912228D42F0076879A /* RoomManagementController.m in Sources */,
 				F2391C55221BB100002B3B68 /* UITabBar+Badge.m in Sources */,
 				0128FC432227CC660076879A /* SelectDeviceTypeController.m in Sources */,
 				F2391C6C221D4AA1002B3B68 /* TQGestureLockToast.m in Sources */,
@@ -996,6 +1114,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1051,6 +1170,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

@@ -8,6 +8,7 @@
 
 #import "GetDeviceController.h"
 #import "MyFileHeader.h"
+#import "JoinNetworkController.h"
 #import <QuartzCore/QuartzCore.h>
 @interface GetDeviceController ()
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -34,11 +35,13 @@
     UIImageView *_navBarHairlineImageView;
     NSInteger _isConnectDeviceAP;
     NSInteger _isConnectWifi;
+    NSInteger _isHotConnect;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    _isHotConnect = 1;
     [self createLeftBtn];
     [self createUI];
 }
@@ -97,6 +100,7 @@
     [_firstTypeButton addTarget:self action:@selector(firstTypeButtonAction) forControlEvents:UIControlEventTouchUpInside];
     _firstTypeButton.selected = YES;
     [_firstTypeButton setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+    
     [self.centerView addSubview:_firstTypeButton];
     _firstTypeButton.layer.cornerRadius = 5;
     _firstTypeButton.layer.masksToBounds = YES;
@@ -115,9 +119,9 @@
     _hotDescribe = [UILabel new];
     _hotDescribe.textColor = [UIColor colorWithHexString:@"333333"];
     if (@available(iOS 8.2, *)) {
-        [_hotDescribe setFont:[UIFont systemFontOfSize:14.0 weight:UIFontWeightMedium]];
+        [_hotDescribe setFont:[UIFont systemFontOfSize:13.0 weight:UIFontWeightMedium]];
     } else {
-        [_hotDescribe setFont:[UIFont systemFontOfSize:14.0]];
+        [_hotDescribe setFont:[UIFont systemFontOfSize:13.0]];
     }
     _hotDescribe.text = @"设备生成WI-FI热点,手机连接设备热点后将配网信息点对点发送给设备.";
     [self.centerView addSubview:_hotDescribe];
@@ -147,9 +151,9 @@
     _wifiDescribe = [UILabel new];
     _wifiDescribe.textColor = [UIColor colorWithHexString:@"333333"];
     if (@available(iOS 8.2, *)) {
-        [_wifiDescribe setFont:[UIFont systemFontOfSize:13.5 weight:UIFontWeightMedium]];
+        [_wifiDescribe setFont:[UIFont systemFontOfSize:13 weight:UIFontWeightMedium]];
     } else {
-        [_wifiDescribe setFont:[UIFont systemFontOfSize:13.5]];
+        [_wifiDescribe setFont:[UIFont systemFontOfSize:13]];
     }
     _wifiDescribe.text = @"确认设备已连上路由器,此时将手机连上同一路由器,将通过广播获取设备信息.";
     [self.centerView addSubview:_wifiDescribe];
@@ -162,9 +166,9 @@
     [self.helpButton setTitle:@"查看帮助" forState:UIControlStateNormal];
     [self.helpButton setTitleColor:[UIColor colorWithHexString:@"333333"] forState:UIControlStateNormal];
     if (@available(iOS 8.2, *)) {
-        [self.helpButton.titleLabel setFont:[UIFont systemFontOfSize:21 weight:UIFontWeightMedium]];
+        [self.helpButton.titleLabel setFont:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium]];
     } else {
-        [self.helpButton.titleLabel setFont:[UIFont systemFontOfSize:21]];
+        [self.helpButton.titleLabel setFont:[UIFont systemFontOfSize:17]];
     }
     [self.helpButton addTarget:self action:@selector(helpButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
@@ -187,12 +191,12 @@
         
         _hotTitle.sd_layout
         .topSpaceToView(self.centerView, 20)
-        .leftSpaceToView(_firstTypeButton, 15)
+        .leftSpaceToView(_firstTypeButton, 10)
         .rightSpaceToView(self.centerView, 10)
         .heightIs(20);
         _hotDescribe.sd_layout
         .topSpaceToView(_hotTitle, 0)
-        .leftSpaceToView(_firstTypeButton, 15)
+        .leftSpaceToView(_firstTypeButton, 10)
         .rightSpaceToView(self.centerView, 10)
         .heightIs(30);
         
@@ -205,13 +209,13 @@
         
         _wifiTitle.sd_layout
         .topSpaceToView(self.firstTypeButton, 10)
-        .leftSpaceToView(_secondTypeButton, 15)
+        .leftSpaceToView(_secondTypeButton, 10)
         .rightSpaceToView(self.centerView, 10)
         .heightIs(20);
         
         _wifiDescribe.sd_layout
         .topSpaceToView(_wifiTitle, 0)
-        .leftSpaceToView(_secondTypeButton, 15)
+        .leftSpaceToView(_secondTypeButton, 10)
         .rightSpaceToView(self.centerView, 10)
         .heightIs(30);
         
@@ -234,16 +238,16 @@
             .leftSpaceToView(self.centerView, 15)
             .widthIs(70)
             .heightIs(70);
-            _firstTypeButton.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15);
+            _firstTypeButton.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
             _hotTitle.sd_layout
             .topSpaceToView(self.centerView, 20)
-            .leftSpaceToView(_firstTypeButton, 15)
+            .leftSpaceToView(_firstTypeButton, 10)
             .rightSpaceToView(self.centerView, 10)
             .heightIs(30);
             
             _hotDescribe.sd_layout
             .topSpaceToView(_hotTitle, 0)
-            .leftSpaceToView(_firstTypeButton, 15)
+            .leftSpaceToView(_firstTypeButton, 10)
             .rightSpaceToView(self.centerView, 10)
             .heightIs(40);
             
@@ -253,24 +257,24 @@
             .leftSpaceToView(self.centerView, 15)
             .widthIs(70)
             .heightIs(70);
-            _secondTypeButton.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15);
+            _secondTypeButton.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
             
             _wifiTitle.sd_layout
             .topSpaceToView(self.firstTypeButton, 10)
-            .leftSpaceToView(_secondTypeButton, 15)
+            .leftSpaceToView(_secondTypeButton, 10)
             .rightSpaceToView(self.centerView, 10)
             .heightIs(30);
             
             _wifiDescribe.sd_layout
             .topSpaceToView(_wifiTitle, 0)
-            .leftSpaceToView(_secondTypeButton, 15)
+            .leftSpaceToView(_secondTypeButton, 10)
             .rightSpaceToView(self.centerView, 10)
             .heightIs(40);
             self.helpButton.sd_layout
             .bottomSpaceToView(self.centerView, 10)
             .centerXEqualToView(self.centerView)
             .widthIs(120)
-            .heightIs(40);
+            .heightIs(30);
             
         }else{
             self.centerView.sd_layout
@@ -284,15 +288,15 @@
             .leftSpaceToView(self.centerView, 15)
             .widthIs(70)
             .heightIs(70);
-            _firstTypeButton.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15);
+            _firstTypeButton.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
             _hotTitle.sd_layout
             .topSpaceToView(self.centerView, 20)
-            .leftSpaceToView(_firstTypeButton, 15)
+            .leftSpaceToView(_firstTypeButton, 10)
             .rightSpaceToView(self.centerView, 10)
             .heightIs(30);
             _hotDescribe.sd_layout
             .topSpaceToView(_hotTitle, 0)
-            .leftSpaceToView(_firstTypeButton, 15)
+            .leftSpaceToView(_firstTypeButton, 10)
             .rightSpaceToView(self.centerView, 10)
             .heightIs(40);
             
@@ -301,17 +305,17 @@
             .leftSpaceToView(self.centerView, 15)
             .widthIs(70)
             .heightIs(70);
-            _secondTypeButton.imageEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15);
+            _secondTypeButton.imageEdgeInsets = UIEdgeInsetsMake(20, 20, 20, 20);
             
             _wifiTitle.sd_layout
             .topSpaceToView(self.firstTypeButton, 10)
-            .leftSpaceToView(_secondTypeButton, 15)
+            .leftSpaceToView(_secondTypeButton, 10)
             .rightSpaceToView(self.centerView, 10)
             .heightIs(30);
             
             _wifiDescribe.sd_layout
             .topSpaceToView(_wifiTitle, 0)
-            .leftSpaceToView(_secondTypeButton, 15)
+            .leftSpaceToView(_secondTypeButton, 10)
             .rightSpaceToView(self.centerView, 10)
             .heightIs(40);
             self.helpButton.sd_layout
@@ -335,12 +339,12 @@
         _firstTypeButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
         _hotTitle.sd_layout
         .topSpaceToView(self.centerView, 20)
-        .leftSpaceToView(_firstTypeButton, 15)
+        .leftSpaceToView(_firstTypeButton, 10)
         .rightSpaceToView(self.centerView, 10)
         .heightIs(15);
         _hotDescribe.sd_layout
         .topSpaceToView(_hotTitle, 0)
-        .leftSpaceToView(_firstTypeButton, 15)
+        .leftSpaceToView(_firstTypeButton, 10)
         .rightSpaceToView(self.centerView, 10)
         .heightIs(25);
         
@@ -353,13 +357,13 @@
         
         _wifiTitle.sd_layout
         .topSpaceToView(self.firstTypeButton, 10)
-        .leftSpaceToView(_secondTypeButton, 15)
+        .leftSpaceToView(_secondTypeButton, 10)
         .rightSpaceToView(self.centerView, 10)
         .heightIs(15);
         
         _wifiDescribe.sd_layout
         .topSpaceToView(_wifiTitle, 0)
-        .leftSpaceToView(_secondTypeButton, 15)
+        .leftSpaceToView(_secondTypeButton, 10)
         .rightSpaceToView(self.centerView, 10)
         .heightIs(25);
         self.helpButton.sd_layout
@@ -415,9 +419,25 @@
 }
 - (void)secondTypeButtonAction
 {
+    if (!self.secondTypeButton.selected) {
+         _isHotConnect = 2;
+        [_secondTypeButton setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+        [_firstTypeButton setImage:[UIImage imageNamed:@"未选中"] forState:UIControlStateNormal];
+        _secondTypeButton.selected = YES;
+        _firstTypeButton.selected = NO;
+    }
 }
 - (void)firstTypeButtonAction
 {
+    if (!self.firstTypeButton.selected) {
+         _isHotConnect = 1;
+        [_firstTypeButton setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
+        [_secondTypeButton setImage:[UIImage imageNamed:@"未选中"] forState:UIControlStateNormal];
+        _firstTypeButton.selected = YES;
+        _secondTypeButton.selected = NO;
+    }
+    
+    
 }
 -(CABasicAnimation *) AlphaLight:(float)time
 {
@@ -445,7 +465,8 @@
 }
 - (void)nextButtonAction
 {
-
+    JoinNetworkController *joinCtrl = [[JoinNetworkController alloc] init];
+    [self.navigationController pushViewController:joinCtrl animated:YES];
 }
 - (void)createLeftBtn
 {

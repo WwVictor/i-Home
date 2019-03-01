@@ -14,6 +14,9 @@
 #import "Masonry.h"
 #import "UIView+SDAutoLayout.h"
 #import "SelectDeviceTypeController.h"
+#import "TuYeTextField.h"
+#import "SVProgressHUD.h"
+#import "SVProgressHUD+DoAnythingAfter.h"
 #define KScreenWidth [UIScreen mainScreen].bounds.size.width
 #define KScreenHeight [UIScreen mainScreen].bounds.size.height
 // 状态栏高度

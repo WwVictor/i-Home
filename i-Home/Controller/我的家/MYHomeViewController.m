@@ -7,6 +7,7 @@
 //
 
 #import "MYHomeViewController.h"
+#import "RoomManagementController.h"
 #import "YBPopupMenu.h"
 #import "RoomControl.h"
 #import "Masonry.h"
@@ -100,17 +101,16 @@
     configure.indicatorColor = [UIColor colorWithHexString:@"28a7ff"];
         
     
-    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth-30-20, 240+20+7, 30, 30)];
+    UIButton *rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth-30-15, 240+20+7, 30, 30)];
     rightBtn.backgroundColor = [UIColor whiteColor];
     [rightBtn setImage:[UIImage imageNamed:@"gengduo"] forState:UIControlStateNormal];
-    rightBtn.layer.cornerRadius = 5;
+    rightBtn.layer.cornerRadius = 3;
     rightBtn.layer.masksToBounds = YES;
     [self.bgScrollView addSubview:rightBtn];
     [rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"卫生间", nil];
+    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间", nil];
     /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(20, 240+20, KScreenWidth-30-20-20-10, 44) delegate:self titleNames:self.titleArr configure:configure];
+    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(15, 240+20, KScreenWidth-30-15-15-10, 44) delegate:self titleNames:self.titleArr configure:configure];
     [self.bgScrollView addSubview:_pageTitleView];
     
     NSMutableArray *childArr = [NSMutableArray array];
@@ -129,10 +129,16 @@
 }
 - (void)rightBtnClick
 {
-    
+    RoomManagementController *selctCtrl = [[RoomManagementController alloc] init];
+    [self.navigationController pushViewController:selctCtrl animated:YES];
 }
 - (void)createBgScrollView
 {
+    if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0)) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.extendedLayoutIncludesOpaqueBars = NO;
+        self.modalPresentationCapturesStatusBarAppearance = NO;
+    }
     self.bgScrollView = [[UIScrollView alloc] init];
     self.bgScrollView.showsVerticalScrollIndicator = NO;
     self.bgScrollView.showsHorizontalScrollIndicator = NO;
@@ -141,7 +147,7 @@
     [self.view addSubview:self.bgScrollView];
     self.bgScrollView.sd_layout
     .leftSpaceToView(self.view, 0)
-    .topSpaceToView(self.view, SafeAreaTopHeight)
+    .topSpaceToView(self.view, 0)
     .widthIs(KScreenWidth)
     .heightIs(KScreenHeight-SafeAreaTopHeight-SafeAreaBottomHeight-45);
    

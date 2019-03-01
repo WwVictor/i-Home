@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MyFileHeader.h"
 @interface GetDeviceController : UIViewController
 @property (nonatomic, strong)NSString *wifiString;
 @property (nonatomic, strong)NSString *passwordString;
