@@ -10,6 +10,7 @@
 #import "MyFileHeader.h"
 #import "RoomManageCell.h"
 #import "AddRoomViewController.h"
+#import "EditRoomViewController.h"
 @interface RoomManagementController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *deviceListTableView;
 @property (nonatomic, strong) NSMutableArray *deviceListArray;
@@ -18,6 +19,7 @@
 @end
 
 @implementation RoomManagementController
+#pragma mark - 懒加载
 - (NSMutableArray *)deviceListArray
 {
     if (_deviceListArray == nil) {
@@ -137,11 +139,7 @@
         }else{
             cell.deviceNumLabel.text = [NSString stringWithFormat:@"%d个设备",[arr[1] intValue]];
         }
-        if (self.editBtn.selected) {
-//            cell.editingAccessoryType = UITableViewCellAccessoryDetailButton;
-        }else{
-//            cell.editingAccessoryType = UITableViewCellAccessoryNone;
-        }
+
         return cell;
     }else{
         static NSString *cellId = @"RoomManageCell1ID";
@@ -183,9 +181,14 @@
     if (indexPath.section == 1) {
         AddRoomViewController *addCtrl = [[AddRoomViewController alloc] init];
         [self.navigationController pushViewController:addCtrl animated:YES];
+    }else{
+        NSArray *arr = self.deviceListArray[indexPath.row];
+        NSString *roomName = arr[0];
+        EditRoomViewController *editCtrl = [[EditRoomViewController alloc] init];
+        editCtrl.roomName = roomName;
+        [self.navigationController pushViewController:editCtrl animated:YES];
     }
-//    GetDeviceController *getCtrl = [[GetDeviceController alloc] init];
-//    [self.navigationController pushViewController:getCtrl animated:YES];
+
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{

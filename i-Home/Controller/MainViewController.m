@@ -36,7 +36,7 @@
     self.loadingView = [[LoadingView alloc] init];
     self.loadingView.delegate = self;
     [self.view addSubview:self.loadingView];
-    
+    [[UITabBar appearance] setTranslucent:NO];
     
     [self addChildViewControllers];
     

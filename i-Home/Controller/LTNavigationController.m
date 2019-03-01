@@ -37,17 +37,13 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
     if (self.childViewControllers.count > 0) {
-        
 //        NSString *controllerTitle = [self.childViewControllers objectAtIndex:self.childViewControllers.count-1].title;
-        
 //        NSString *title = [NSString stringWithFormat:@" %@", controllerTitle];
         // 左按钮
         viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem itemWithImageName:@"arrow_title_goback" highImageName:@"arrow_title_goback" target:self action:@selector(goBack)];
-        
         // 隐藏底部的 TabBar
         viewController.hidesBottomBarWhenPushed = YES;
     }
-    
     [super pushViewController:viewController animated:animated];
 }
 
