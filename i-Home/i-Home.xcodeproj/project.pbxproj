@@ -20,6 +20,44 @@
 		0128FBFF22268F4A0076879A /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FBF322268F4A0076879A /* MASViewAttribute.m */; };
 		0128FC0022268F4A0076879A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0128FBF422268F4A0076879A /* README.md */; };
 		0128FC03222695DD0076879A /* AddMoodButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC02222695DD0076879A /* AddMoodButton.m */; };
+		0128FC192227792B0076879A /* NSString+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC0B2227792B0076879A /* NSString+SGPagingView.m */; };
+		0128FC1A2227792B0076879A /* UIButton+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC0C2227792B0076879A /* UIButton+SGPagingView.m */; };
+		0128FC1B2227792B0076879A /* UIView+SGPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC0D2227792B0076879A /* UIView+SGPagingView.m */; };
+		0128FC1C2227792B0076879A /* SGPageContentScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC0F2227792B0076879A /* SGPageContentScrollView.m */; };
+		0128FC1D2227792B0076879A /* SGPageContentCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC122227792B0076879A /* SGPageContentCollectionView.m */; };
+		0128FC1E2227792B0076879A /* SGPageTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC142227792B0076879A /* SGPageTitleView.m */; };
+		0128FC1F2227792B0076879A /* SGPageTitleViewConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC152227792B0076879A /* SGPageTitleViewConfigure.m */; };
+		0128FC24222783E80076879A /* DeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC23222783E80076879A /* DeviceListViewController.m */; };
+		0128FC2C2227AEF00076879A /* XYNoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC262227AEF00076879A /* XYNoDataView.m */; };
+		0128FC2D2227AEF00076879A /* UICollectionView+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC272227AEF00076879A /* UICollectionView+XY.m */; };
+		0128FC2E2227AEF00076879A /* UITableView+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC282227AEF00076879A /* UITableView+XY.m */; };
+		0128FC342227B0470076879A /* DeviceListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC332227B0470076879A /* DeviceListCell.m */; };
+		0128FC432227CC660076879A /* SelectDeviceTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC422227CC660076879A /* SelectDeviceTypeController.m */; };
+		0128FC5B2227CE5B0076879A /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC452227CE5B0076879A /* NSString+MD5Addition.m */; };
+		0128FC5C2227CE5B0076879A /* CALayer+XibConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC462227CE5B0076879A /* CALayer+XibConfiguration.m */; };
+		0128FC5D2227CE5B0076879A /* UIImage+ImageWithColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC522227CE5B0076879A /* UIImage+ImageWithColor.m */; };
+		0128FC5E2227CE5B0076879A /* NSDate+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC532227CE5B0076879A /* NSDate+Extension.m */; };
+		0128FC5F2227CE5B0076879A /* NSDate+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC542227CE5B0076879A /* NSDate+YYAdd.m */; };
+		0128FC602227CE5B0076879A /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC552227CE5B0076879A /* UIColor+Extension.m */; };
+		0128FC612227CE5B0076879A /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC562227CE5B0076879A /* NSString+Extension.m */; };
+		0128FC622227CE5B0076879A /* LotteryNumberPanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC572227CE5B0076879A /* LotteryNumberPanModel.m */; };
+		0128FC632227CE5B0076879A /* UIBarButtonItem+extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC582227CE5B0076879A /* UIBarButtonItem+extension.m */; };
+		0128FC642227CE5B0076879A /* UIButton+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC592227CE5B0076879A /* UIButton+Extension.m */; };
+		0128FC652227CE5B0076879A /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC5A2227CE5B0076879A /* UIView+Extension.m */; };
+		0128FC682227D1D00076879A /* SelectDeviceTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC672227D1D00076879A /* SelectDeviceTypeCell.m */; };
+		0128FC6B2227D4BC0076879A /* GetDeviceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC6A2227D4BC0076879A /* GetDeviceController.m */; };
+		0128FC6E2228C88C0076879A /* JoinNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC6D2228C88C0076879A /* JoinNetworkController.m */; };
+		0128FC722228C8DB0076879A /* TuYeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC712228C8DB0076879A /* TuYeTextField.m */; };
+		0128FC752228C9040076879A /* GetDeviceNetworkIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC732228C9040076879A /* GetDeviceNetworkIP.m */; };
+		0128FC872228CB380076879A /* SVRadialGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC7D2228CB380076879A /* SVRadialGradientLayer.m */; };
+		0128FC882228CB380076879A /* SVProgressAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC802228CB380076879A /* SVProgressAnimatedView.m */; };
+		0128FC892228CB380076879A /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC822228CB380076879A /* SVProgressHUD.m */; };
+		0128FC8A2228CB380076879A /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC832228CB380076879A /* SVIndefiniteAnimatedView.m */; };
+		0128FC8B2228CB380076879A /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0128FC842228CB380076879A /* SVProgressHUD.bundle */; };
+		0128FC8C2228CB380076879A /* SVProgressHUD+DoAnythingAfter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC862228CB380076879A /* SVProgressHUD+DoAnythingAfter.m */; };
+		0128FC912228D42F0076879A /* RoomManagementController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC902228D42F0076879A /* RoomManagementController.m */; };
+		0128FC952228D65C0076879A /* RoomManageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC942228D65C0076879A /* RoomManageCell.m */; };
+		0128FC982228E7260076879A /* AddRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC972228E7260076879A /* AddRoomViewController.m */; };
 		F20311B8221A7B210026336E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F20311B7221A7B210026336E /* AppDelegate.m */; };
 		F20311BB221A7B210026336E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20311BA221A7B210026336E /* ViewController.m */; };
 		F20311BE221A7B220026336E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F20311BC221A7B220026336E /* Main.storyboard */; };
@@ -125,6 +163,82 @@
 		0128FC02222695DD0076879A /* AddMoodButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddMoodButton.m; sourceTree = "<group>"; };
 		0128FC04222696410076879A /* iHomeHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iHomeHeader.pch; sourceTree = "<group>"; };
 		0128FC05222697830076879A /* MyFileHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFileHeader.h; sourceTree = "<group>"; };
+		0128FC082227792B0076879A /* UIButton+SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+SGPagingView.h"; sourceTree = "<group>"; };
+		0128FC092227792B0076879A /* NSString+SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SGPagingView.h"; sourceTree = "<group>"; };
+		0128FC0A2227792B0076879A /* UIView+SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SGPagingView.h"; sourceTree = "<group>"; };
+		0128FC0B2227792B0076879A /* NSString+SGPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SGPagingView.m"; sourceTree = "<group>"; };
+		0128FC0C2227792B0076879A /* UIButton+SGPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+SGPagingView.m"; sourceTree = "<group>"; };
+		0128FC0D2227792B0076879A /* UIView+SGPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SGPagingView.m"; sourceTree = "<group>"; };
+		0128FC0F2227792B0076879A /* SGPageContentScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPageContentScrollView.m; sourceTree = "<group>"; };
+		0128FC102227792B0076879A /* SGPageContentCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageContentCollectionView.h; sourceTree = "<group>"; };
+		0128FC112227792B0076879A /* SGPageContentScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageContentScrollView.h; sourceTree = "<group>"; };
+		0128FC122227792B0076879A /* SGPageContentCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPageContentCollectionView.m; sourceTree = "<group>"; };
+		0128FC142227792B0076879A /* SGPageTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPageTitleView.m; sourceTree = "<group>"; };
+		0128FC152227792B0076879A /* SGPageTitleViewConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGPageTitleViewConfigure.m; sourceTree = "<group>"; };
+		0128FC162227792B0076879A /* SGPageTitleViewConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageTitleViewConfigure.h; sourceTree = "<group>"; };
+		0128FC172227792B0076879A /* SGPageTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPageTitleView.h; sourceTree = "<group>"; };
+		0128FC182227792B0076879A /* SGPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGPagingView.h; sourceTree = "<group>"; };
+		0128FC22222783E80076879A /* DeviceListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListViewController.h; sourceTree = "<group>"; };
+		0128FC23222783E80076879A /* DeviceListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListViewController.m; sourceTree = "<group>"; };
+		0128FC262227AEF00076879A /* XYNoDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYNoDataView.m; sourceTree = "<group>"; };
+		0128FC272227AEF00076879A /* UICollectionView+XY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+XY.m"; sourceTree = "<group>"; };
+		0128FC282227AEF00076879A /* UITableView+XY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+XY.m"; sourceTree = "<group>"; };
+		0128FC292227AEF00076879A /* UICollectionView+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+XY.h"; sourceTree = "<group>"; };
+		0128FC2A2227AEF00076879A /* XYNoDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYNoDataView.h; sourceTree = "<group>"; };
+		0128FC2B2227AEF00076879A /* UITableView+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+XY.h"; sourceTree = "<group>"; };
+		0128FC322227B0470076879A /* DeviceListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceListCell.h; sourceTree = "<group>"; };
+		0128FC332227B0470076879A /* DeviceListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceListCell.m; sourceTree = "<group>"; };
+		0128FC412227CC660076879A /* SelectDeviceTypeController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectDeviceTypeController.h; sourceTree = "<group>"; };
+		0128FC422227CC660076879A /* SelectDeviceTypeController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectDeviceTypeController.m; sourceTree = "<group>"; };
+		0128FC452227CE5B0076879A /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
+		0128FC462227CE5B0076879A /* CALayer+XibConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+XibConfiguration.m"; sourceTree = "<group>"; };
+		0128FC472227CE5B0076879A /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		0128FC482227CE5B0076879A /* UIColor+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Extension.h"; sourceTree = "<group>"; };
+		0128FC492227CE5B0076879A /* NSDate+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+YYAdd.h"; sourceTree = "<group>"; };
+		0128FC4A2227CE5B0076879A /* NSDate+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Extension.h"; sourceTree = "<group>"; };
+		0128FC4B2227CE5B0076879A /* UIImage+ImageWithColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithColor.h"; sourceTree = "<group>"; };
+		0128FC4C2227CE5B0076879A /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		0128FC4D2227CE5B0076879A /* UIButton+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extension.h"; sourceTree = "<group>"; };
+		0128FC4E2227CE5B0076879A /* UIBarButtonItem+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+extension.h"; sourceTree = "<group>"; };
+		0128FC4F2227CE5B0076879A /* LotteryNumberPanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LotteryNumberPanModel.h; sourceTree = "<group>"; };
+		0128FC502227CE5B0076879A /* CALayer+XibConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+XibConfiguration.h"; sourceTree = "<group>"; };
+		0128FC512227CE5B0076879A /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
+		0128FC522227CE5B0076879A /* UIImage+ImageWithColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithColor.m"; sourceTree = "<group>"; };
+		0128FC532227CE5B0076879A /* NSDate+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Extension.m"; sourceTree = "<group>"; };
+		0128FC542227CE5B0076879A /* NSDate+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+YYAdd.m"; sourceTree = "<group>"; };
+		0128FC552227CE5B0076879A /* UIColor+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extension.m"; sourceTree = "<group>"; };
+		0128FC562227CE5B0076879A /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
+		0128FC572227CE5B0076879A /* LotteryNumberPanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LotteryNumberPanModel.m; sourceTree = "<group>"; };
+		0128FC582227CE5B0076879A /* UIBarButtonItem+extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+extension.m"; sourceTree = "<group>"; };
+		0128FC592227CE5B0076879A /* UIButton+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extension.m"; sourceTree = "<group>"; };
+		0128FC5A2227CE5B0076879A /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		0128FC662227D1D00076879A /* SelectDeviceTypeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectDeviceTypeCell.h; sourceTree = "<group>"; };
+		0128FC672227D1D00076879A /* SelectDeviceTypeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectDeviceTypeCell.m; sourceTree = "<group>"; };
+		0128FC692227D4BC0076879A /* GetDeviceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDeviceController.h; sourceTree = "<group>"; };
+		0128FC6A2227D4BC0076879A /* GetDeviceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetDeviceController.m; sourceTree = "<group>"; };
+		0128FC6C2228C88C0076879A /* JoinNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinNetworkController.h; sourceTree = "<group>"; };
+		0128FC6D2228C88C0076879A /* JoinNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinNetworkController.m; sourceTree = "<group>"; };
+		0128FC702228C8DB0076879A /* TuYeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TuYeTextField.h; sourceTree = "<group>"; };
+		0128FC712228C8DB0076879A /* TuYeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TuYeTextField.m; sourceTree = "<group>"; };
+		0128FC732228C9040076879A /* GetDeviceNetworkIP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetDeviceNetworkIP.m; sourceTree = "<group>"; };
+		0128FC742228C9040076879A /* GetDeviceNetworkIP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetDeviceNetworkIP.h; sourceTree = "<group>"; };
+		0128FC7B2228CB380076879A /* SVProgressHUD+DoAnythingAfter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD+DoAnythingAfter.h"; sourceTree = "<group>"; };
+		0128FC7D2228CB380076879A /* SVRadialGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVRadialGradientLayer.m; sourceTree = "<group>"; };
+		0128FC7E2228CB380076879A /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		0128FC7F2228CB380076879A /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		0128FC802228CB380076879A /* SVProgressAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressAnimatedView.m; sourceTree = "<group>"; };
+		0128FC812228CB380076879A /* SVRadialGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVRadialGradientLayer.h; sourceTree = "<group>"; };
+		0128FC822228CB380076879A /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
+		0128FC832228CB380076879A /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		0128FC842228CB380076879A /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		0128FC852228CB380076879A /* SVProgressAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressAnimatedView.h; sourceTree = "<group>"; };
+		0128FC862228CB380076879A /* SVProgressHUD+DoAnythingAfter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD+DoAnythingAfter.m"; sourceTree = "<group>"; };
+		0128FC8F2228D42F0076879A /* RoomManagementController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomManagementController.h; sourceTree = "<group>"; };
+		0128FC902228D42F0076879A /* RoomManagementController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomManagementController.m; sourceTree = "<group>"; };
+		0128FC932228D65C0076879A /* RoomManageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomManageCell.h; sourceTree = "<group>"; };
+		0128FC942228D65C0076879A /* RoomManageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomManageCell.m; sourceTree = "<group>"; };
+		0128FC962228E7260076879A /* AddRoomViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddRoomViewController.h; sourceTree = "<group>"; };
+		0128FC972228E7260076879A /* AddRoomViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddRoomViewController.m; sourceTree = "<group>"; };
 		F20311B3221A7B200026336E /* i-Home.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "i-Home.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F20311B6221A7B210026336E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F20311B7221A7B210026336E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -294,6 +408,189 @@
 			path = Masonry;
 			sourceTree = "<group>";
 		};
+		0128FC062227792B0076879A /* SGPagingView */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC072227792B0076879A /* Category */,
+				0128FC0E2227792B0076879A /* SGPageContent */,
+				0128FC132227792B0076879A /* SGPageTitle */,
+				0128FC182227792B0076879A /* SGPagingView.h */,
+			);
+			path = SGPagingView;
+			sourceTree = "<group>";
+		};
+		0128FC072227792B0076879A /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC082227792B0076879A /* UIButton+SGPagingView.h */,
+				0128FC092227792B0076879A /* NSString+SGPagingView.h */,
+				0128FC0A2227792B0076879A /* UIView+SGPagingView.h */,
+				0128FC0B2227792B0076879A /* NSString+SGPagingView.m */,
+				0128FC0C2227792B0076879A /* UIButton+SGPagingView.m */,
+				0128FC0D2227792B0076879A /* UIView+SGPagingView.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		0128FC0E2227792B0076879A /* SGPageContent */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC0F2227792B0076879A /* SGPageContentScrollView.m */,
+				0128FC102227792B0076879A /* SGPageContentCollectionView.h */,
+				0128FC112227792B0076879A /* SGPageContentScrollView.h */,
+				0128FC122227792B0076879A /* SGPageContentCollectionView.m */,
+			);
+			path = SGPageContent;
+			sourceTree = "<group>";
+		};
+		0128FC132227792B0076879A /* SGPageTitle */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC142227792B0076879A /* SGPageTitleView.m */,
+				0128FC152227792B0076879A /* SGPageTitleViewConfigure.m */,
+				0128FC162227792B0076879A /* SGPageTitleViewConfigure.h */,
+				0128FC172227792B0076879A /* SGPageTitleView.h */,
+			);
+			path = SGPageTitle;
+			sourceTree = "<group>";
+		};
+		0128FC252227AEE30076879A /* 无数据时提示 */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC2A2227AEF00076879A /* XYNoDataView.h */,
+				0128FC272227AEF00076879A /* UICollectionView+XY.m */,
+				0128FC2B2227AEF00076879A /* UITableView+XY.h */,
+				0128FC262227AEF00076879A /* XYNoDataView.m */,
+				0128FC282227AEF00076879A /* UITableView+XY.m */,
+				0128FC292227AEF00076879A /* UICollectionView+XY.h */,
+			);
+			path = "无数据时提示";
+			sourceTree = "<group>";
+		};
+		0128FC2F2227AFE10076879A /* 我的家 */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC922228D5500076879A /* 添加设备 */,
+				0128FC8E2228D3E90076879A /* 房间管理 */,
+				0128FC8D2228D3C90076879A /* 配网 */,
+				0128FC6F2228C8DB0076879A /* TuYeTextField */,
+				0128FC312227B01A0076879A /* Views */,
+				F2391C2A221BAA21002B3B68 /* MYHomeViewController.h */,
+				F2391C2B221BAA21002B3B68 /* MYHomeViewController.m */,
+				0128FC22222783E80076879A /* DeviceListViewController.h */,
+				0128FC23222783E80076879A /* DeviceListViewController.m */,
+			);
+			path = "我的家";
+			sourceTree = "<group>";
+		};
+		0128FC312227B01A0076879A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC322227B0470076879A /* DeviceListCell.h */,
+				0128FC332227B0470076879A /* DeviceListCell.m */,
+				0128FC662227D1D00076879A /* SelectDeviceTypeCell.h */,
+				0128FC672227D1D00076879A /* SelectDeviceTypeCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0128FC442227CE5B0076879A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC452227CE5B0076879A /* NSString+MD5Addition.m */,
+				0128FC462227CE5B0076879A /* CALayer+XibConfiguration.m */,
+				0128FC472227CE5B0076879A /* NSString+Extension.h */,
+				0128FC482227CE5B0076879A /* UIColor+Extension.h */,
+				0128FC492227CE5B0076879A /* NSDate+YYAdd.h */,
+				0128FC4A2227CE5B0076879A /* NSDate+Extension.h */,
+				0128FC4B2227CE5B0076879A /* UIImage+ImageWithColor.h */,
+				0128FC4C2227CE5B0076879A /* UIView+Extension.h */,
+				0128FC4D2227CE5B0076879A /* UIButton+Extension.h */,
+				0128FC4E2227CE5B0076879A /* UIBarButtonItem+extension.h */,
+				0128FC4F2227CE5B0076879A /* LotteryNumberPanModel.h */,
+				0128FC502227CE5B0076879A /* CALayer+XibConfiguration.h */,
+				0128FC512227CE5B0076879A /* NSString+MD5Addition.h */,
+				0128FC522227CE5B0076879A /* UIImage+ImageWithColor.m */,
+				0128FC532227CE5B0076879A /* NSDate+Extension.m */,
+				0128FC542227CE5B0076879A /* NSDate+YYAdd.m */,
+				0128FC552227CE5B0076879A /* UIColor+Extension.m */,
+				0128FC562227CE5B0076879A /* NSString+Extension.m */,
+				0128FC572227CE5B0076879A /* LotteryNumberPanModel.m */,
+				0128FC582227CE5B0076879A /* UIBarButtonItem+extension.m */,
+				0128FC592227CE5B0076879A /* UIButton+Extension.m */,
+				0128FC5A2227CE5B0076879A /* UIView+Extension.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		0128FC6F2228C8DB0076879A /* TuYeTextField */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC702228C8DB0076879A /* TuYeTextField.h */,
+				0128FC712228C8DB0076879A /* TuYeTextField.m */,
+			);
+			path = TuYeTextField;
+			sourceTree = "<group>";
+		};
+		0128FC7A2228CB380076879A /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC7B2228CB380076879A /* SVProgressHUD+DoAnythingAfter.h */,
+				0128FC7C2228CB380076879A /* SVProgressHUD */,
+				0128FC862228CB380076879A /* SVProgressHUD+DoAnythingAfter.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		0128FC7C2228CB380076879A /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC7D2228CB380076879A /* SVRadialGradientLayer.m */,
+				0128FC7E2228CB380076879A /* SVIndefiniteAnimatedView.h */,
+				0128FC7F2228CB380076879A /* SVProgressHUD.h */,
+				0128FC802228CB380076879A /* SVProgressAnimatedView.m */,
+				0128FC812228CB380076879A /* SVRadialGradientLayer.h */,
+				0128FC822228CB380076879A /* SVProgressHUD.m */,
+				0128FC832228CB380076879A /* SVIndefiniteAnimatedView.m */,
+				0128FC842228CB380076879A /* SVProgressHUD.bundle */,
+				0128FC852228CB380076879A /* SVProgressAnimatedView.h */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
+		0128FC8D2228D3C90076879A /* 配网 */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC692227D4BC0076879A /* GetDeviceController.h */,
+				0128FC6A2227D4BC0076879A /* GetDeviceController.m */,
+				0128FC6C2228C88C0076879A /* JoinNetworkController.h */,
+				0128FC6D2228C88C0076879A /* JoinNetworkController.m */,
+			);
+			path = "配网";
+			sourceTree = "<group>";
+		};
+		0128FC8E2228D3E90076879A /* 房间管理 */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC8F2228D42F0076879A /* RoomManagementController.h */,
+				0128FC902228D42F0076879A /* RoomManagementController.m */,
+				0128FC932228D65C0076879A /* RoomManageCell.h */,
+				0128FC942228D65C0076879A /* RoomManageCell.m */,
+				0128FC962228E7260076879A /* AddRoomViewController.h */,
+				0128FC972228E7260076879A /* AddRoomViewController.m */,
+			);
+			path = "房间管理";
+			sourceTree = "<group>";
+		};
+		0128FC922228D5500076879A /* 添加设备 */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC412227CC660076879A /* SelectDeviceTypeController.h */,
+				0128FC422227CC660076879A /* SelectDeviceTypeController.m */,
+			);
+			path = "添加设备";
+			sourceTree = "<group>";
+		};
 		F20311AA221A7B200026336E = {
 			isa = PBXGroup;
 			children = (
@@ -358,6 +655,10 @@
 		F20311E8221A7C220026336E /* ThirdKit */ = {
 			isa = PBXGroup;
 			children = (
+				0128FC7A2228CB380076879A /* SVProgressHUD */,
+				0128FC442227CE5B0076879A /* Categories */,
+				0128FC252227AEE30076879A /* 无数据时提示 */,
+				0128FC062227792B0076879A /* SGPagingView */,
 				0128FBD822268F4A0076879A /* Masonry */,
 				F2F25D1F2223DDD70056A598 /* YBPopupMenu */,
 				F2391C36221BAFA4002B3B68 /* Extension */,
@@ -442,12 +743,11 @@
 		F2391C26221BA70E002B3B68 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0128FC2F2227AFE10076879A /* 我的家 */,
 				F2391C27221BA78B002B3B68 /* MainViewController.h */,
 				F2391C28221BA78B002B3B68 /* MainViewController.m */,
 				F2391C33221BAEEA002B3B68 /* LTNavigationController.h */,
 				F2391C34221BAEEA002B3B68 /* LTNavigationController.m */,
-				F2391C2A221BAA21002B3B68 /* MYHomeViewController.h */,
-				F2391C2B221BAA21002B3B68 /* MYHomeViewController.m */,
 				F2391C2D221BAA51002B3B68 /* SmartViewController.h */,
 				F2391C2E221BAA51002B3B68 /* SmartViewController.m */,
 				F2391C30221BAAAF002B3B68 /* SettingViewController.h */,
@@ -487,6 +787,8 @@
 		F2391C59221BD849002B3B68 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				0128FC742228C9040076879A /* GetDeviceNetworkIP.h */,
+				0128FC732228C9040076879A /* GetDeviceNetworkIP.m */,
 				F2391C5A221BD87D002B3B68 /* CommonTools.h */,
 				F2391C5B221BD87D002B3B68 /* CommonTools.m */,
 			);
@@ -649,6 +951,7 @@
 				F20311C0221A7B220026336E /* Assets.xcassets in Resources */,
 				F2391C1E221BA6F9002B3B68 /* gesture_normal@2x.png in Resources */,
 				F20311BE221A7B220026336E /* Main.storyboard in Resources */,
+				0128FC8B2228CB380076879A /* SVProgressHUD.bundle in Resources */,
 				0128FC0022268F4A0076879A /* README.md in Resources */,
 				F2391C21221BA6F9002B3B68 /* 灰色椭圆.png in Resources */,
 				F2F25D2A2223DDD70056A598 /* CustomTestCell.xib in Resources */,
@@ -680,26 +983,50 @@
 				F2391C58221BB3DF002B3B68 /* UIButton+YTExtension.m in Sources */,
 				F2F25D39222774B30056A598 /* SmartTableVCell.m in Sources */,
 				F20311BB221A7B210026336E /* ViewController.m in Sources */,
+				0128FC5E2227CE5B0076879A /* NSDate+Extension.m in Sources */,
 				F2391C05221BA634002B3B68 /* FMDatabasePool.m in Sources */,
 				0128FBF822268F4A0076879A /* MASCompositeConstraint.m in Sources */,
 				F2391C32221BAAAF002B3B68 /* SettingViewController.m in Sources */,
 				F20311C6221A7B230026336E /* main.m in Sources */,
+				0128FC602227CE5B0076879A /* UIColor+Extension.m in Sources */,
 				0128FBFD22268F4A0076879A /* MASConstraint.m in Sources */,
 				F2F25D2C2223DDD70056A598 /* YBPopupMenuPath.m in Sources */,
+				0128FC192227792B0076879A /* NSString+SGPagingView.m in Sources */,
 				F2391C72221D4C32002B3B68 /* CALayer+TQAnimated.m in Sources */,
+				0128FC2C2227AEF00076879A /* XYNoDataView.m in Sources */,
+				0128FC612227CE5B0076879A /* NSString+Extension.m in Sources */,
 				0128FBFC22268F4A0076879A /* View+MASAdditions.m in Sources */,
+				0128FC2E2227AEF00076879A /* UITableView+XY.m in Sources */,
+				0128FC6E2228C88C0076879A /* JoinNetworkController.m in Sources */,
+				0128FC1F2227792B0076879A /* SGPageTitleViewConfigure.m in Sources */,
 				F2F25D292223DDD70056A598 /* CustomTestCell.m in Sources */,
 				0128FC03222695DD0076879A /* AddMoodButton.m in Sources */,
+				0128FC6B2227D4BC0076879A /* GetDeviceController.m in Sources */,
 				F2391C2C221BAA21002B3B68 /* MYHomeViewController.m in Sources */,
 				F2391C7F221D4EE2002B3B68 /* TQGestureLockDrawManager.m in Sources */,
+				0128FC982228E7260076879A /* AddRoomViewController.m in Sources */,
 				F2391C06221BA634002B3B68 /* FMDatabaseQueue.m in Sources */,
+				0128FC24222783E80076879A /* DeviceListViewController.m in Sources */,
 				F2391C2F221BAA51002B3B68 /* SmartViewController.m in Sources */,
 				0128FBFE22268F4A0076879A /* MASViewConstraint.m in Sources */,
+				0128FC642227CE5B0076879A /* UIButton+Extension.m in Sources */,
+				0128FC5B2227CE5B0076879A /* NSString+MD5Addition.m in Sources */,
 				F2391C09221BA634002B3B68 /* UIView+SDAutoLayout.m in Sources */,
+				0128FC8C2228CB380076879A /* SVProgressHUD+DoAnythingAfter.m in Sources */,
+				0128FC652227CE5B0076879A /* UIView+Extension.m in Sources */,
+				0128FC882228CB380076879A /* SVProgressAnimatedView.m in Sources */,
+				0128FC892228CB380076879A /* SVProgressHUD.m in Sources */,
 				F2391C5C221BD87D002B3B68 /* CommonTools.m in Sources */,
 				F2F25D2D2223DDD70056A598 /* YBRectConst.m in Sources */,
+				0128FC8A2228CB380076879A /* SVIndefiniteAnimatedView.m in Sources */,
+				0128FC5F2227CE5B0076879A /* NSDate+YYAdd.m in Sources */,
+				0128FC952228D65C0076879A /* RoomManageCell.m in Sources */,
 				0128FBFB22268F4A0076879A /* NSArray+MASAdditions.m in Sources */,
 				F2391C80221D4EE2002B3B68 /* TQGestureLockPreview.m in Sources */,
+				0128FC722228C8DB0076879A /* TuYeTextField.m in Sources */,
+				0128FC622227CE5B0076879A /* LotteryNumberPanModel.m in Sources */,
+				0128FC682227D1D00076879A /* SelectDeviceTypeCell.m in Sources */,
+				0128FC5C2227CE5B0076879A /* CALayer+XibConfiguration.m in Sources */,
 				F2391C4C221BAFA4002B3B68 /* NSString+YTExtension.m in Sources */,
 				F2391C69221D4AA1002B3B68 /* TQGestureLockHintLabel.m in Sources */,
 				F20311B8221A7B210026336E /* AppDelegate.m in Sources */,
@@ -709,10 +1036,18 @@
 				F2391C84221D55EB002B3B68 /* TQGesturesPasswordManager.m in Sources */,
 				F2391C07221BA634002B3B68 /* FMResultSet.m in Sources */,
 				0128FBFF22268F4A0076879A /* MASViewAttribute.m in Sources */,
+				0128FC1A2227792B0076879A /* UIButton+SGPagingView.m in Sources */,
+				0128FC752228C9040076879A /* GetDeviceNetworkIP.m in Sources */,
+				0128FC1D2227792B0076879A /* SGPageContentCollectionView.m in Sources */,
+				0128FC2D2227AEF00076879A /* UICollectionView+XY.m in Sources */,
 				F2391C78221D4E1F002B3B68 /* CheckGesturePwdController.m in Sources */,
+				0128FC1C2227792B0076879A /* SGPageContentScrollView.m in Sources */,
 				F2391C4F221BAFA4002B3B68 /* UIColor+YTExtension.m in Sources */,
 				0128FBF722268F4A0076879A /* ViewController+MASAdditions.m in Sources */,
+				0128FC342227B0470076879A /* DeviceListCell.m in Sources */,
 				0128FBF622268F4A0076879A /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				0128FC872228CB380076879A /* SVRadialGradientLayer.m in Sources */,
+				0128FC1E2227792B0076879A /* SGPageTitleView.m in Sources */,
 				F2391C81221D4EE2002B3B68 /* TQGestureLockView.m in Sources */,
 				F2F25D302223DE740056A598 /* RoomControl.m in Sources */,
 				F2391C29221BA78B002B3B68 /* MainViewController.m in Sources */,
@@ -720,14 +1055,19 @@
 				F2391C4D221BAFA4002B3B68 /* UIBarButtonItem+YTExtension.m in Sources */,
 				F2F25D2B2223DDD70056A598 /* YBPopupMenu.m in Sources */,
 				0128FBF922268F4A0076879A /* MASConstraintMaker.m in Sources */,
+				0128FC5D2227CE5B0076879A /* UIImage+ImageWithColor.m in Sources */,
+				0128FC632227CE5B0076879A /* UIBarButtonItem+extension.m in Sources */,
 				0128FBFA22268F4A0076879A /* MASLayoutConstraint.m in Sources */,
 				F2F25D3522251D240056A598 /* DBManager.m in Sources */,
 				F2391C75221D4DF6002B3B68 /* SetGesturePwdController.m in Sources */,
 				F2391C04221BA634002B3B68 /* FMDatabaseAdditions.m in Sources */,
 				F2F25D3C22290CD00056A598 /* AddSceneViewContorller.m in Sources */,
 				F2391C35221BAEEA002B3B68 /* LTNavigationController.m in Sources */,
+				0128FC912228D42F0076879A /* RoomManagementController.m in Sources */,
 				F2391C55221BB100002B3B68 /* UITabBar+Badge.m in Sources */,
+				0128FC432227CC660076879A /* SelectDeviceTypeController.m in Sources */,
 				F2391C6C221D4AA1002B3B68 /* TQGestureLockToast.m in Sources */,
+				0128FC1B2227792B0076879A /* UIView+SGPagingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,6 +1126,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -841,6 +1182,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
