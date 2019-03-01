@@ -9,6 +9,9 @@
 #import "SmartViewController.h"
 #import "UIView+SDAutoLayout.h"
 #import "SmartTableVCell.h"
+#import "AddSceneViewContorller.h"
+#import "MyFileHeader.h"
+
 @interface SmartViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UIButton *addNavBtn;//添加智能(导航栏)
 @property (nonatomic,strong) UIButton *addbtn;//添加智能（主页无智能时按钮）
@@ -32,17 +35,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor =[UIColor lightGrayColor];
     self.title = @"智能模式";
+    [self loadData];
     [self createUI];
     [self createTabview];
-    [self loadData];
     
 }
 
 - (void)createUI{
     
     
-    if (_sceneArraylist == nil) {
+    if (self.sceneArraylist.count == 0) {
         //添加按钮
         self.addNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
         [self.addNavBtn addTarget:self action:@selector(addDeviceBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -66,14 +70,14 @@
         
         
         self.addbtn = [[UIButton alloc] init];
-        self.addbtn.layer.shadowColor = [UIColor blackColor].CGColor;
-        self.addbtn.layer.shadowOffset = CGSizeMake(5, 5);
-        self.addbtn.layer.shadowRadius = 5;
-        self.addbtn.layer.shadowOpacity = 0.5;
-        self.addbtn.layer.cornerRadius = 6.0;
+        self.addbtn.backgroundColor = [UIColor redColor];
+//        self.addbtn.layer.shadowColor = [UIColor blackColor].CGColor;
+//        self.addbtn.layer.shadowOffset = CGSizeMake(5, 5);
+//        self.addbtn.layer.shadowRadius = 5;
+//        self.addbtn.layer.shadowOpacity = 0.5;
+//        self.addbtn.layer.cornerRadius = 6.0;
         self.addbtn.showsTouchWhenHighlighted = YES;
         [self.addbtn setTitle:@"添加智能" forState:UIControlStateNormal];
-//        [self.addbtn setTitleColor:[UIColor colorWithRed:25.0/255.0 green:159.0/255.0 blue:225.0/255.0 alpha:0] forState:UIControlStateNormal];
         [self.addbtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [self.addbtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
         [self.imageV addSubview:self.addbtn];
@@ -85,6 +89,8 @@
         
     }else{
         
+//        [self.addbtn removeFromSuperview];
+//        [self.imageV removeFromSuperview];
         //添加按钮
         self.addNavBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 36, 36)];
         [self.addNavBtn addTarget:self action:@selector(addDeviceBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -120,6 +126,8 @@
         _sceneTabview.dataSource = self;
         _sceneTabview.separatorStyle = UITableViewCellSeparatorStyleNone;
         _sceneTabview.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        _sceneTabview.backgroundColor = [UIColor clearColor];
+//        _sceneTabview.tableFooterView = [UIView new];
         [self.view addSubview:self.sceneTabview];
         self.sceneTabview.sd_layout
         .topEqualToView(self.view)
@@ -164,13 +172,43 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 15;
+    return 70;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 12;
+}
+
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//
+//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,KScreenWidth, 12)];
+//    headerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+//    return headerView;
+//}
+
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,KScreenWidth, 12)];
+//    headerView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+//    return headerView;
+//    
+//}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+//    if (scrollView == self.sceneTabview)
+//    {
+//        CGFloat sectionHeaderHeight = 12;
+//        if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+//            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+//        } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+//            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+//        }
+//    }
+//}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
+    return 10;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     static NSString *cellId = @"sceneCellId";
@@ -179,6 +217,7 @@
         cell = [[SmartTableVCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     if (indexPath.section == 0) {
       
         
@@ -202,7 +241,8 @@
         
     }else{
         
-        
+        AddSceneViewContorller *addSceneV = [[AddSceneViewContorller alloc] init];
+        [self.navigationController pushViewController:addSceneV animated:YES];
     }
 }
 
