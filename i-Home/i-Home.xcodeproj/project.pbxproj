@@ -72,6 +72,8 @@
 		F2F25D302223DE740056A598 /* RoomControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D2E2223DE730056A598 /* RoomControl.m */; };
 		F2F25D3522251D240056A598 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D3122251D230056A598 /* DBManager.m */; };
 		F2F25D3622251D240056A598 /* FMDatabaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D3222251D230056A598 /* FMDatabaseModel.m */; };
+		F2F25D39222774B30056A598 /* SmartTableVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D38222774B30056A598 /* SmartTableVCell.m */; };
+		F2F25D3C22290CD00056A598 /* AddSceneViewContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D3B22290CD00056A598 /* AddSceneViewContorller.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -219,6 +221,10 @@
 		F2F25D3222251D230056A598 /* FMDatabaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseModel.m; sourceTree = "<group>"; };
 		F2F25D3322251D240056A598 /* FMDatabaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseModel.h; sourceTree = "<group>"; };
 		F2F25D3422251D240056A598 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		F2F25D37222774B30056A598 /* SmartTableVCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SmartTableVCell.h; sourceTree = "<group>"; };
+		F2F25D38222774B30056A598 /* SmartTableVCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartTableVCell.m; sourceTree = "<group>"; };
+		F2F25D3A22290CD00056A598 /* AddSceneViewContorller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSceneViewContorller.h; sourceTree = "<group>"; };
+		F2F25D3B22290CD00056A598 /* AddSceneViewContorller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSceneViewContorller.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -450,6 +456,10 @@
 				F2391C74221D4DF6002B3B68 /* SetGesturePwdController.m */,
 				F2391C76221D4E1F002B3B68 /* CheckGesturePwdController.h */,
 				F2391C77221D4E1F002B3B68 /* CheckGesturePwdController.m */,
+				F2F25D37222774B30056A598 /* SmartTableVCell.h */,
+				F2F25D38222774B30056A598 /* SmartTableVCell.m */,
+				F2F25D3A22290CD00056A598 /* AddSceneViewContorller.h */,
+				F2F25D3B22290CD00056A598 /* AddSceneViewContorller.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -668,6 +678,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2391C58221BB3DF002B3B68 /* UIButton+YTExtension.m in Sources */,
+				F2F25D39222774B30056A598 /* SmartTableVCell.m in Sources */,
 				F20311BB221A7B210026336E /* ViewController.m in Sources */,
 				F2391C05221BA634002B3B68 /* FMDatabasePool.m in Sources */,
 				0128FBF822268F4A0076879A /* MASCompositeConstraint.m in Sources */,
@@ -713,6 +724,7 @@
 				F2F25D3522251D240056A598 /* DBManager.m in Sources */,
 				F2391C75221D4DF6002B3B68 /* SetGesturePwdController.m in Sources */,
 				F2391C04221BA634002B3B68 /* FMDatabaseAdditions.m in Sources */,
+				F2F25D3C22290CD00056A598 /* AddSceneViewContorller.m in Sources */,
 				F2391C35221BAEEA002B3B68 /* LTNavigationController.m in Sources */,
 				F2391C55221BB100002B3B68 /* UITabBar+Badge.m in Sources */,
 				F2391C6C221D4AA1002B3B68 /* TQGestureLockToast.m in Sources */,

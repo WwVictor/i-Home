@@ -8,7 +8,7 @@
 
 #import "SmartViewController.h"
 #import "UIView+SDAutoLayout.h"
-
+#import "SmartTableVCell.h"
 @interface SmartViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UIButton *addNavBtn;//添加智能(导航栏)
 @property (nonatomic,strong) UIButton *addbtn;//添加智能（主页无智能时按钮）
@@ -35,7 +35,8 @@
     self.title = @"智能模式";
     [self createUI];
     [self createTabview];
-    self.sceneArraylist = [NSMutableArray arrayWithObjects:@[@"",@"起床",@1],@[@"",@"睡觉",@1],@[@"",@"喝茶",@1],@[@"",@"会议",@1] ,nil];
+    [self loadData];
+    
 }
 
 - (void)createUI{
@@ -110,12 +111,23 @@
   
     
 }
-
-- (void)createTabview{
+#pragma mark tableView 懒加载
+- (UITableView *)createTabview{
     
-    self.sceneTabview = [[UITableView alloc] init];
-    [self.view addSubview:self.sceneTabview];
-    
+    if (_sceneTabview == nil) {
+        _sceneTabview = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _sceneTabview.delegate = self;
+        _sceneTabview.dataSource = self;
+        _sceneTabview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _sceneTabview.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        [self.view addSubview:self.sceneTabview];
+        self.sceneTabview.sd_layout
+        .topEqualToView(self.view)
+        .leftEqualToView(self.view)
+        .rightEqualToView(self.view)
+        .bottomEqualToView(self.view);
+    }
+    return _sceneTabview;
 }
 
 - (void)addDeviceBtnAction{
@@ -127,6 +139,71 @@
 - (void)editBtnAction{
     
     
+}
+
+- (void)loadData{
+    
+    NSMutableArray *arr1 = [NSMutableArray arrayWithObjects:@[@"",@"起床",@1],@[@"",@"睡觉",@1],@[@"",@"喝茶",@1],@[@"",@"会议",@1] ,nil];
+    NSMutableArray *arr2 = [NSMutableArray arrayWithObjects:@[@"",@"添加场景"], nil];
+    self.sceneArraylist = [NSMutableArray arrayWithObjects:arr1,arr2, nil];
+    [self.sceneTabview reloadData];
+    
+}
+
+#pragma mark UITableViewDelegate and UITableViewDataSource
+
+- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return  self.sceneArraylist.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSArray *arr = self.sceneArraylist[section];
+    return arr.count;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 15;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    static NSString *cellId = @"sceneCellId";
+    SmartTableVCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (cell == nil) {
+        cell = [[SmartTableVCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.section == 0) {
+      
+        
+        NSString *str =self.sceneArraylist[indexPath.section][indexPath.row][0];
+        cell.imageView.image =[UIImage imageNamed:str];
+        
+        cell.titleLab.text = self.sceneArraylist[indexPath.section][indexPath.row][1];
+        [cell.SwitchBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    }else {
+        NSString *str =self.sceneArraylist[indexPath.section][indexPath.row][0];
+        cell.imageView.image =[UIImage imageNamed:str];
+        cell.titleLab.text = self.sceneArraylist[indexPath.section][indexPath.row][1];
+    }
+    return cell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0) {
+        
+    }else{
+        
+        
+    }
 }
 
 
