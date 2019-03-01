@@ -13,6 +13,7 @@
 
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.backgroundColor = [UIColor clearColor];
         [self createUI];
     }
     return self;
@@ -22,8 +23,13 @@
     
     [self.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.backgroundV = [[UIView alloc] init];
-    self.backgroundV.layer.cornerRadius = 10.0;
-
+    
+    self.backgroundV.backgroundColor = [UIColor whiteColor];
+    self.backgroundV.layer.shadowColor = [UIColor colorWithHexString:@"999999"].CGColor;
+    self.backgroundV.layer.shadowOffset = CGSizeMake(0,3);
+    self.backgroundV.layer.shadowOpacity = 1;
+    self.backgroundV.layer.shadowRadius = 2;
+    self.backgroundV.layer.cornerRadius = 5;
     [self.contentView addSubview:self.backgroundV];
     self.backgroundV.sd_layout
     .topEqualToView(self.contentView)
