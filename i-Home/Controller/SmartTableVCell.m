@@ -35,7 +35,7 @@
     .topEqualToView(self.contentView)
     .leftSpaceToView(self.contentView, 15)
     .rightSpaceToView(self.contentView, 15)
-    .bottomEqualToView(self.contentView);
+    .bottomSpaceToView(self.contentView, 15);
     
     self.iconImagv = [[UIImageView alloc] init];
     [self.backgroundV addSubview:self.iconImagv];

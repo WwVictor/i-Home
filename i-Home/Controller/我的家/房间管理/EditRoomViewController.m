@@ -82,7 +82,7 @@
         _listTableView.dataSource = self;
         _listTableView.editing = YES;
 //        _listTableView.tableFooterView = [UIView new];
-//        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _listTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         [self.view addSubview:_listTableView];
         [_listTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,12 +90,12 @@
             make.right.left.mas_equalTo(self.view);
             make.bottom.mas_equalTo(self.view);
         }];
-                if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
-                    [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
-                }
-                if ([self.listTableView respondsToSelector:@selector(setLayoutMargins:)]) {
-                    [self.listTableView setLayoutMargins:UIEdgeInsetsZero];
-                }
+//                if ([self.listTableView respondsToSelector:@selector(setSeparatorInset:)]) {
+//                    [self.listTableView setSeparatorInset:UIEdgeInsetsZero];
+//                }
+//                if ([self.listTableView respondsToSelector:@selector(setLayoutMargins:)]) {
+//                    [self.listTableView setLayoutMargins:UIEdgeInsetsZero];
+//                }
     }
     return _listTableView;
 }
@@ -125,18 +125,18 @@
     
 }
 #pragma mark - tableview代理方法
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
-        [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-    }
-    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
-        [cell setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];
-    }
-    if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
-        [cell setPreservesSuperviewLayoutMargins:NO];
-    }
-}
+//- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+//        [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, KScreenWidth)];
+//    }
+//    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+//        [cell setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, KScreenWidth)];
+//    }
+//    if([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]){
+//        [cell setPreservesSuperviewLayoutMargins:NO];
+//    }
+//}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     

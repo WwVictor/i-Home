@@ -27,6 +27,7 @@
     .topSpaceToView(self, 0)
     .widthIs(self.bounds.size.width)
     .heightIs(self.bounds.size.width);
+    [self.iconBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
     self.iconBtn.layer.cornerRadius = (self.bounds.size.width)/2.0;
     self.iconBtn.layer.masksToBounds = YES;
     

@@ -68,7 +68,15 @@
     }
     return _deviceListTableView;
 }
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView == self.deviceListTableView) {
+//        NSLog(@"%lf",scrollView.contentOffset.y);
+        if (scrollView.contentOffset.y<=-60) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"changeOffset" object:@{@"changeOffset":@1}];
+        }
+    }
+}
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -85,6 +93,7 @@
         if (cell == nil) {
             cell = [[DeviceListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSArray *arr = self.deviceListArray[indexPath.row];
     [cell configWithInfo:arr[0] andStatusModel:arr[1]];
         return cell;

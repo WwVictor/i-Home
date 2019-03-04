@@ -24,11 +24,12 @@
     
     _backView = [UIView new];
     _backView.backgroundColor = [UIColor whiteColor];
-    _backView.layer.shadowColor = [UIColor colorWithHexString:@"999999"].CGColor;
-    _backView.layer.shadowOffset = CGSizeMake(0,3);
-    _backView.layer.shadowOpacity = 1;
-    _backView.layer.shadowRadius = 2;
+//    _backView.layer.shadowColor = [UIColor colorWithHexString:@"999999"].CGColor;
+//    _backView.layer.shadowOffset = CGSizeMake(0,3);
+//    _backView.layer.shadowOpacity = 1;
+//    _backView.layer.shadowRadius = 2;
     _backView.layer.cornerRadius = 5;
+    _backView.layer.masksToBounds = YES;
     [self.contentView addSubview:_backView];
     [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.contentView).offset(15);

@@ -62,6 +62,9 @@
 		0128FC9F2229150A0076879A /* EditRoomNameCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FC9E2229150A0076879A /* EditRoomNameCell.m */; };
 		0128FCA22229198E0076879A /* RoomExistDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FCA12229198E0076879A /* RoomExistDeviceCell.m */; };
 		0128FCA5222919B50076879A /* RoomInexistenceDeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0128FCA4222919B50076879A /* RoomInexistenceDeviceCell.m */; };
+		01385AC9222CF9C90077BC2F /* HomeManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01385AC8222CF9C90077BC2F /* HomeManagerViewController.m */; };
+		01385ACC222CF9E20077BC2F /* AddHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01385ACB222CF9E20077BC2F /* AddHomeViewController.m */; };
+		01385ACF222CFFEB0077BC2F /* HomeRoomListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01385ACE222CFFEB0077BC2F /* HomeRoomListCell.m */; };
 		F20311B8221A7B210026336E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F20311B7221A7B210026336E /* AppDelegate.m */; };
 		F20311BB221A7B210026336E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20311BA221A7B210026336E /* ViewController.m */; };
 		F20311BE221A7B220026336E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F20311BC221A7B220026336E /* Main.storyboard */; };
@@ -251,6 +254,12 @@
 		0128FCA12229198E0076879A /* RoomExistDeviceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomExistDeviceCell.m; sourceTree = "<group>"; };
 		0128FCA3222919B50076879A /* RoomInexistenceDeviceCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RoomInexistenceDeviceCell.h; sourceTree = "<group>"; };
 		0128FCA4222919B50076879A /* RoomInexistenceDeviceCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RoomInexistenceDeviceCell.m; sourceTree = "<group>"; };
+		01385AC7222CF9C90077BC2F /* HomeManagerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeManagerViewController.h; sourceTree = "<group>"; };
+		01385AC8222CF9C90077BC2F /* HomeManagerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeManagerViewController.m; sourceTree = "<group>"; };
+		01385ACA222CF9E20077BC2F /* AddHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddHomeViewController.h; sourceTree = "<group>"; };
+		01385ACB222CF9E20077BC2F /* AddHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddHomeViewController.m; sourceTree = "<group>"; };
+		01385ACD222CFFEB0077BC2F /* HomeRoomListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeRoomListCell.h; sourceTree = "<group>"; };
+		01385ACE222CFFEB0077BC2F /* HomeRoomListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeRoomListCell.m; sourceTree = "<group>"; };
 		F20311B3221A7B200026336E /* i-Home.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "i-Home.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F20311B6221A7B210026336E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F20311B7221A7B210026336E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -482,15 +491,14 @@
 		0128FC2F2227AFE10076879A /* 我的家 */ = {
 			isa = PBXGroup;
 			children = (
+				01385AC6222CF96B0077BC2F /* 家庭管理 */,
+				01385AC5222CF92C0077BC2F /* 所有房间设备 */,
 				0128FC922228D5500076879A /* 添加设备 */,
 				0128FC8E2228D3E90076879A /* 房间管理 */,
 				0128FC8D2228D3C90076879A /* 配网 */,
 				0128FC6F2228C8DB0076879A /* TuYeTextField */,
-				0128FC312227B01A0076879A /* Views */,
 				F2391C2A221BAA21002B3B68 /* MYHomeViewController.h */,
 				F2391C2B221BAA21002B3B68 /* MYHomeViewController.m */,
-				0128FC22222783E80076879A /* DeviceListViewController.h */,
-				0128FC23222783E80076879A /* DeviceListViewController.m */,
 			);
 			path = "我的家";
 			sourceTree = "<group>";
@@ -623,6 +631,37 @@
 			children = (
 				0128FC662227D1D00076879A /* SelectDeviceTypeCell.h */,
 				0128FC672227D1D00076879A /* SelectDeviceTypeCell.m */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		01385AC5222CF92C0077BC2F /* 所有房间设备 */ = {
+			isa = PBXGroup;
+			children = (
+				0128FC312227B01A0076879A /* Views */,
+				0128FC22222783E80076879A /* DeviceListViewController.h */,
+				0128FC23222783E80076879A /* DeviceListViewController.m */,
+			);
+			path = "所有房间设备";
+			sourceTree = "<group>";
+		};
+		01385AC6222CF96B0077BC2F /* 家庭管理 */ = {
+			isa = PBXGroup;
+			children = (
+				01385AD0222CFFEF0077BC2F /* views */,
+				01385AC7222CF9C90077BC2F /* HomeManagerViewController.h */,
+				01385AC8222CF9C90077BC2F /* HomeManagerViewController.m */,
+				01385ACA222CF9E20077BC2F /* AddHomeViewController.h */,
+				01385ACB222CF9E20077BC2F /* AddHomeViewController.m */,
+			);
+			path = "家庭管理";
+			sourceTree = "<group>";
+		};
+		01385AD0222CFFEF0077BC2F /* views */ = {
+			isa = PBXGroup;
+			children = (
+				01385ACD222CFFEB0077BC2F /* HomeRoomListCell.h */,
+				01385ACE222CFFEB0077BC2F /* HomeRoomListCell.m */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -1029,6 +1068,7 @@
 				0128FBFD22268F4A0076879A /* MASConstraint.m in Sources */,
 				F2F25D2C2223DDD70056A598 /* YBPopupMenuPath.m in Sources */,
 				0128FC192227792B0076879A /* NSString+SGPagingView.m in Sources */,
+				01385ACC222CF9E20077BC2F /* AddHomeViewController.m in Sources */,
 				F2391C72221D4C32002B3B68 /* CALayer+TQAnimated.m in Sources */,
 				0128FC2C2227AEF00076879A /* XYNoDataView.m in Sources */,
 				0128FC612227CE5B0076879A /* NSString+Extension.m in Sources */,
@@ -1065,6 +1105,7 @@
 				F2391C80221D4EE2002B3B68 /* TQGestureLockPreview.m in Sources */,
 				0128FC722228C8DB0076879A /* TuYeTextField.m in Sources */,
 				0128FC622227CE5B0076879A /* LotteryNumberPanModel.m in Sources */,
+				01385ACF222CFFEB0077BC2F /* HomeRoomListCell.m in Sources */,
 				0128FC682227D1D00076879A /* SelectDeviceTypeCell.m in Sources */,
 				0128FC5C2227CE5B0076879A /* CALayer+XibConfiguration.m in Sources */,
 				F2391C4C221BAFA4002B3B68 /* NSString+YTExtension.m in Sources */,
@@ -1095,6 +1136,7 @@
 				F2391C4D221BAFA4002B3B68 /* UIBarButtonItem+YTExtension.m in Sources */,
 				F2F25D2B2223DDD70056A598 /* YBPopupMenu.m in Sources */,
 				0128FBF922268F4A0076879A /* MASConstraintMaker.m in Sources */,
+				01385AC9222CF9C90077BC2F /* HomeManagerViewController.m in Sources */,
 				0128FC5D2227CE5B0076879A /* UIImage+ImageWithColor.m in Sources */,
 				0128FC632227CE5B0076879A /* UIBarButtonItem+extension.m in Sources */,
 				0128FBFA22268F4A0076879A /* MASLayoutConstraint.m in Sources */,
