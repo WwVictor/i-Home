@@ -8,21 +8,62 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
-
+#import "MYHomeViewController.h"
+#import "SmartViewController.h"
+#import "SettingViewController.h"
+#import "LTNavigationController.h"
+#import "SetGesturePwdController.h"
+#import "CheckGesturePwdController.h"
+#import "MyFileHeader.h"
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
+@synthesize deviceVersionArray,updateNumber,updateDeviceArray,concurrentHashMap,isLogin,repeatWeek;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //启动注册长牙
+    [self registerLongTooth];
+//    [self checkPassword];
     self.window.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = [[MainViewController alloc] init];
     [self.window makeKeyAndVisible];
+    if (![[NSUserDefaults standardUserDefaults]objectForKey:@"appLanguage"]) {
+        NSArray *languages = [NSLocale preferredLanguages];
+        NSString *language = [languages objectAtIndex:0];
+        if ([language hasPrefix:@"zh-Hans"]) {//开头匹配
+            [[NSUserDefaults standardUserDefaults] setObject:@"zh-Hans" forKey:@"appLanguage"];
+        }else if ([language hasPrefix:@"zh-Hant"]) {
+            [[NSUserDefaults standardUserDefaults] setObject:@"zh-Hant" forKey:@"appLanguage"];
+        }else {
+            [[NSUserDefaults standardUserDefaults] setObject:@"en" forKey:@"appLanguage"];
+        }
+    }
     return YES;
     
+}
+
+//- (void)checkPassword{
+//
+//    if ([[NSUserDefaults standardUserDefaults] objectForKey:PASSWORDCODE]) {
+//        CheckGesturePwdController *checkPwdVC = [[CheckGesturePwdController alloc] init];
+//        [self presentViewController:checkPwdVC animated:YES completion:nil];
+//
+//    } else {
+//
+//        SetGesturePwdController *setPwdVC = [[SetGesturePwdController alloc] init];
+//        [self presentViewController:setPwdVC animated:YES completion:nil];
+//
+//    }
+//}
+
+//启动注册长牙
+- (void)registerLongTooth{
+    
+    [[LongToothHandler sharedInstance] registeredLongToothHost:LONGTOOTH_HOST port:LONGTOOTH_PORT devid:LONGTOOTH_DEVELOPER_ID appid:LONGTOOTH_APP_ID appkey:LONGTOOTH_APP_KEY block:^(NSInteger event) {
+    }];
 }
 
 

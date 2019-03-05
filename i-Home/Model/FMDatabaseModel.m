@@ -7,86 +7,89 @@
 //
 
 #import "FMDatabaseModel.h"
-//#import "iThingHeader.h"
+#import "MyFileHeader.h"
 @implementation FMDatabaseModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation UserMessageModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation RoomMessageModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation HomeInformationModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation DeviceInformationModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation RoomInformationModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation SceneInformationModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation DeviceStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation DimmerStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation LedStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation StaturationStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation RgbStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation SocketStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation SwitchStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation CurtainStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation AirConditionerStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 @implementation DeviceMessageModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 @implementation SceneDeviceStatusModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 @implementation ShareUserInformationModel
-//MJCodingImplementation
+MJCodingImplementation
 @end
 
 @implementation DeviceVersionModel
-//MJCodingImplementation
+MJCodingImplementation
 
 + (NSDictionary *)replacedKeyFromPropertyName{
     return @{
              @"dev_description" : @"description"
              };
 }
+@end
+@implementation SelectRoomModel
+MJCodingImplementation
 @end

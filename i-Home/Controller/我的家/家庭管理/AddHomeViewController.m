@@ -15,6 +15,7 @@
 @interface AddHomeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *listTableView;
 @property (nonatomic, strong) NSMutableArray *listArray;
+@property (nonatomic, strong) EditRoomNameCell *editCell;
 //@property (nonatomic, strong) NSMutableArray *existListArray;
 //@property (nonatomic, strong) NSMutableArray *inexistenceListArray;
 
@@ -52,7 +53,18 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.title = @"添加家庭";
-    [self.listArray addObject:@[@[@"客厅",@1],@[@"主卧",@1],@[@"书房",@1],@[@"厨房",@1],@[@"餐厅",@1],@[@"洗漱间",@1]]];
+//    UserMessageModel *usermodel = KGetUser;
+//    self.listArray = [[DBManager shareManager] selectFromHomeTableWithUserId:usermodel.userID];
+    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"selectroomessage.data"];
+    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
+    NSArray *arr = @[@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间"];
+    for (int i = 0; i < arr.count; i++) {
+        SelectRoomModel *model = [[SelectRoomModel alloc] init];
+        model.room_name = arr[i];
+        model.isSelectRoom = 1;
+        [self.listArray addObject:model];
+    }
+//    [self.listArray addObject:@[@[@"客厅",@1],@[@"主卧",@1],@[@"书房",@1],@[@"厨房",@1],@[@"餐厅",@1],@[@"洗漱间",@1]]];
     [self setUI];
 }
 -(void)setUI
@@ -129,14 +141,91 @@
 //    }
 //}
 
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    SelectRoomModel *roommodel = KGetSelectRoom;
+    if ([roommodel.room_name length] != 0) {
+        [self.listArray addObject:roommodel];
+        [self.listTableView reloadData];
+    }
+}
 - (void)cancelBtnClick
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)saveBtnClick
 {
+    if ([self.editCell.roomNameTextField.text length] == 0) {
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"请先输入家庭名称" withDuration:1.5];
+    }else{
+        
+        UserMessageModel *usermodel = KGetUserMessage;
+        HomeInformationModel *model = [[HomeInformationModel alloc] init];
+        if ([[[DBManager shareManager] selectFromHomeTable] count] == 0) {
+            
+            
+            model.userID = usermodel.userID;
+            model.homeID = [[DeviceTypeManager shareManager] get10Homeid];
+            model.name = self.editCell.roomNameTextField.text;
+            model.is_defaultHome = @"1";
+            model.user_right = @"1";
+            [[DBManager shareManager] insertHomeTableWithFile:model];
+            KSaveHome(model);
+            [self addRoomData:model];
+        }else{
+            NSMutableArray *arr = [[DBManager shareManager] selectFromHomeTable];
+            BOOL isSameName = NO;
+            for (HomeInformationModel *homeInfo in arr) {
+                if ([self.editCell.roomNameTextField.text isEqualToString:homeInfo.name]) {
+                    isSameName = YES;
+                }
+            }
+            if (isSameName == YES) {
+                [SVProgressHUD doAnyRemindWithHUDMessage:@"请输入唯一的家庭名称" withDuration:1.5];
+            }else{
+                model.userID = usermodel.userID;
+                model.homeID = [[DeviceTypeManager shareManager] get10Homeid];
+                model.name = self.editCell.roomNameTextField.text;
+                model.is_defaultHome = @"2";
+                model.user_right = @"1";
+                [[DBManager shareManager] insertHomeTableWithFile:model];
+                [self addRoomData:model];
+            }
+            
+            
+            
+        }
+        
+        
+    }
+}
+- (void)addRoomData:(HomeInformationModel *)model
+{
+    UserMessageModel *usermodel = KGetUserMessage;
+    RoomInformationModel *roominfo = [[RoomInformationModel alloc] init];
+    roominfo.user_id = usermodel.userID;
+    roominfo.home_id = model.homeID;
+    roominfo.name = @"所有设备";
+    roominfo.room_id = @"1000000000000";
+    roominfo.is_defaultRoom = @"1";
+    [[DBManager shareManager] insertRoomTableWithFile:roominfo];
     
+    for (int i = 0; i < self.listArray.count; i++) {
+        SelectRoomModel *selectmodel = self.listArray[i];
+        if (selectmodel.isSelectRoom == 1) {
+            RoomInformationModel *roominfo = [[RoomInformationModel alloc] init];
+            roominfo.user_id = usermodel.userID;
+            roominfo.home_id = model.homeID;
+            roominfo.name = selectmodel.room_name;
+            roominfo.room_id = [[DeviceTypeManager shareManager] get14Roomid];
+            roominfo.is_defaultRoom = @"2";
+            [[DBManager shareManager] insertRoomTableWithFile:roominfo];
+        }
+    }
+    
+    
+    [self cancelBtnClick];
 }
 #pragma mark - tableview代理方法
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,7 +241,7 @@
             [cell setPreservesSuperviewLayoutMargins:NO];
         }
     }else{
-        if (indexPath.row == [self.listArray[0] count]-1) {
+        if (indexPath.row == [self.listArray count]-1) {
             if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
                 [cell setSeparatorInset:UIEdgeInsetsMake(0, 15, 0, 0)];
             }
@@ -187,7 +276,7 @@
     if (section == 0) {
         return 1;
     }else{
-        return [self.listArray[section-1] count]+1;
+        return [self.listArray count]+1;
     }
     
     
@@ -199,28 +288,28 @@
 {
     if (indexPath.section == 0) {
         static NSString *cellId = @"EditRoomNameCellID";
-        EditRoomNameCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (cell == nil) {
-            cell = [[EditRoomNameCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        self.editCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (self.editCell == nil) {
+            self.editCell = [[EditRoomNameCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        [cell.roomNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(cell.contentView);
-            make.left.mas_equalTo(cell.contentView).offset(15);
+        [self.editCell.roomNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.editCell.contentView);
+            make.left.mas_equalTo(self.editCell.contentView).offset(15);
             make.width.mas_equalTo(90);
             make.height.mas_equalTo(50);
         }];
-        [cell.roomNameTextField mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.centerY.mas_equalTo(cell.contentView);
-            make.left.mas_equalTo(cell.roomNameLabel.mas_right).offset(30);
-            make.right.mas_equalTo(cell.contentView.mas_right).offset(-20);
+        [self.editCell.roomNameTextField mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(self.editCell.contentView);
+            make.left.mas_equalTo(self.editCell.roomNameLabel.mas_right).offset(30);
+            make.right.mas_equalTo(self.editCell.contentView.mas_right).offset(-20);
             make.height.mas_equalTo(50);
         }];
-        cell.roomNameLabel.text = @"家庭名称";
-        cell.roomNameTextField.placeholder = @"填写家庭名称";
-        return cell;
+        self.editCell.roomNameLabel.text = @"家庭名称";
+        self.editCell.roomNameTextField.placeholder = @"填写家庭名称";
+        return self.editCell;
     }else {
-        if (indexPath.row == [self.listArray[0] count]) {
+        if (indexPath.row == [self.listArray count]) {
             static NSString *cellId = @"RoomManageCell1ID";
             RoomManageCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
             if (cell == nil) {
@@ -238,18 +327,23 @@
                 cell = [[HomeRoomListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            NSArray *arr = self.listArray[0][indexPath.row];
-            cell.roomNameLabel.text = arr[0];
-            if ([arr[1] intValue] == 1) {
+            SelectRoomModel *model = self.listArray[indexPath.row];
+            cell.roomNameLabel.text = model.room_name;
+            if (model.isSelectRoom == 1) {
                 [cell.selectButton setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
             }else{
                 [cell.selectButton setImage:[UIImage imageNamed:@"未选中"] forState:UIControlStateNormal];
             }
             typeof(cell) weakcell = cell;
             [weakcell setSelectBlock:^(NSString * _Nonnull str) {
+                SelectRoomModel *models = self.listArray[indexPath.row];
                 if ([str intValue] == 1) {
+                    models.isSelectRoom = 1;
+                    [self.listArray replaceObjectAtIndex:indexPath.row withObject:models];
                    [cell.selectButton setImage:[UIImage imageNamed:@"选中"] forState:UIControlStateNormal];
                 }else{
+                    models.isSelectRoom = 0;
+                    [self.listArray replaceObjectAtIndex:indexPath.row withObject:models];
                     [cell.selectButton setImage:[UIImage imageNamed:@"未选中"] forState:UIControlStateNormal];
                 }
                 
@@ -325,73 +419,72 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1) {
-        if (indexPath.row == [self.listArray[0] count]) {
+        if (indexPath.row == [self.listArray count]) {
             AddRoomViewController *addRoomCtrl = [[AddRoomViewController alloc] init];
             [self.navigationController pushViewController:addRoomCtrl animated:YES];
         }
     }
 }
 
-- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.listArray.count != 0) {
-        if (indexPath.section == 1 && indexPath.row < [self.listArray[0] count]) {
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-                UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"确定删除设备吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-                
-                [alertCtrl addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                    
-                    
-                    [self.listTableView reloadData];
-                }]];
-                [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }]];
-                [self presentViewController:alertCtrl animated:YES completion:nil];
-            }];
-            return @[deleteAction];
-        }else{
-             return nil;
-        }
-        
-    }else{
-        return nil;
-    }
-    //    DeviceInformationModel *devModel = self.listDataArr[indexPath.row];
-    
-}
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    if (indexPath.section == 0) {
-        return NO;
-    }else{
-            if (indexPath.row < [self.listArray[0] count]) {
-                return YES;
-            }else{
-                return NO;
-            }
-        
-        
-    }
-    
-}
+//- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (self.listArray.count != 0) {
+//        if (indexPath.section == 1 && indexPath.row < [self.listArray count]) {
+//            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+//                UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"确定删除设备吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//
+//                [alertCtrl addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//
+//
+//                    [self.listTableView reloadData];
+//                }]];
+//                [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//                }]];
+//                [self presentViewController:alertCtrl animated:YES completion:nil];
+//            }];
+//            return @[deleteAction];
+//        }else{
+//             return nil;
+//        }
+//
+//    }else{
+//        return nil;
+//    }
+//    //    DeviceInformationModel *devModel = self.listDataArr[indexPath.row];
+//
+//}
+//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath{
+//    if (indexPath.section == 0) {
+//        return NO;
+//    }else{
+//            if (indexPath.row < [self.listArray[0] count]) {
+//                return YES;
+//            }else{
+//                return NO;
+//            }
+//
+//
+//    }
+//
+//}
 
 #pragma mark 设置编辑的样式
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return UITableViewCellEditingStyleDelete;
+//}
 #pragma mark 设置处理编辑情况
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle ==UITableViewCellEditingStyleDelete) {
-        // 1.更新数据
-        
-        // 2.更新UI
-        
-        //        [tableView deleteRowsAtIndexPaths:@[indexPath]withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-}
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    if (editingStyle ==UITableViewCellEditingStyleDelete) {
+//        // 1.更新数据
+//
+//        // 2.更新UI
+//
+//        //        [tableView deleteRowsAtIndexPaths:@[indexPath]withRowAnimation:UITableViewRowAnimationAutomatic];
+//    }
+//}
 
 
 /*

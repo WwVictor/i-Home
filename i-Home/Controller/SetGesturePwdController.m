@@ -14,6 +14,7 @@
 #import "TQGestureLockToast.h"
 #import "CommonTools.h"
 #import "CheckGesturePwdController.h"
+#import "MyFileHeader.h"
 @interface SetGesturePwdController ()<TQGestureLockViewDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem *rightButtonItem;
@@ -130,7 +131,12 @@
     } else {
         
         if ([self.passwordManager.firstPassword isEqualToString:securityCodeSting]) {
-            
+            UserMessageModel *userModel = [[UserMessageModel alloc] init];
+            userModel.userID = [[DeviceTypeManager shareManager] get8Userid];
+            userModel.ltid = [LongTooth getId];
+            userModel.userName = @"longtooth";
+            KSaveUserMessage(userModel);
+            [[DBManager shareManager] insertUserTableWithFile:userModel];
             [gestureLockView setNeedsDisplayGestureLockErrorState:NO];
             
             [_hintLabel clearText];
@@ -144,6 +150,9 @@
             
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                
+                
+//                KSaveUserMessage(userModel);
 //                CheckGesturePwdController *checkPwdVC = [[CheckGesturePwdController alloc] init];
 //                 [self presentViewController:checkPwdVC animated:YES completion:nil];
                 [self dismissViewControllerAnimated:YES completion:nil];

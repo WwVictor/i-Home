@@ -72,8 +72,10 @@
 {
     if (scrollView == self.deviceListTableView) {
 //        NSLog(@"%lf",scrollView.contentOffset.y);
-        if (scrollView.contentOffset.y<=-60) {
-            [[NSNotificationCenter defaultCenter]postNotificationName:@"changeOffset" object:@{@"changeOffset":@1}];
+        if (scrollView.contentOffset.y>=60) {
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"changeOffset" object:@{@"changeOffset":@"1"}];
+        }else if (scrollView.contentOffset.y<=-60){
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"changeOffset" object:@{@"changeOffset":@"-1"}];
         }
     }
 }

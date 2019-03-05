@@ -50,7 +50,19 @@
 }
 - (void)finishBtnClick
 {
-    
+    if ([self.roomNameTextField.text length] == 0) {
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"请先输入房间名称" withDuration:1.5];
+    }else{
+        SelectRoomModel *selectroommodel = [[SelectRoomModel alloc] init];
+        selectroommodel.room_name = self.roomNameTextField.text;
+        selectroommodel.isSelectRoom = 1;
+        KSaveSelectRoom(selectroommodel);
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+           [self cancelBtnClick];
+//        });
+        
+    }
 }
 - (void)createContentView
 {

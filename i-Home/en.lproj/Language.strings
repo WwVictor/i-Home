@@ -1,0 +1,317 @@
+/* 
+  Language.strings
+  i-Home
+
+  Created by Frank on 2019/3/5.
+  Copyright © 2019 Victor. All rights reserved.
+*/
+"Tabbar_item_home"="My home";
+"Tabbar_item_camera"="Camera";
+"Tabbar_item_security"="Security";
+"Tabbar_item_my"="Mine";
+
+"Finish"="Finish";
+"Delete"="Delete";
+"Cancel"="Cancel";
+"Delete_Device"="Delete device";
+//房间
+"Room_preinstall"="Preset";
+"Room_edit"="Edit";
+"Room_add"="Add";
+"Room_tacitly_approve"="Default room";
+"Room_edit_set"="Room set";
+"Room_name"="Name";
+"tv_scene_empty"="No scene. Please click 'Add' button.";
+"tv_count"="Count：";
+"ok"="Ok";
+"tx_default_rom_cant_del"="Default room cannot be deleted.";
+"user_extis_notice_quit"="Are you sure you want to log out?";
+
+
+
+"Mood_add"="Add mode";
+"Add_device"="Add device";
+"Scene_control_device"="Scene control Device";
+"Scene_test"="Test mode";
+"AddOrRemove_device"="Add/move device";
+
+
+
+
+"Open"="ON";
+"Close"="OFF";
+
+"Opened"="ON";
+"Closed"="OFF";
+
+"collection_cell_open"="ON";
+"collection_cell_close"="OFF";
+
+"Brightness"="Brightness";
+"Colour"="Color";
+"Pattern"="Mode";
+
+"Pattern_sweet"="Gentle";
+"Pattern_romance"="Romantic";
+"Pattern_fluctuate"="Fluctuate";
+"Pattern_illumination"="Illuminati";
+"Pattern_active"="skip";
+
+"Air_conditioner_off"="OFF";
+"Air_conditioner_heat"="Heat";
+"Air_conditioner_cool"="Cool";
+"Air_conditioner_fan"="Fan";
+"Air_conditioner_dry"="Dry";
+"Air_conditioner_low"="Low";
+"Air_conditioner_mid"="Mid";
+"Air_conditioner_high"="High";
+
+
+
+
+"Curtain_open"="Open";
+"Curtain_stop"="Stop";
+"Curtain_close"="Close";
+
+
+"Mood_set"="Mode set";
+"Device_set"="Set device";
+"Scene_set"="Scene set";
+
+
+"Add_newDevice"="Add new Device";
+"Add_existed_Device"="Add from an existing device";
+"Select_Device"="Select Device";
+"Remove_selected_Device"="Remove all";
+"Select_all_Device"="Select all";
+
+"MAC_address"="MAC address: %@";
+"device_model"="Model: %@";
+"device_manufacturer"="Manufacturer: %@";
+"sw_ser"="Firmware version: %@";
+"hw_ser"="Hardware version: %@";
+
+
+"Next"="Next";
+"Please_connect_wifi"="Please connect to WiFi first.";
+"Please_import_pw"="Please enter the WiFi password.";
+"Please_import_right_pw"="Please enter the correct WiFi password.";
+"Confirm_delete_device"="Are you sure you want to delete this device?";
+"Confirm_delete_home"="Are you sure you want to delete this home?";
+"Confirm_change_home"="Change the home's name";
+//登录
+"mailbox_reminder"="Please enter an email address.";
+"password_title" = "Password";
+"Forget" = "Forget the password";
+"register_title"="Register";
+"maintain_login"="Keep login";
+"LOGIN" = "Log in";
+//注册
+"pw_reminder" = "Please enter the password";
+//更改密码
+"change_password" = "Change password";
+"security_code" = "Security Code";
+"send_code" = "Send code";
+"new_password" = "New password";
+"submit_title" = "Submit password";
+
+"skip"="skip";
+//设置语言
+"set_Language"="Set Language";
+"select_Language"="Select Language";
+"Language_changed"="Want to change the language to %@?";
+"comfirm_changed"="Change to %@";
+
+
+//电量统计
+"tx_electricity_statistics"="Energy monitoring";
+"tx_electricity_daily_statistics"="Daily statistics";
+"tx_electricity_monthly_statistics"="Monthly statistics";
+"tx_electricity_annual_statistics"="Annual statistics";
+"tx_electricity_power"="Power";
+"tx_electricity_instantaneous_power"="Instantaneous power:";
+"tx_electricity_montyly_notice"="Note: You can view the daily consumption of the past 2 months.";
+
+//提示信息
+"tx_pop_notice_leaving_home"="Are you sure to delete the leaving home mode?";
+"tx_pop_notice_schedular"="Are you sure to delete the timer mode?";
+"tx_pop_notice_device"="Are you sure to remove the device?";
+"tx_pop_notice_room"="Are you sure to remove the room?";
+"tx_pop_notice_scene"="Are you sure to remove the scene?";
+
+"tx_user_notice_newps"="Please enter a new password firstly.";
+"tx_user_notice_newps_diff"="The new and confirm passwords do not match.";
+"tx_user_notice_oldps_diff"="Please enter the original password firstly.";
+"tx_user_notice_oldps_right"="Please enter the correct password firstly.";
+"tx_user_notice_ps_change"="The password has been changed. Please log in again.";
+"tx_user_notice_request_timeout"="Request timeout";
+"tx_user_notice_email"="Please enter the correct mail address.";
+"tx_user_notice_resend"="Resend";
+"tx_user_notice_security_code"="Please enter the security code";
+"tx_user_notice_password_change_failed"="Failed to change the password.";
+"tx_user_notice_device_status_offline"="Offline";
+"tx_user_notice_device_delete_failed"="Failed to delete device.";
+"tx_user_notice_device_rename_failed"="Failed to rename device.";
+"tx_user_notice_device_name"="Device's name";
+"tx_user_notice_scene_delete_failed"="Failed to delete scene.";
+"tx_user_notice_enter_room_name"="Please input the room name firstly.";
+"tx_user_notice_unable_to_join"="Unable to add";
+"tx_user_notice_set_room_failed"="Failed to set the room.";
+"tx_user_notice_create_room_failed"="Failed to create the room.";
+"tx_user_notice_delete_room_failed"="Failed to delete the room.";
+"ZLPhotoBrowserNoCameraAuthorityText" = "Please allow %@ to access your device's camera in \"Settings\"->\"Privacy\"->\"Camera\"";
+"ZLPhotoBrowserNoAblumAuthorityText" = "Allow %@ to access your ablum in \"Settings\"->\"Privacy\"->\"Photos\"";
+"ZLPhotoCamera" = "Camera";
+"ZLPhotoBrowser" = "Album";
+"tx_user_notice_enter_scene_name"="Please enter the scene name.";
+"scene_name"="Scene name";
+"tx_user_notice_con_device_ap"="Please select the device ap you want to connect.";
+"tx_user_notice_select_device_ap"="Please be back after selection.";
+"tx_user_notice_cconon_device"="Connect to device.";
+"tx_user_notice_con_device_ap_failed"="The device AP has not been successfully connected.";
+"tx_user_notice_search_device_failed"="Failed to search the device.";
+"tx_user_notice_network_device_failed"="Failed to connect to WiFi.";
+"tx_user_notice_Wifi_switch_failed"="Failed to switch WiFi.";
+"tx_user_notice_device_register_failed"="Registration failed, please register again.";
+"tx_user_notice_device_register_success"="Successful registration.";
+"tx_user_notice_device_upgrade_failed"="Firmware upgrade failed";
+"tx_user_notice_device_schedule_list_failed"="Failed to get the device schedule.";
+
+"tx_user_notice_set_schedule_failed"="Failed to set device schedule.";
+"tx_user_notice_add_schedule_failed"="Failed to add device schedule.";
+"tx_user_notice_delete_schedule_failed"="Failed to delete the leaving mode.";
+
+"tx_user_notice_leaving_mode_failed"="Failed to delete the schedule.";
+"tx_user_notice_set_leaving_mode_failed"="Failed to set leave home mode";
+"tx_user_notice_add_leaving_mode_failed"="Failed to add leave home mode";
+
+"tx_user_notice_create_home_failed"="Please create a Home firstly.";
+"tx_user_notice_default_home_cannot_deleted"="Default home cannot be deleted.";
+"tx_user_notice_temporarily_no_data"="No date";
+"tx_user_notice_no_equipment"="No device";
+"tx_user_notice_no_scene"="No scene";
+"tx_user_notice_no_room"="No room";
+"tx_user_notice_no_update_equipment"="No undated device";
+"tx_user_notice_no_schedule"="No schedule";
+"tx_user_notice_day_electri"="Failed to obtain daily power consumption";
+"tx_user_notice_mouth_electri"="Failed to obtain monthly power consumption";
+"tx_user_notice_year_electri"="Failed to obtain annual power consumption";
+"tx_user_notice_search_networked_device"="Please make sure your device is on the same WiFi as your iPhone.";
+"tx_user_notice_networked_device"="Are the added device connected to the network?";
+"tx_user_notice_is_networked_device"="Yes";
+"tx_user_notice_no_networked_device"="No";
+"tx_engery"="Energy : ";
+//离家Room setup failed
+"tx_leaving_start_time"="Start";
+"tx_leaving_end_time"="End";
+"tx_leaving_radom"="Radom";
+"tx_leaving_home_mode"="Leaving mode";
+"tx_leaving_home_notice1"="Your smart";
+"tx_leaving_home_notice2"="It will be turned on/off randomly during the setting time. Once the leaving home mode is turned on, the timing function will be turned off.";
+"tx_delete_away_from_home"="Delete the leaving home mode.";
+"tx_add_leaving_home"="Add a leaving home mode.";
+
+//<!--快速联网-->
+"dev_broadcast_list_notice"="Searching the device. Please waiting for a few minute....";
+"dev_broadcast_retry_search"="Research";
+"dev_broadcast_no_search"="No new devices";
+"dev_broadcast_notice"="Notice";
+"dev_broadcast_notice_content"="Please be sure that the WiFi attached to the mobile phone is consistent with the WiFi attached to the device.";
+"dev_broadcast_pop_atypism"="Inconformity";
+"dev_broadcast_pop_agreement"="Conformity";
+"dev_broadcast_pop_join_has_dev"="Join Distribution Equipment";
+"dev_broadcast_pop_join_no_dev"="Adding Undistributed Equipment";
+"dev_broadcast_pop_quit"="Quit";
+"dev_broadcast_pop_notice_quit"="Are you sure you want to quit?";
+"dev_broadcast_pop_notice_wifi"="Please select the WiFi you want to connect.";
+"dev_broadcast_pop_wifi"="Connect to WiFi.";
+
+//<!--定时&自动化--="
+"tx_schedular_list_title"="Device schedule";
+"tx_schedular"="Schedule";
+"tx_schedular_disposable"="Disposable";
+"tx_schedular_timing"="Timer";
+
+"tx_schedular_add_timing"="Add timer";
+"tx_schedular_delete_timing"="Delete timer";
+"tx_schedular_sunnday"="Sunnday";
+"tx_schedular_monday"="Monday";
+"tx_schedular_tuesday"="Tuesday";
+"tx_schedular_wednesday"="Wednesday";
+"tx_schedular_thursday"="Thursday";
+"tx_schedular_friday"="Friday";
+"tx_schedular_saturday"="Saturday";
+"tx_schedular_sun"="Sun";
+"tx_schedular_mon"="Mon";
+"tx_schedular_tues"="Tues";
+"tx_schedular_wed"="Wed";
+"tx_schedular_thur"="Thur";
+"tx_schedular_fri"="Fri";
+"tx_schedular_sat"="Sat";
+
+"tx_schedular_su"="Sun";
+"tx_schedular_mo"="Mon";
+"tx_schedular_tue"="Tues";
+"tx_schedular_we"="Wed";
+"tx_schedular_thu"="Thur";
+"tx_schedular_fr"="Fri";
+"tx_schedular_sa"="Sat";
+
+//我的
+"tx_self_mine"="Mine";
+"tx_self_setting"="Setting";
+"tx_home_furnishing"="Home";
+"tx_automation"="Automation";
+"tx_scene_setting"="Scene setting";
+"tx_device_stroke_setting"="Schedule setting";
+"tx_user_management"="User management";
+"tx_language"="Language";
+"tx_exit"="Log out";
+//固件更新
+"tx_dev_update"="Firmware Update";
+"dev_update"="Update";
+"current_version"="Current version";
+"latest_version"="Latest version";
+
+//home
+"select_furnishing"="Select Home";
+"edit"="Edit";
+"creat_home"="Creat Home";
+"enter_home_name"="Please enter a name";
+"creat"="Creat";
+//賬號設置
+"account_setting"="Account settings";
+"tx_save"="Save";
+"user_name"="User name";
+"old_user_psd"="Old password";
+"new_user_psd"="New password";
+"comfirm_user_psd"="Confirm new password";
+//用户管理
+"join_new_user"="Add new users";
+"tx_user_right"="User permission";
+"select_user_right"="Select user permissions";
+//修改定时
+"tx_action_time"="Time";
+"tx_repeat"="Repeat";
+"tx_execute"="Execute";
+"tx_del_agenda"="Delete scheduler";
+"tx_change_scheduler"="Change schedule";
+"tx_change_leaving"="Change the leaving home mode";
+
+
+"air_device"="Air conditioner";
+"curtain_device"="Curtain";
+"switch_device"="Switch";
+"outlet_device"="Outlet";
+"light_device"="Light";
+"dimmer_device"="Dimmer";
+"rgb_device"="RBGW";
+
+
+
+
+"tx_countdown_timing"="Countdown";
+"tx_countdown_will"="will";
+"tx_countdown_start"="Start";
+"tx_countdown_setting_failed"="Countdown setting failed.";
+"tx_countdown_cancel_failed"="Countdown cancellation failed";

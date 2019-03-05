@@ -12,7 +12,8 @@
 //#define kItemTitleColor ([UIColor colorWithWhite:80.0 / 255.0 alpha:1.0])
 ///// 标题高亮颜色
 //#define kItemTitleHighlightedColor ([UIColor colorWithRed:205/255.0 green:50/255.0 blue:50/255.0 alpha:1.0])
-
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 /// 标题默认颜色
 #define kItemTitleColor ([UIColor whiteColor])
 /// 标题高亮颜色

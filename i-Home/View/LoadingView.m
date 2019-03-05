@@ -10,7 +10,7 @@
 #import "UIColor+YTExtension.h"
 #import "CommonTools.h"
 #import "UIView+SDAutoLayout.h"
-
+#import "MyFileHeader.h"
 @interface LoadingView ()
 @property (nonatomic, strong) UIImageView *backgroundImageView;
 

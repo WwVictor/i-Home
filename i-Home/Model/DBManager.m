@@ -60,35 +60,35 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
     
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
         //创建user表
-        NSString *createUserTable = @"create table if not exists users(user_name varchar(48),user_id varchar(48),user_password varchar(48),defalut_login varchar(16),PRIMARY KEY(user_id))";
+        NSString *createUserTable = @"create table if not exists users(user_name varchar(48),user_id varchar(48),ltid varchar(48),PRIMARY KEY(user_id))";
         //创建home表
-        NSString *createHomeTable = @"create table if not exists homes(user_id varchar(48),home_id varchar(48),home_name varchar(48),last_update_bs_setting varchar(48),app_zone_setting_last_update varchar(48),app_scene_setting_last_update varchar(48),app_ipcam_setting_last_update varchar(48),app_automatic_setting_last_update varchar(48),user_right varchar(48),is_default_home varchar(48),PRIMARY KEY(user_id,home_id))";
+        NSString *createHomeTable = @"create table if not exists homes(user_id varchar(48),home_id varchar(48),home_name varchar(48),user_right varchar(48),is_default_home varchar(48),PRIMARY KEY(user_id,home_id))";
         // 创建room表
-        NSString *createRoomTable = @"create table if not exists rooms(user_id varchar(48),home_id varchar(48),room_id varchar(48),room_name varchar(48),icon_order varchar(48),icon_path varchar(48),is_icon_image varchar(48),last_update varchar(48),rgb_color varchar(48),is_default_room varchar(48),PRIMARY KEY (user_id,room_id,home_id))";
+        NSString *createRoomTable = @"create table if not exists rooms(user_id varchar(48),home_id varchar(48),room_id varchar(48),room_name varchar(48),icon_order varchar(48),icon_path varchar(48),is_default_room varchar(48),PRIMARY KEY (user_id,room_id,home_id))";
         // 创建scene表
-        NSString *createSceneTable = @"create table if not exists scenes(user_id varchar(48),scene_id varchar(48),room_id varchar(48),home_id varchar(48),icon_order varchar(48),icon_path varchar(48),is_icon_image varchar(48),last_update varchar(48),scene_name varchar(48),rgb_color varchar(48),PRIMARY KEY (user_id,scene_id,room_id,home_id))";
+        NSString *createSceneTable = @"create table if not exists scenes(user_id varchar(48),scene_id varchar(48),room_id varchar(48),home_id varchar(48),icon_order varchar(48),icon_path varchar(48),scene_name varchar(48),PRIMARY KEY (user_id,scene_id,room_id,home_id))";
         // 创建room device表
-        NSString *createRoomDeviceTable = @"create table if not exists roomdevices(user_id varchar(48),device_id varchar(48),ep varchar(8),hw_version varchar(48),icon_order varchar(48),icon_path varchar(48),is_icon_image varchar(48),last_update varchar(48),longtoo_id varchar(48),mac_addr varchar(48),manufacturer varchar(48),model varchar(48),name varchar(48),rgb_color varchar(48),room_id varchar(48),serial_type varchar(48),sw_version varchar(48),type varchar(48),home_id varchar(48),ip_addr varchar(48),PRIMARY KEY (user_id,device_id,room_id,home_id))";
+        NSString *createRoomDeviceTable = @"create table if not exists roomdevices(user_id varchar(48),dev_id varchar(48),ep varchar(8),hw_ver varchar(48),icon_order varchar(48),icon_path varchar(48),longtooth_id varchar(48),dev_mac varchar(48),manufacturer varchar(48),model varchar(48),name varchar(48),room_id varchar(48),serial_type varchar(48),sw_ver varchar(48),type varchar(48),home_id varchar(48),PRIMARY KEY (user_id,dev_id,room_id,home_id))";
         // 创建scene device表
-        NSString *createSceneDeviceTable = @"create table if not exists scenedevices(user_id varchar(48),device_id varchar(48),room_id varchar(48),ep varchar(8),hw_version varchar(48),icon_order varchar(48),icon_path varchar(48),is_icon_image varchar(48),last_update varchar(48),longtoo_id varchar(48),mac_addr varchar(48),manufacturer varchar(48),model varchar(48),name varchar(48),rgb_color varchar(48),scene_id varchar(48),serial_type varchar(48),sw_version varchar(48),type varchar(48),home_id varchar(48),ip_addr varchar(48),PRIMARY KEY (user_id,device_id,scene_id,room_id,home_id))";
+        NSString *createSceneDeviceTable = @"create table if not exists scenedevices(user_id varchar(48),dev_id varchar(48),room_id varchar(48),ep varchar(8),hw_ver varchar(48),icon_order varchar(48),icon_path varchar(48),longtooth_id varchar(48),dev_mac varchar(48),manufacturer varchar(48),model varchar(48),name varchar(48),scene_id varchar(48),serial_type varchar(48),sw_ver varchar(48),type varchar(48),home_id varchar(48),PRIMARY KEY (user_id,dev_id,scene_id,room_id,home_id))";
 
         //创建调光设备表
-        NSString *createDimmerTable = [NSString stringWithFormat:@"create table if not exists %@(device_id varchar(48),longtoo_id varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,brightness int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,longtoo_id))",DimmerTabel];
+        NSString *createDimmerTable = [NSString stringWithFormat:@"create table if not exists %@(dev_id varchar(48),ltid varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,bri int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,ltid))",DimmerTabel];
         //创建调光调色温设备表
-        NSString *createBtempTable = [NSString stringWithFormat:@"create table if not exists %@(device_id varchar(48),longtoo_id varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,brightness int,saturation int,hue int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,longtoo_id))",BrightTempTabel];
+        NSString *createBtempTable = [NSString stringWithFormat:@"create table if not exists %@(dev_id varchar(48),ltid varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,bri int,sat int,hue int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,ltid))",BrightTempTabel];
         ///创建调光调rgb设备表
-        NSString *createBRGBTable = [NSString stringWithFormat:@"create table if not exists %@(device_id varchar(48),longtoo_id varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,brightness int,saturation int,hue int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,longtoo_id))",BrightRBGTabel];
+        NSString *createBRGBTable = [NSString stringWithFormat:@"create table if not exists %@(dev_id varchar(48),ltid varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,bri int,sat int,hue int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,ltid))",BrightRBGTabel];
         
         //创建RGB设备表
-        NSString *createRGBTable = [NSString stringWithFormat:@"create table if not exists %@(device_id varchar(48),longtoo_id varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,brightness int,saturation int,hue int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,longtoo_id))",RGBTabel];
+        NSString *createRGBTable = [NSString stringWithFormat:@"create table if not exists %@(dev_id varchar(48),ltid varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,bri int,sat int,hue int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,ltid))",RGBTabel];
         //创建socket设备表
-        NSString *createSocketTable = [NSString stringWithFormat:@"create table if not exists %@(device_id varchar(48),longtoo_id varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,plugged int,engery int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,longtoo_id))",SocketTabel];
+        NSString *createSocketTable = [NSString stringWithFormat:@"create table if not exists %@(dev_id varchar(48),ltid varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,plugged int,engery int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,ltid))",SocketTabel];
         //创建switch设备表
-        NSString *createSwitchTable =[NSString stringWithFormat:@"create table if not exists %@(device_id varchar(48),longtoo_id varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,engery int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,longtoo_id))",SwitchTabel];
+        NSString *createSwitchTable =[NSString stringWithFormat:@"create table if not exists %@(dev_id varchar(48),ltid varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,engery int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,ltid))",SwitchTabel];
         //创建curtain设备表
-        NSString *createCurtainTable = [NSString stringWithFormat:@"create table if not exists %@(device_id varchar(48),longtoo_id varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,longtoo_id))",CurtainTabel];
+        NSString *createCurtainTable = [NSString stringWithFormat:@"create table if not exists %@(dev_id varchar(48),ltid varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,onoff int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,ltid))",CurtainTabel];
         //创建air conditioner设备表
-        NSString *createAirTable = [NSString stringWithFormat:@"create table if not exists %@(device_id varchar(48),longtoo_id varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,setTemp int,fanSpeed int,mode int,currentTemp int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,longtoo_id))",AirCondiTabel];
+        NSString *createAirTable = [NSString stringWithFormat:@"create table if not exists %@(dev_id varchar(48),ltid varchar(48),room_id varchar(48),home_id varchar(48),user_id varchar(48),ep int,set_temp int,speed int,mode int,currentTemp int,type int,serial_type int,offline int,PRIMARY KEY(user_id,home_id,ep,ltid))",AirCondiTabel];
         if ([db executeUpdate:createUserTable]&&[db executeUpdate:createHomeTable]&&[db executeUpdate:createRoomDeviceTable]&&[db executeUpdate:createSceneDeviceTable]&&[db executeUpdate:createRoomTable]&&[db executeUpdate:createSceneTable]&&[db executeUpdate:createDimmerTable]&&[db executeUpdate:createBtempTable]&&[db executeUpdate:createBRGBTable]&&[db executeUpdate:createRGBTable]&&[db executeUpdate:createSocketTable]&&[db executeUpdate:createSwitchTable]&&[db executeUpdate:createCurtainTable]&&[db executeUpdate:createAirTable]) {
             NSLog(@"表创建成功");
         }else{
@@ -105,8 +105,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
     [[DBManager shareManager] deleteUserTableWithWithUserId:model.userID];
     //加队列
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *insertSql = @"insert into users(user_name,user_id,user_password,defalut_login)values (?,?,?,?)";
-        BOOL issuccessed = [db executeUpdate:insertSql,model.userName,model.userID,model.password,model.defalutLogin];
+        NSString *insertSql = @"insert into users(user_name,user_id,ltid)values (?,?,?)";
+        BOOL issuccessed = [db executeUpdate:insertSql,model.userName,model.userID,model.ltid];
         if (issuccessed) {
             NSLog(@"user数据插入成功");
         }else {
@@ -124,8 +124,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         while ([set next]){
             userModel.userName = [set stringForColumn:@"user_name"];
             userModel.userID = [set stringForColumn:@"user_id"];
-            userModel.password = [set stringForColumn:@"user_password"];
-            userModel.defalutLogin = [set stringForColumn:@"defalut_login"];
+            userModel.ltid = [set stringForColumn:@"ltid"];
+//            userModel.defalutLogin = [set stringForColumn:@"defalut_login"];
         }
         [set close];
     }];
@@ -155,8 +155,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             UserMessageModel *userModel = [[UserMessageModel alloc] init];
             userModel.userName = [set stringForColumn:@"user_name"];
             userModel.userID = [set stringForColumn:@"user_id"];
-            userModel.password = [set stringForColumn:@"user_password"];
-            userModel.defalutLogin = [set stringForColumn:@"defalut_login"];
+            userModel.ltid = [set stringForColumn:@"ltid"];
+//            userModel.defalutLogin = [set stringForColumn:@"defalut_login"];
             
             [arr addObject:userModel];
         }
@@ -200,11 +200,11 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)insertHomeTableWithFile:(HomeInformationModel *)model
 {
     //首先删除上一次存的数据
-    [[DBManager shareManager] deleteHomeTableWithWithHomeId:model.id andUserId:model.userID];
+    [[DBManager shareManager] deleteHomeTableWithWithHomeId:model.homeID andUserId:model.userID];
     //加队列
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *insertSql = @"insert into homes(user_id,home_id,home_name,last_update_bs_setting,app_zone_setting_last_update,app_scene_setting_last_update,app_ipcam_setting_last_update,app_automatic_setting_last_update,user_right,is_default_home)values (?,?,?,?,?,?,?,?,?,?)";
-        BOOL issuccessed = [db executeUpdate:insertSql,model.userID,model.id,model.name,model.last_update_bs_setting,model.app_zone_setting_last_update,model.app_scene_setting_last_update,model.app_ipcam_setting_last_update,model.app_automatic_setting_last_update,model.user_right,model.is_defaultHome];
+        NSString *insertSql = @"insert into homes(user_id,home_id,home_name,user_right,is_default_home)values (?,?,?,?,?)";
+        BOOL issuccessed = [db executeUpdate:insertSql,model.userID,model.homeID,model.name,model.user_right,model.is_defaultHome];
         if (issuccessed) {
             NSLog(@"home数据插入成功");
         }else {
@@ -221,15 +221,15 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         FMResultSet *set = [db executeQuery:selectSql,home_id,user_id];
         while ([set next]){
             homeModel.userID = [set stringForColumn:@"user_id"];
-            homeModel.id = [set stringForColumn:@"home_id"];
+            homeModel.homeID = [set stringForColumn:@"home_id"];
             homeModel.name = [set stringForColumn:@"home_name"];
             
-            homeModel.last_update_bs_setting = [set stringForColumn:@"last_update_bs_setting"];
-            homeModel.app_zone_setting_last_update = [set stringForColumn:@"app_zone_setting_last_update"];
-            homeModel.app_scene_setting_last_update = [set stringForColumn:@"app_scene_setting_last_update"];
+//            homeModel.last_update_bs_setting = [set stringForColumn:@"last_update_bs_setting"];
+//            homeModel.app_zone_setting_last_update = [set stringForColumn:@"app_zone_setting_last_update"];
+//            homeModel.app_scene_setting_last_update = [set stringForColumn:@"app_scene_setting_last_update"];
             
-            homeModel.app_ipcam_setting_last_update = [set stringForColumn:@"app_ipcam_setting_last_update"];
-            homeModel.app_automatic_setting_last_update = [set stringForColumn:@"app_automatic_setting_last_update"];
+//            homeModel.app_ipcam_setting_last_update = [set stringForColumn:@"app_ipcam_setting_last_update"];
+//            homeModel.app_automatic_setting_last_update = [set stringForColumn:@"app_automatic_setting_last_update"];
             homeModel.user_right = [set stringForColumn:@"user_right"];
             homeModel.is_defaultHome = [set stringForColumn:@"is_default_home"];
         }
@@ -264,15 +264,15 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         while ([set next]){
             HomeInformationModel *homeModel = [[HomeInformationModel alloc] init];
             homeModel.userID = [set stringForColumn:@"user_id"];
-            homeModel.id = [set stringForColumn:@"home_id"];
+            homeModel.homeID = [set stringForColumn:@"home_id"];
             homeModel.name = [set stringForColumn:@"home_name"];
             
-            homeModel.last_update_bs_setting = [set stringForColumn:@"last_update_bs_setting"];
-            homeModel.app_zone_setting_last_update = [set stringForColumn:@"app_zone_setting_last_update"];
-            homeModel.app_scene_setting_last_update = [set stringForColumn:@"app_scene_setting_last_update"];
+//            homeModel.last_update_bs_setting = [set stringForColumn:@"last_update_bs_setting"];
+//            homeModel.app_zone_setting_last_update = [set stringForColumn:@"app_zone_setting_last_update"];
+//            homeModel.app_scene_setting_last_update = [set stringForColumn:@"app_scene_setting_last_update"];
             
-            homeModel.app_ipcam_setting_last_update = [set stringForColumn:@"app_ipcam_setting_last_update"];
-            homeModel.app_automatic_setting_last_update = [set stringForColumn:@"app_automatic_setting_last_update"];
+//            homeModel.app_ipcam_setting_last_update = [set stringForColumn:@"app_ipcam_setting_last_update"];
+//            homeModel.app_automatic_setting_last_update = [set stringForColumn:@"app_automatic_setting_last_update"];
             homeModel.user_right = [set stringForColumn:@"user_right"];
             homeModel.is_defaultHome = [set stringForColumn:@"is_default_home"];
             [list addObject:homeModel];
@@ -292,15 +292,15 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         while ([set next]){
             HomeInformationModel *homeModel = [[HomeInformationModel alloc] init];
             homeModel.userID = [set stringForColumn:@"user_id"];
-            homeModel.id = [set stringForColumn:@"home_id"];
+            homeModel.homeID = [set stringForColumn:@"home_id"];
             homeModel.name = [set stringForColumn:@"home_name"];
             
-            homeModel.last_update_bs_setting = [set stringForColumn:@"last_update_bs_setting"];
-            homeModel.app_zone_setting_last_update = [set stringForColumn:@"app_zone_setting_last_update"];
-            homeModel.app_scene_setting_last_update = [set stringForColumn:@"app_scene_setting_last_update"];
-            
-            homeModel.app_ipcam_setting_last_update = [set stringForColumn:@"app_ipcam_setting_last_update"];
-            homeModel.app_automatic_setting_last_update = [set stringForColumn:@"app_automatic_setting_last_update"];
+//            homeModel.last_update_bs_setting = [set stringForColumn:@"last_update_bs_setting"];
+//            homeModel.app_zone_setting_last_update = [set stringForColumn:@"app_zone_setting_last_update"];
+//            homeModel.app_scene_setting_last_update = [set stringForColumn:@"app_scene_setting_last_update"];
+//
+//            homeModel.app_ipcam_setting_last_update = [set stringForColumn:@"app_ipcam_setting_last_update"];
+//            homeModel.app_automatic_setting_last_update = [set stringForColumn:@"app_automatic_setting_last_update"];
             homeModel.user_right = [set stringForColumn:@"user_right"];
             homeModel.is_defaultHome = [set stringForColumn:@"is_default_home"];
             [list addObject:homeModel];
@@ -347,8 +347,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
     [[DBManager shareManager] deleteRoomTableWithWithRoomId:model.room_id andHomeId:model.home_id andUserId:model.user_id];
     //加队列
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *insertSql = @"insert into rooms(user_id,home_id,room_id,room_name,icon_order,icon_path,is_icon_image,last_update,rgb_color,is_default_room)values (?,?,?,?,?,?,?,?,?,?)";
-        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.home_id,model.room_id,model.name,model.icon_order,model.icon_path,model.is_icon_image,model.last_update,model.rgb_color,model.is_defaultRoom];
+        NSString *insertSql = @"insert into rooms(user_id,home_id,room_id,room_name,icon_order,icon_path,is_default_room)values (?,?,?,?,?,?,?)";
+        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.home_id,model.room_id,model.name,model.icon_order,model.icon_path,model.is_defaultRoom];
         if (issuccessed) {
             NSLog(@"room数据插入成功");
         }else {
@@ -373,9 +373,9 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             roomModel.icon_order = [set stringForColumn:@"icon_order"];
             roomModel.icon_path = [set stringForColumn:@"icon_path"];
             
-            roomModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            roomModel.last_update = [set stringForColumn:@"last_update"];
-            roomModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            roomModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            roomModel.last_update = [set stringForColumn:@"last_update"];
+//            roomModel.rgb_color = [set stringForColumn:@"rgb_color"];
             roomModel.is_defaultRoom = [set stringForColumn:@"is_default_room"];
             
         }
@@ -401,9 +401,9 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             roomModel.icon_order = [set stringForColumn:@"icon_order"];
             roomModel.icon_path = [set stringForColumn:@"icon_path"];
             
-            roomModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            roomModel.last_update = [set stringForColumn:@"last_update"];
-            roomModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            roomModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            roomModel.last_update = [set stringForColumn:@"last_update"];
+//            roomModel.rgb_color = [set stringForColumn:@"rgb_color"];
             roomModel.is_defaultRoom = [set stringForColumn:@"is_default_room"];
             [arr addObject:roomModel];
         }
@@ -455,9 +455,9 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             roomModel.name = [set stringForColumn:@"room_name"];
             roomModel.icon_order = [set stringForColumn:@"icon_order"];
             roomModel.icon_path = [set stringForColumn:@"icon_path"];
-            roomModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            roomModel.last_update = [set stringForColumn:@"last_update"];
-            roomModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            roomModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            roomModel.last_update = [set stringForColumn:@"last_update"];
+//            roomModel.rgb_color = [set stringForColumn:@"rgb_color"];
             roomModel.is_defaultRoom = [set stringForColumn:@"is_default_room"];
             [list addObject:roomModel];
         }
@@ -541,8 +541,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
     [[DBManager shareManager] deleteSceneTableWithWithRoomId:model.room_id andSceneId:model.scene_id andHomeId:model.home_id andUserId:model.user_id];
     //加队列
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *insertSql = @"insert into scenes(user_id,scene_id,room_id,home_id,icon_order,icon_path,is_icon_image,last_update,scene_name,rgb_color)values (?,?,?,?,?,?,?,?,?,?)";
-        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.scene_id,model.room_id,model.home_id,model.icon_order,model.icon_path,model.is_icon_image,model.last_update,model.name,model.rgb_color];
+        NSString *insertSql = @"insert into scenes(user_id,scene_id,room_id,home_id,icon_order,icon_path,scene_name)values (?,?,?,?,?,?,?)";
+        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.scene_id,model.room_id,model.home_id,model.icon_order,model.icon_path,model.name];
         if (issuccessed) {
             NSLog(@"scene数据插入成功");
         }else {
@@ -565,10 +565,10 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             sceneModel.home_id = [set stringForColumn:@"home_id"];
             sceneModel.icon_order = [set stringForColumn:@"icon_order"];
             sceneModel.icon_path = [set stringForColumn:@"icon_path"];
-            sceneModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            sceneModel.last_update = [set stringForColumn:@"last_update"];
+//            sceneModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            sceneModel.last_update = [set stringForColumn:@"last_update"];
             sceneModel.name = [set stringForColumn:@"scene_name"];
-            sceneModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            sceneModel.rgb_color = [set stringForColumn:@"rgb_color"];
             [arr addObject:sceneModel];
         }
         [set close];
@@ -591,10 +591,10 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             sceneModel.home_id = [set stringForColumn:@"home_id"];
             sceneModel.icon_order = [set stringForColumn:@"icon_order"];
             sceneModel.icon_path = [set stringForColumn:@"icon_path"];
-            sceneModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            sceneModel.last_update = [set stringForColumn:@"last_update"];
+//            sceneModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            sceneModel.last_update = [set stringForColumn:@"last_update"];
             sceneModel.name = [set stringForColumn:@"scene_name"];
-            sceneModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            sceneModel.rgb_color = [set stringForColumn:@"rgb_color"];
             [arr addObject:sceneModel];
         }
         [set close];
@@ -617,10 +617,10 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             sceneModel.home_id = [set stringForColumn:@"home_id"];
             sceneModel.icon_order = [set stringForColumn:@"icon_order"];
             sceneModel.icon_path = [set stringForColumn:@"icon_path"];
-            sceneModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            sceneModel.last_update = [set stringForColumn:@"last_update"];
+//            sceneModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            sceneModel.last_update = [set stringForColumn:@"last_update"];
             sceneModel.name = [set stringForColumn:@"scene_name"];
-            sceneModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            sceneModel.rgb_color = [set stringForColumn:@"rgb_color"];
         }
         [set close];
     }];
@@ -690,10 +690,10 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             sceneModel.home_id = [set stringForColumn:@"home_id"];
             sceneModel.icon_order = [set stringForColumn:@"icon_order"];
             sceneModel.icon_path = [set stringForColumn:@"icon_path"];
-            sceneModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            sceneModel.last_update = [set stringForColumn:@"last_update"];
+//            sceneModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            sceneModel.last_update = [set stringForColumn:@"last_update"];
             sceneModel.name = [set stringForColumn:@"scene_name"];
-            sceneModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            sceneModel.rgb_color = [set stringForColumn:@"rgb_color"];
             [list addObject:sceneModel];
         }
         [set close];
@@ -752,11 +752,11 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)insertRoomDeviceTableWithFile:(DeviceInformationModel *)model
 {
     //首先删除上一次存的数据
-    [[DBManager shareManager] deleteRoomDeviceTableWithWithRoomId:model.room_id andDeviceId:model.device_id andHomeId:model.home_id andUserId:model.user_id];
+    [[DBManager shareManager] deleteRoomDeviceTableWithWithRoomId:model.room_id andDeviceId:model.dev_id andHomeId:model.home_id andUserId:model.user_id];
     //加队列
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *insertSql = @"insert into roomdevices(user_id,device_id,ep,hw_version,icon_order,icon_path,is_icon_image,last_update,longtoo_id,mac_addr,manufacturer,model,name,rgb_color,room_id,serial_type,sw_version,type,home_id,ip_addr)values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.device_id,model.ep,model.hw_version,model.icon_order,model.icon_path,model.is_icon_image,model.last_update,model.longtoo_id,model.mac_addr,model.manufacturer,model.model,model.name,model.rgb_color,model.room_id,model.serial_type,model.sw_version,model.type,model.home_id,model.ip_addr];
+        NSString *insertSql = @"insert into roomdevices(user_id,dev_id,ep,hw_ver,icon_order,icon_path,longtooth_id,dev_mac,manufacturer,model,name,room_id,serial_type,sw_ver,type,home_id)values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.dev_id,model.ep,model.hw_ver,model.icon_order,model.icon_path,model.longtooth_id,model.dev_mac,model.manufacturer,model.model,model.name,model.room_id,model.serial_type,model.sw_ver,model.type,model.home_id];
         if (issuccessed) {
 //            [self insertDeviceTableWithFile:model.statusModel withTable:[self selectInsertTableWithDeviceType:model.type]];
             NSLog(@"room_device数据插入成功");
@@ -791,31 +791,31 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     __block DeviceInformationModel *deviceModel = [[DeviceInformationModel alloc] init];
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
-        NSString *selectSql = @"select * from roomdevices where device_id = ? and room_id = ? and home_id = ? and user_id = ?";
+        NSString *selectSql = @"select * from roomdevices where dev_id = ? and room_id = ? and home_id = ? and user_id = ?";
         FMResultSet *set = [db executeQuery:selectSql,device_id,room_id,home_id,user_id];
         while ([set next]){
             
             deviceModel.user_id = [set stringForColumn:@"user_id"];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.ep = [set stringForColumn:@"ep"];
-            deviceModel.hw_version = [set stringForColumn:@"hw_version"];
+            deviceModel.hw_ver = [set stringForColumn:@"hw_ver"];
             deviceModel.icon_order = [set stringForColumn:@"icon_order"];
             deviceModel.icon_path = [set stringForColumn:@"icon_path"];
-            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            deviceModel.last_update = [set stringForColumn:@"last_update"];
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
+//            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            deviceModel.last_update = [set stringForColumn:@"last_update"];
+            deviceModel.longtooth_id = [set stringForColumn:@"longtooth_id"];
             
-            deviceModel.mac_addr = [set stringForColumn:@"mac_addr"];
+            deviceModel.dev_mac = [set stringForColumn:@"dev_mac"];
             deviceModel.manufacturer = [set stringForColumn:@"manufacturer"];
             deviceModel.model = [set stringForColumn:@"model"];
             deviceModel.name = [set stringForColumn:@"name"];
-            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.serial_type = [set stringForColumn:@"serial_type"];
-            deviceModel.sw_version = [set stringForColumn:@"sw_version"];
+            deviceModel.sw_ver = [set stringForColumn:@"sw_ver"];
             deviceModel.type = [set stringForColumn:@"type"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
-            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
+//            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
 //            deviceModel.statusModel = [self selectFromDeviceTableWithDeviceId:[set stringForColumn:@"device_id"] withTable:[self selectInsertTableWithDeviceType:[set intForColumn:@"device_type"]]];
         }
         
@@ -835,26 +835,26 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         while ([set next]){
             DeviceInformationModel *deviceModel = [[DeviceInformationModel alloc] init];
             deviceModel.user_id = [set stringForColumn:@"user_id"];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.ep = [set stringForColumn:@"ep"];
-            deviceModel.hw_version = [set stringForColumn:@"hw_version"];
+            deviceModel.hw_ver = [set stringForColumn:@"hw_ver"];
             deviceModel.icon_order = [set stringForColumn:@"icon_order"];
             deviceModel.icon_path = [set stringForColumn:@"icon_path"];
-            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            deviceModel.last_update = [set stringForColumn:@"last_update"];
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
+//            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            deviceModel.last_update = [set stringForColumn:@"last_update"];
+            deviceModel.longtooth_id = [set stringForColumn:@"longtooth_id"];
             
-            deviceModel.mac_addr = [set stringForColumn:@"mac_addr"];
+            deviceModel.dev_mac = [set stringForColumn:@"dev_mac"];
             deviceModel.manufacturer = [set stringForColumn:@"manufacturer"];
             deviceModel.model = [set stringForColumn:@"model"];
             deviceModel.name = [set stringForColumn:@"name"];
-            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.serial_type = [set stringForColumn:@"serial_type"];
-            deviceModel.sw_version = [set stringForColumn:@"sw_version"];
+            deviceModel.sw_ver = [set stringForColumn:@"sw_ver"];
             deviceModel.type = [set stringForColumn:@"type"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
-            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
+//            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
 //            deviceModel.statusModel = [self selectFromDeviceTableWithDeviceId:[set stringForColumn:@"device_id"] withTable:[self selectInsertTableWithDeviceType:[set intForColumn:@"device_type"]]];
             
             [arr addObject:deviceModel];
@@ -891,7 +891,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 //            deviceModel.modelName = [set stringForColumn:@"model_name"];
 //            deviceModel.sceneId = [set stringForColumn:@"scene_id"];
 //            deviceModel.homeId = [set stringForColumn:@"home_id"];
-//            deviceModel.ltId = [set stringForColumn:@"lt_id"];
+//            deviceModel.ltId = [set stringForColumn:@"ltid"];
 //            [arr addObject:deviceModel];
 //        }
 //
@@ -911,26 +911,26 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         while ([set next]){
             DeviceInformationModel *deviceModel = [[DeviceInformationModel alloc] init];
             deviceModel.user_id = [set stringForColumn:@"user_id"];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.ep = [set stringForColumn:@"ep"];
-            deviceModel.hw_version = [set stringForColumn:@"hw_version"];
+            deviceModel.hw_ver = [set stringForColumn:@"hw_ver"];
             deviceModel.icon_order = [set stringForColumn:@"icon_order"];
             deviceModel.icon_path = [set stringForColumn:@"icon_path"];
-            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            deviceModel.last_update = [set stringForColumn:@"last_update"];
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
+//            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            deviceModel.last_update = [set stringForColumn:@"last_update"];
+            deviceModel.longtooth_id = [set stringForColumn:@"longtooth_id"];
             
-            deviceModel.mac_addr = [set stringForColumn:@"mac_addr"];
+            deviceModel.dev_mac = [set stringForColumn:@"dev_mac"];
             deviceModel.manufacturer = [set stringForColumn:@"manufacturer"];
             deviceModel.model = [set stringForColumn:@"model"];
             deviceModel.name = [set stringForColumn:@"name"];
-            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.serial_type = [set stringForColumn:@"serial_type"];
-            deviceModel.sw_version = [set stringForColumn:@"sw_version"];
+            deviceModel.sw_ver = [set stringForColumn:@"sw_ver"];
             deviceModel.type = [set stringForColumn:@"type"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
-            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
+//            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
 //            deviceModel.statusModel = [self selectFromDeviceTableWithDeviceId:[set stringForColumn:@"device_id"] withTable:[self selectInsertTableWithDeviceType:[set intForColumn:@"device_type"]]];
             
             [arr addObject:deviceModel];
@@ -963,8 +963,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
         
-        NSString *deleteSql = @"delete from roomdevices where device_id = ?";
-        BOOL ret = [db executeUpdate:deleteSql,model.device_id];
+        NSString *deleteSql = @"delete from roomdevices where dev_id = ?";
+        BOOL ret = [db executeUpdate:deleteSql,model.dev_id];
         
         if (!ret) {
             NSLog(@"设备device_id数据删除失败%@",db.lastErrorMessage);
@@ -997,7 +997,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
         
-        NSString *deleteSql = @"delete from roomdevices where room_id = ? and device_id = ? and home_id = ? and user_id = ?";
+        NSString *deleteSql = @"delete from roomdevices where room_id = ? and dev_id = ? and home_id = ? and user_id = ?";
         BOOL ret = [db executeUpdate:deleteSql,room_id,device_id,home_id,user_id];
         
         if (!ret) {
@@ -1035,26 +1035,26 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         while ([set next]){
             DeviceInformationModel *deviceModel = [[DeviceInformationModel alloc] init];
             deviceModel.user_id = [set stringForColumn:@"user_id"];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.ep = [set stringForColumn:@"ep"];
-            deviceModel.hw_version = [set stringForColumn:@"hw_version"];
+            deviceModel.hw_ver = [set stringForColumn:@"hw_ver"];
             deviceModel.icon_order = [set stringForColumn:@"icon_order"];
             deviceModel.icon_path = [set stringForColumn:@"icon_path"];
-            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            deviceModel.last_update = [set stringForColumn:@"last_update"];
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
+//            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            deviceModel.last_update = [set stringForColumn:@"last_update"];
+            deviceModel.longtooth_id = [set stringForColumn:@"longtooth_id"];
             
-            deviceModel.mac_addr = [set stringForColumn:@"mac_addr"];
+            deviceModel.dev_mac = [set stringForColumn:@"dev_mac"];
             deviceModel.manufacturer = [set stringForColumn:@"manufacturer"];
             deviceModel.model = [set stringForColumn:@"model"];
             deviceModel.name = [set stringForColumn:@"name"];
-            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.serial_type = [set stringForColumn:@"serial_type"];
-            deviceModel.sw_version = [set stringForColumn:@"sw_version"];
+            deviceModel.sw_ver = [set stringForColumn:@"sw_ver"];
             deviceModel.type = [set stringForColumn:@"type"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
-            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
+//            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
 //            deviceModel.statusModel = [self selectFromDeviceTableWithDeviceId:[set stringForColumn:@"device_id"] withTable:[self selectInsertTableWithDeviceType:[set intForColumn:@"device_type"]]];
             [list addObject:deviceModel];
         }
@@ -1067,7 +1067,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateRoomDeviceTableWithDeviceName:(NSString *)deviceName byDeviceId:(NSString *)device_id byRoomId:(NSString *)room_id byHomeId:(NSString *)home_id byUserId:(NSString *)user_id
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update roomdevices set name = '%@' where device_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",deviceName,device_id,room_id,home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update roomdevices set name = '%@' where dev_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",deviceName,device_id,room_id,home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"device_name修改失败");
@@ -1080,7 +1080,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateRoomDeviceTableWithDeviceOrder:(int)deviceOrder byDeviceId:(NSString *)device_id byRoomId:(NSString *)room_id byHomeId:(NSString *)home_id byUserId:(NSString *)user_id
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update roomdevices set device_order = '%d' where device_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",deviceOrder,device_id,room_id,home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update roomdevices set device_order = '%d' where dev_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",deviceOrder,device_id,room_id,home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"device_order修改失败");
@@ -1093,7 +1093,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateRoomDeviceTableWithRoomid:(NSString *)roomid byDeviceId:(NSString *)device_id byHomeId:(NSString *)home_id byUserId:(NSString *)user_id
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update roomdevices set room_id = '%@' where device_id = '%@' and home_id = '%@' and user_id = '%@'",roomid,device_id,home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update roomdevices set room_id = '%@' where dev_id = '%@' and home_id = '%@' and user_id = '%@'",roomid,device_id,home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"room_id修改失败");
@@ -1106,7 +1106,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateRoomDeviceTableWithIpAddr:(NSString *)ip_addr byDeviceId:(NSString *)device_id byRoomId:(NSString *)room_id byHomeId:(NSString *)home_id byUserId:(NSString *)user_id
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update roomdevices set ip_addr = '%@' where device_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",ip_addr,device_id,room_id,home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update roomdevices set ip_addr = '%@' where dev_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",ip_addr,device_id,room_id,home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"ip_addr修改失败");
@@ -1120,7 +1120,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateRoomDeviceTableWithSwVersion:(NSString *)sw_version byDeviceId:(NSString *)device_id byRoomId:(NSString *)room_id byHomeId:(NSString *)home_id byUserId:(NSString *)user_id
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update roomdevices set sw_version = '%@' where device_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",sw_version,device_id,room_id,home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update roomdevices set sw_ver = '%@' where dev_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",sw_version,device_id,room_id,home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"sw_version修改失败");
@@ -1137,12 +1137,12 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)insertSceneDeviceTableWithFile:(DeviceInformationModel *)model
 {
     //首先删除上一次存的数据
-    [[DBManager shareManager] deleteSceneDeviceTableWithWithSceneId:model.scene_id andDeviceId:model.device_id andRoomId:model.room_id andHomeId:model.home_id andUserId:model.user_id];
+    [[DBManager shareManager] deleteSceneDeviceTableWithWithSceneId:model.scene_id andDeviceId:model.dev_id andRoomId:model.room_id andHomeId:model.home_id andUserId:model.user_id];
     //加队列
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
         
-        NSString *insertSql = @"insert into scenedevices(user_id,device_id,room_id,ep,hw_version,icon_order,icon_path,is_icon_image,last_update,longtoo_id,mac_addr,manufacturer,model,name,rgb_color,scene_id,serial_type,sw_version,type,home_id,ip_addr)values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.device_id,model.room_id,model.ep,model.hw_version,model.icon_order,model.icon_path,model.is_icon_image,model.last_update,model.longtoo_id,model.mac_addr,model.manufacturer,model.model,model.name,model.rgb_color,model.scene_id,model.serial_type,model.sw_version,model.type,model.home_id,model.ip_addr];
+        NSString *insertSql = @"insert into scenedevices(user_id,dev_id,room_id,ep,hw_ver,icon_order,icon_path,longtooth_id,dev_mac,manufacturer,model,name,scene_id,serial_type,sw_ver,type,home_id)values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.dev_id,model.room_id,model.ep,model.hw_ver,model.icon_order,model.icon_path,model.longtooth_id,model.dev_mac,model.manufacturer,model.model,model.name,model.scene_id,model.serial_type,model.sw_ver,model.type,model.home_id];
         if (issuccessed) {
 //             [self insertDeviceTableWithFile:model.statusModel withTable:[self selectInsertTableWithDeviceType:model.deviceType]];
             NSLog(@"scene_device数据插入成功");
@@ -1157,31 +1157,31 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     __block DeviceInformationModel *deviceModel = [[DeviceInformationModel alloc] init];
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
-        NSString *selectSql = @"select * from scenedevices where device_id = ? and scene_id = ? and room_id = ? and home_id = ? and user_id = ?";
+        NSString *selectSql = @"select * from scenedevices where dev_id = ? and scene_id = ? and room_id = ? and home_id = ? and user_id = ?";
         FMResultSet *set = [db executeQuery:selectSql,device_id,scene_id,room_id,home_id,user_id];
         while ([set next]){
             deviceModel.user_id = [set stringForColumn:@"user_id"];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.ep = [set stringForColumn:@"ep"];
-            deviceModel.hw_version = [set stringForColumn:@"hw_version"];
+            deviceModel.hw_ver = [set stringForColumn:@"hw_ver"];
             deviceModel.icon_order = [set stringForColumn:@"icon_order"];
             deviceModel.icon_path = [set stringForColumn:@"icon_path"];
-            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            deviceModel.last_update = [set stringForColumn:@"last_update"];
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
+//            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            deviceModel.last_update = [set stringForColumn:@"last_update"];
+            deviceModel.longtooth_id = [set stringForColumn:@"longtooth_id"];
             
-            deviceModel.mac_addr = [set stringForColumn:@"mac_addr"];
+            deviceModel.dev_mac = [set stringForColumn:@"dev_mac"];
             deviceModel.manufacturer = [set stringForColumn:@"manufacturer"];
             deviceModel.model = [set stringForColumn:@"model"];
             deviceModel.name = [set stringForColumn:@"name"];
-            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
             deviceModel.scene_id = [set stringForColumn:@"scene_id"];
             deviceModel.serial_type = [set stringForColumn:@"serial_type"];
-            deviceModel.sw_version = [set stringForColumn:@"sw_version"];
+            deviceModel.sw_ver = [set stringForColumn:@"sw_ver"];
             deviceModel.type = [set stringForColumn:@"type"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
-            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
+//            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
 //            deviceModel.statusModel = [self selectFromDeviceTableWithDeviceId:[set stringForColumn:@"device_id"] withTable:[self selectInsertTableWithDeviceType:[set intForColumn:@"device_type"]]];
         }
         
@@ -1201,27 +1201,27 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         while ([set next]){
             DeviceInformationModel *deviceModel = [[DeviceInformationModel alloc] init];
             deviceModel.user_id = [set stringForColumn:@"user_id"];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.ep = [set stringForColumn:@"ep"];
-            deviceModel.hw_version = [set stringForColumn:@"hw_version"];
+            deviceModel.hw_ver = [set stringForColumn:@"hw_ver"];
             deviceModel.icon_order = [set stringForColumn:@"icon_order"];
             deviceModel.icon_path = [set stringForColumn:@"icon_path"];
-            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            deviceModel.last_update = [set stringForColumn:@"last_update"];
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
+//            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            deviceModel.last_update = [set stringForColumn:@"last_update"];
+            deviceModel.longtooth_id = [set stringForColumn:@"longtooth_id"];
             
-            deviceModel.mac_addr = [set stringForColumn:@"mac_addr"];
+            deviceModel.dev_mac = [set stringForColumn:@"dev_mac"];
             deviceModel.manufacturer = [set stringForColumn:@"manufacturer"];
             deviceModel.model = [set stringForColumn:@"model"];
             deviceModel.name = [set stringForColumn:@"name"];
-            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
             deviceModel.scene_id = [set stringForColumn:@"scene_id"];
             deviceModel.serial_type = [set stringForColumn:@"serial_type"];
-            deviceModel.sw_version = [set stringForColumn:@"sw_version"];
+            deviceModel.sw_ver = [set stringForColumn:@"sw_ver"];
             deviceModel.type = [set stringForColumn:@"type"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
-            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
+//            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
 //            deviceModel.statusModel = [self selectFromDeviceTableWithDeviceId:[set stringForColumn:@"device_id"] withTable:[self selectInsertTableWithDeviceType:[set intForColumn:@"device_type"]]];
             [arr addObject:deviceModel];
         }
@@ -1242,27 +1242,27 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         while ([set next]){
             DeviceInformationModel *deviceModel = [[DeviceInformationModel alloc] init];
             deviceModel.user_id = [set stringForColumn:@"user_id"];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.ep = [set stringForColumn:@"ep"];
-            deviceModel.hw_version = [set stringForColumn:@"hw_version"];
+            deviceModel.hw_ver = [set stringForColumn:@"hw_ver"];
             deviceModel.icon_order = [set stringForColumn:@"icon_order"];
             deviceModel.icon_path = [set stringForColumn:@"icon_path"];
-            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            deviceModel.last_update = [set stringForColumn:@"last_update"];
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
+//            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            deviceModel.last_update = [set stringForColumn:@"last_update"];
+            deviceModel.longtooth_id = [set stringForColumn:@"longtooth_id"];
             
-            deviceModel.mac_addr = [set stringForColumn:@"mac_addr"];
+            deviceModel.dev_mac = [set stringForColumn:@"dev_mac"];
             deviceModel.manufacturer = [set stringForColumn:@"manufacturer"];
             deviceModel.model = [set stringForColumn:@"model"];
             deviceModel.name = [set stringForColumn:@"name"];
-            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
             deviceModel.scene_id = [set stringForColumn:@"scene_id"];
             deviceModel.serial_type = [set stringForColumn:@"serial_type"];
-            deviceModel.sw_version = [set stringForColumn:@"sw_version"];
+            deviceModel.sw_ver = [set stringForColumn:@"sw_ver"];
             deviceModel.type = [set stringForColumn:@"type"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
-            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
+//            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
 //            deviceModel.statusModel = [self selectFromDeviceTableWithDeviceId:[set stringForColumn:@"device_id"] withTable:[self selectInsertTableWithDeviceType:[set intForColumn:@"device_type"]]];
             [arr addObject:deviceModel];
         }
@@ -1283,27 +1283,27 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             while ([set next]){
                 DeviceInformationModel *deviceModel = [[DeviceInformationModel alloc] init];
                 deviceModel.user_id = [set stringForColumn:@"user_id"];
-                deviceModel.device_id = [set stringForColumn:@"device_id"];
+                deviceModel.dev_id = [set stringForColumn:@"dev_id"];
                 deviceModel.room_id = [set stringForColumn:@"room_id"];
                 deviceModel.ep = [set stringForColumn:@"ep"];
-                deviceModel.hw_version = [set stringForColumn:@"hw_version"];
+                deviceModel.hw_ver = [set stringForColumn:@"hw_ver"];
                 deviceModel.icon_order = [set stringForColumn:@"icon_order"];
                 deviceModel.icon_path = [set stringForColumn:@"icon_path"];
-                deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-                deviceModel.last_update = [set stringForColumn:@"last_update"];
-                deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
+//                deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//                deviceModel.last_update = [set stringForColumn:@"last_update"];
+                deviceModel.longtooth_id = [set stringForColumn:@"longtooth_id"];
                 
-                deviceModel.mac_addr = [set stringForColumn:@"mac_addr"];
+                deviceModel.dev_mac = [set stringForColumn:@"dev_mac"];
                 deviceModel.manufacturer = [set stringForColumn:@"manufacturer"];
                 deviceModel.model = [set stringForColumn:@"model"];
                 deviceModel.name = [set stringForColumn:@"name"];
-                deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//                deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
                 deviceModel.scene_id = [set stringForColumn:@"scene_id"];
                 deviceModel.serial_type = [set stringForColumn:@"serial_type"];
-                deviceModel.sw_version = [set stringForColumn:@"sw_version"];
+                deviceModel.sw_ver = [set stringForColumn:@"sw_ver"];
                 deviceModel.type = [set stringForColumn:@"type"];
                 deviceModel.home_id = [set stringForColumn:@"home_id"];
-                deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
+//                deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
 //                deviceModel.statusModel = [self selectFromDeviceTableWithDeviceId:[set stringForColumn:@"device_id"] withTable:[self selectInsertTableWithDeviceType:[set intForColumn:@"device_type"]]];
                 
                 [arr addObject:deviceModel];
@@ -1320,8 +1320,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
         
-        NSString *deleteSql = @"delete from scenedevices where device_id = ?";
-        BOOL ret = [db executeUpdate:deleteSql,model.device_id];
+        NSString *deleteSql = @"delete from scenedevices where dev_id = ?";
+        BOOL ret = [db executeUpdate:deleteSql,model.dev_id];
         
         if (!ret) {
             NSLog(@"scenedevice_ home_id数据删除失败%@",db.lastErrorMessage);
@@ -1353,7 +1353,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
         
-        NSString *deleteSql = @"delete from scenedevices where scene_id = ? and device_id = ? and room_id = ? and home_id = ? and user_id = ?";
+        NSString *deleteSql = @"delete from scenedevices where scene_id = ? and dev_id = ? and room_id = ? and home_id = ? and user_id = ?";
         BOOL ret = [db executeUpdate:deleteSql,scene_id,device_id,room_id,home_id,user_id];
         
         if (!ret) {
@@ -1369,7 +1369,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
         
-        NSString *deleteSql = @"delete from scenedevices where device_id = ? and room_id = ? and home_id = ? and user_id = ?";
+        NSString *deleteSql = @"delete from scenedevices where dev_id = ? and room_id = ? and home_id = ? and user_id = ?";
         BOOL ret = [db executeUpdate:deleteSql,device_id,room_id,home_id,user_id];
         
         if (!ret) {
@@ -1421,28 +1421,28 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         FMResultSet *set = [db executeQuery:selectSql];
         while ([set next]){
             DeviceInformationModel *deviceModel = [[DeviceInformationModel alloc] init];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.user_id = [set stringForColumn:@"user_id"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.ep = [set stringForColumn:@"ep"];
-            deviceModel.hw_version = [set stringForColumn:@"hw_version"];
+            deviceModel.hw_ver = [set stringForColumn:@"hw_ver"];
             deviceModel.icon_order = [set stringForColumn:@"icon_order"];
             deviceModel.icon_path = [set stringForColumn:@"icon_path"];
-            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
-            deviceModel.last_update = [set stringForColumn:@"last_update"];
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
+//            deviceModel.is_icon_image = [set stringForColumn:@"is_icon_image"];
+//            deviceModel.last_update = [set stringForColumn:@"last_update"];
+            deviceModel.longtooth_id = [set stringForColumn:@"longtooth_id"];
             
-            deviceModel.mac_addr = [set stringForColumn:@"mac_addr"];
+            deviceModel.dev_mac = [set stringForColumn:@"dev_mac"];
             deviceModel.manufacturer = [set stringForColumn:@"manufacturer"];
             deviceModel.model = [set stringForColumn:@"model"];
             deviceModel.name = [set stringForColumn:@"name"];
-            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
+//            deviceModel.rgb_color = [set stringForColumn:@"rgb_color"];
             deviceModel.scene_id = [set stringForColumn:@"scene_id"];
             deviceModel.serial_type = [set stringForColumn:@"serial_type"];
-            deviceModel.sw_version = [set stringForColumn:@"sw_version"];
+            deviceModel.sw_ver = [set stringForColumn:@"sw_ver"];
             deviceModel.type = [set stringForColumn:@"type"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
-            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
+//            deviceModel.ip_addr = [set stringForColumn:@"ip_addr"];
 //            deviceModel.statusModel = [self selectFromDeviceTableWithDeviceId:[set stringForColumn:@"device_id"] withTable:[self selectInsertTableWithDeviceType:[set intForColumn:@"device_type"]]];
             [list addObject:deviceModel];
         }
@@ -1454,7 +1454,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateSceneDeviceTableWithDeviceName:(NSString *)deviceName byDeviceId:(NSString *)device_id bySceneid:(NSString *)scene_id byRoomId:(NSString *)room_id byHomeId:(NSString *)home_id byUserId:(NSString *)user_id
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update scenedevices set device_name = '%@' where device_id = '%@' and scene_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",deviceName,device_id,scene_id,room_id,home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update scenedevices set device_name = '%@' where dev_id = '%@' and scene_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",deviceName,device_id,scene_id,room_id,home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"device_name修改失败");
@@ -1467,7 +1467,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateSceneDeviceTableWithDeviceOrder:(int)deviceOrder byDeviceId:(NSString *)device_id bySceneid:(NSString *)scene_id byRoomId:(NSString *)room_id byHomeId:(NSString *)home_id byUserId:(NSString *)user_id
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update scenedevices set device_order = '%d' where device_id = '%@' and scene_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",deviceOrder,device_id,scene_id,room_id,home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update scenedevices set device_order = '%d' where dev_id = '%@' and scene_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",deviceOrder,device_id,scene_id,room_id,home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"device_order修改失败");
@@ -1480,7 +1480,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateSceneDeviceTableWithSceneid:(NSString *)sceneid byDeviceId:(NSString *)device_id bySceneid:(NSString *)scene_id byRoomId:(NSString *)room_id byHomeId:(NSString *)home_id byUserId:(NSString *)user_id
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update scenedevices set room_id = '%@' where device_id = '%@' and scene_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",scene_id,device_id,scene_id,room_id,home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update scenedevices set room_id = '%@' where dev_id = '%@' and scene_id = '%@' and room_id = '%@' and home_id = '%@' and user_id = '%@'",scene_id,device_id,scene_id,room_id,home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"room_id修改失败");
@@ -1495,28 +1495,28 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 -(void)insertDeviceTableWithFile:(DeviceStatusModel *)model withTable:(NSString *)table
 {
     //首先删除上一次存的数据
-    [[DBManager shareManager] deleteDeviceTableWithWithLongtooId:model.longtoo_id andEp:model.ep andHomeId:model.home_id andUserId:model.user_id withTable:table];
+    [[DBManager shareManager] deleteDeviceTableWithWithLongtooId:model.ltid andEp:model.ep andHomeId:model.home_id andUserId:model.user_id withTable:table];
     //加队列
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
         NSString *insertSql = [self selectInsertDeviceTable:table];
 //        BOOL issuccessed = [self selectInsertDeviceTable:table withFile:model withDatabase:db];
         BOOL issuccessed = NO;
         if([table isEqualToString:DimmerTabel]){
-            issuccessed = [db executeUpdate:insertSql,model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.brightness],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
+            issuccessed = [db executeUpdate:insertSql,model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.bri],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
         }else if (([table isEqualToString:BrightTempTabel])){
-            issuccessed = [db executeUpdate:insertSql,model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.brightness],[NSNumber numberWithInt:model.saturation],[NSNumber numberWithInt:model.hue],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
+            issuccessed = [db executeUpdate:insertSql,model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.bri],[NSNumber numberWithInt:model.sat],[NSNumber numberWithInt:model.hue],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
         }else if (([table isEqualToString:BrightRBGTabel])){
-            issuccessed = [db executeUpdate:insertSql,model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.brightness],[NSNumber numberWithInt:model.saturation],[NSNumber numberWithInt:model.hue],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
+            issuccessed = [db executeUpdate:insertSql,model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.bri],[NSNumber numberWithInt:model.sat],[NSNumber numberWithInt:model.hue],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
         }else if (([table isEqualToString:RGBTabel])){
-            issuccessed = [db executeUpdate:insertSql,model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.brightness],[NSNumber numberWithInt:model.saturation],[NSNumber numberWithInt:model.hue],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
+            issuccessed = [db executeUpdate:insertSql,model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.bri],[NSNumber numberWithInt:model.sat],[NSNumber numberWithInt:model.hue],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
         }else if (([table isEqualToString:SocketTabel])){
-            issuccessed = [db executeUpdate:insertSql,model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.plugged],[NSNumber numberWithInt:model.engery],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
+            issuccessed = [db executeUpdate:insertSql,model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.plugged],[NSNumber numberWithInt:model.engery],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
         }else if (([table isEqualToString:SwitchTabel])){
-            issuccessed = [db executeUpdate:insertSql,model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.engery],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
+            issuccessed = [db executeUpdate:insertSql,model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.engery],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
         }else if (([table isEqualToString:CurtainTabel])){
-            issuccessed = [db executeUpdate:insertSql,model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
+            issuccessed = [db executeUpdate:insertSql,model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.onoff],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
         }else if (([table isEqualToString:AirCondiTabel])){
-            issuccessed = [db executeUpdate:insertSql,model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.setTemp],[NSNumber numberWithInt:model.fanSpeed],[NSNumber numberWithInt:model.mode],[NSNumber numberWithInt:model.currentTemp],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
+            issuccessed = [db executeUpdate:insertSql,model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,[NSNumber numberWithInt:model.ep],[NSNumber numberWithInt:model.set_temp],[NSNumber numberWithInt:model.speed],[NSNumber numberWithInt:model.mode],[NSNumber numberWithInt:model.currentTemp],[NSNumber numberWithInt:model.type],[NSNumber numberWithInt:model.serial_type],[NSNumber numberWithInt:model.offline]];
         }else{
             
         }
@@ -1532,21 +1532,21 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (BOOL)selectInsertDeviceTable:(NSString *)table withFile:(DeviceStatusModel *)model withDatabase:(FMDatabase *)db
 {
     if([table isEqualToString:DimmerTabel]){
-        return [db executeUpdate:[self selectInsertDeviceTable:table],model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.brightness,model.type,model.serial_type,model.offline];
+        return [db executeUpdate:[self selectInsertDeviceTable:table],model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.bri,model.type,model.serial_type,model.offline];
     }else if (([table isEqualToString:BrightTempTabel])){
-        return [db executeUpdate:[self selectInsertDeviceTable:table],model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.brightness,model.saturation,model.hue,model.type,model.serial_type,model.offline];
+        return [db executeUpdate:[self selectInsertDeviceTable:table],model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.bri,model.sat,model.hue,model.type,model.serial_type,model.offline];
     }else if (([table isEqualToString:BrightRBGTabel])){
-        return [db executeUpdate:[self selectInsertDeviceTable:table],model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.brightness,model.saturation,model.hue,model.type,model.serial_type,model.offline];
+        return [db executeUpdate:[self selectInsertDeviceTable:table],model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.bri,model.sat,model.hue,model.type,model.serial_type,model.offline];
     }else if (([table isEqualToString:RGBTabel])){
-        return [db executeUpdate:[self selectInsertDeviceTable:table],model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.brightness,model.saturation,model.hue,model.type,model.serial_type,model.offline];
+        return [db executeUpdate:[self selectInsertDeviceTable:table],model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.bri,model.sat,model.hue,model.type,model.serial_type,model.offline];
     }else if (([table isEqualToString:SocketTabel])){
-        return [db executeUpdate:[self selectInsertDeviceTable:table],model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.plugged,model.engery,model.type,model.serial_type,model.offline];
+        return [db executeUpdate:[self selectInsertDeviceTable:table],model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.plugged,model.engery,model.type,model.serial_type,model.offline];
     }else if (([table isEqualToString:SwitchTabel])){
-        return [db executeUpdate:[self selectInsertDeviceTable:table],model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.engery,model.type,model.serial_type,model.offline];
+        return [db executeUpdate:[self selectInsertDeviceTable:table],model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.engery,model.type,model.serial_type,model.offline];
     }else if (([table isEqualToString:CurtainTabel])){
-        return [db executeUpdate:[self selectInsertDeviceTable:table],model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.type,model.serial_type,model.offline];
+        return [db executeUpdate:[self selectInsertDeviceTable:table],model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,model.ep,model.onoff,model.type,model.serial_type,model.offline];
     }else if (([table isEqualToString:AirCondiTabel])){
-        return [db executeUpdate:[self selectInsertDeviceTable:table],model.device_id,model.longtoo_id,model.room_id,model.home_id,model.user_id,model.ep,model.setTemp,model.fanSpeed,model.mode,model.currentTemp,model.type,model.serial_type,model.offline];
+        return [db executeUpdate:[self selectInsertDeviceTable:table],model.dev_id,model.ltid,model.room_id,model.home_id,model.user_id,model.ep,model.set_temp,model.speed,model.mode,model.currentTemp,model.type,model.serial_type,model.offline];
     }else{
         return nil;
     }
@@ -1554,21 +1554,21 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (NSString *)selectInsertDeviceTable:(NSString *)table
 {
     if([table isEqualToString:DimmerTabel]){
-        return @"insert into dimmers(device_id,longtoo_id,room_id,home_id,user_id,ep,onoff,brightness,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?)";
+        return @"insert into dimmers(dev_id,ltid,room_id,home_id,user_id,ep,onoff,bri,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?)";
     }else if (([table isEqualToString:BrightTempTabel])){
-        return @"insert into ltbrighttemps(device_id,longtoo_id,room_id,home_id,user_id,ep,onoff,brightness,saturation,hue,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return @"insert into ltbrighttemps(dev_id,ltid,room_id,home_id,user_id,ep,onoff,bri,sat,hue,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }else if (([table isEqualToString:BrightRBGTabel])){
-        return @"insert into ltbrightrgbs(device_id,longtoo_id,room_id,home_id,user_id,ep,onoff,brightness,saturation,hue,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return @"insert into ltbrightrgbs(dev_id,ltid,room_id,home_id,user_id,ep,onoff,bri,sat,hue,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }else if (([table isEqualToString:RGBTabel])){
-        return @"insert into ltrgbs(device_id,longtoo_id,room_id,home_id,user_id,ep,onoff,brightness,saturation,hue,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return @"insert into ltrgbs(dev_id,ltid,room_id,home_id,user_id,ep,onoff,bri,sat,hue,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     }else if (([table isEqualToString:SocketTabel])){
-        return @"insert into ltsockets(device_id,longtoo_id,room_id,home_id,user_id,ep,onoff,plugged,engery,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        return @"insert into ltsockets(dev_id,ltid,room_id,home_id,user_id,ep,onoff,plugged,engery,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?)";
     }else if (([table isEqualToString:SwitchTabel])){
-        return @"insert into ltswitchs(device_id,longtoo_id,room_id,home_id,user_id,ep,onoff,engery,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?)";
+        return @"insert into ltswitchs(dev_id,ltid,room_id,home_id,user_id,ep,onoff,engery,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?)";
     }else if (([table isEqualToString:CurtainTabel])){
-        return @"insert into ltcurtains(device_id,longtoo_id,room_id,home_id,user_id,ep,onoff,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?)";
+        return @"insert into ltcurtains(dev_id,ltid,room_id,home_id,user_id,ep,onoff,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?)";
     }else if (([table isEqualToString:AirCondiTabel])){
-        return @"insert into ltairconditioners(device_id,longtoo_id,room_id,home_id,user_id,ep,setTemp,fanSpeed,mode,currentTemp,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        return @"insert into ltairconditioners(dev_id,ltid,room_id,home_id,user_id,ep,set_temp,speed,mode,currentTemp,type,serial_type,offline)values (?,?,?,?,?,?,?,?,?,?,?,?)";
     }else{
         return nil;
     }
@@ -1579,7 +1579,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
         
-        NSString *deleteSql = [NSString stringWithFormat:@"delete from %@ where longtoo_id = ? and ep = ? and home_id = ? and user_id = ?",table];
+        NSString *deleteSql = [NSString stringWithFormat:@"delete from %@ where ltid = ? and ep = ? and home_id = ? and user_id = ?",table];
         BOOL ret = [db executeUpdate:deleteSql,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         if (!ret) {
             NSLog(@"%@数据删除失败%@",table,db.lastErrorMessage);
@@ -1594,11 +1594,11 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     __block DeviceStatusModel *deviceModel = [[DeviceStatusModel alloc] init];
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db) {
-        NSString *selectSql = [NSString stringWithFormat:@"select * from %@ where longtoo_id = ? and ep = ? and home_id = ? and user_id = ?",table];
+        NSString *selectSql = [NSString stringWithFormat:@"select * from %@ where ltid = ? and ep = ? and home_id = ? and user_id = ?",table];
         FMResultSet *set = [db executeQuery:selectSql,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         while ([set next]){
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.ltid = [set stringForColumn:@"ltid"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
             deviceModel.user_id = [set stringForColumn:@"user_id"];
@@ -1608,21 +1608,21 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             deviceModel.offline = [set intForColumn:@"offline"];
             if([table isEqualToString:DimmerTabel]){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
-                deviceModel.brightness = [set intForColumn:@"brightness"];
+                deviceModel.bri = [set intForColumn:@"bri"];
             }else if (([table isEqualToString:BrightTempTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
-                deviceModel.brightness = [set intForColumn:@"brightness"];
-                deviceModel.saturation = [set intForColumn:@"saturation"];
+                deviceModel.bri = [set intForColumn:@"bri"];
+                deviceModel.sat = [set intForColumn:@"sat"];
                 deviceModel.hue = [set intForColumn:@"hue"];
             }else if (([table isEqualToString:BrightRBGTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
-                deviceModel.brightness = [set intForColumn:@"brightness"];
-                deviceModel.saturation = [set intForColumn:@"saturation"];
+                deviceModel.bri = [set intForColumn:@"bri"];
+                deviceModel.sat = [set intForColumn:@"sat"];
                 deviceModel.hue = [set intForColumn:@"hue"];
             }else if (([table isEqualToString:RGBTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
-                deviceModel.brightness = [set intForColumn:@"brightness"];
-                deviceModel.saturation = [set intForColumn:@"saturation"];
+                deviceModel.bri = [set intForColumn:@"bri"];
+                deviceModel.sat = [set intForColumn:@"sat"];
                 deviceModel.hue = [set intForColumn:@"hue"];
             }else if (([table isEqualToString:SocketTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
@@ -1634,8 +1634,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             }else if (([table isEqualToString:CurtainTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
             }else if (([table isEqualToString:AirCondiTabel])){
-                deviceModel.setTemp = [set intForColumn:@"setTemp"];
-                deviceModel.fanSpeed = [set intForColumn:@"fanSpeed"];
+                deviceModel.set_temp = [set intForColumn:@"set_temp"];
+                deviceModel.speed = [set intForColumn:@"speed"];
                 deviceModel.mode = [set intForColumn:@"mode"];
                 deviceModel.currentTemp = [set intForColumn:@"currentTemp"];
             }
@@ -1653,8 +1653,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         FMResultSet *set = [db executeQuery:selectSql];
         while ([set next]){
             DeviceStatusModel *deviceModel = [[DeviceStatusModel alloc] init];
-            deviceModel.longtoo_id = [set stringForColumn:@"longtoo_id"];
-            deviceModel.device_id = [set stringForColumn:@"device_id"];
+            deviceModel.ltid = [set stringForColumn:@"ltid"];
+            deviceModel.dev_id = [set stringForColumn:@"dev_id"];
             deviceModel.room_id = [set stringForColumn:@"room_id"];
             deviceModel.home_id = [set stringForColumn:@"home_id"];
             deviceModel.user_id = [set stringForColumn:@"user_id"];
@@ -1664,21 +1664,21 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             deviceModel.offline = [set intForColumn:@"offline"];
             if([table isEqualToString:DimmerTabel]){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
-                deviceModel.brightness = [set intForColumn:@"brightness"];
+                deviceModel.bri = [set intForColumn:@"bri"];
             }else if (([table isEqualToString:BrightTempTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
-                deviceModel.brightness = [set intForColumn:@"brightness"];
-                deviceModel.saturation = [set intForColumn:@"saturation"];
+                deviceModel.bri = [set intForColumn:@"bri"];
+                deviceModel.sat = [set intForColumn:@"sat"];
                 deviceModel.hue = [set intForColumn:@"hue"];
             }else if (([table isEqualToString:BrightRBGTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
-                deviceModel.brightness = [set intForColumn:@"brightness"];
-                deviceModel.saturation = [set intForColumn:@"saturation"];
+                deviceModel.bri = [set intForColumn:@"bri"];
+                deviceModel.sat = [set intForColumn:@"sat"];
                 deviceModel.hue = [set intForColumn:@"hue"];
             }else if (([table isEqualToString:RGBTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
-                deviceModel.brightness = [set intForColumn:@"brightness"];
-                deviceModel.saturation = [set intForColumn:@"saturation"];
+                deviceModel.bri = [set intForColumn:@"bri"];
+                deviceModel.sat = [set intForColumn:@"sat"];
                 deviceModel.hue = [set intForColumn:@"hue"];
             }else if (([table isEqualToString:SocketTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
@@ -1690,8 +1690,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
             }else if (([table isEqualToString:CurtainTabel])){
                 deviceModel.onoff = [set intForColumn:@"onoff"];
             }else if(([table isEqualToString:AirCondiTabel])){
-                deviceModel.setTemp = [set intForColumn:@"setTemp"];
-                deviceModel.fanSpeed = [set intForColumn:@"fanSpeed"];
+                deviceModel.set_temp = [set intForColumn:@"set_temp"];
+                deviceModel.speed = [set intForColumn:@"speed"];
                 deviceModel.mode = [set intForColumn:@"mode"];
                 deviceModel.currentTemp = [set intForColumn:@"currentTemp"];
             }
@@ -1719,7 +1719,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithOn:(int)on byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set onoff = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,on,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set onoff = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,on,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改status失败",table);
@@ -1732,7 +1732,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithBrightness:(int)brightness byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set brightness = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,brightness,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set bri = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,brightness,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改brightness失败",table);
@@ -1746,7 +1746,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 {
     
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set saturation = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,saturation,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set sat = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,saturation,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改saturation失败",table);
@@ -1759,7 +1759,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithHue:(int)hue byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set hue = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,hue,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set hue = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,hue,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改hue失败",table);
@@ -1772,7 +1772,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithEngery:(int)engery byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set engery = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,engery,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set engery = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,engery,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改engery失败",table);
@@ -1785,7 +1785,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithPlugged:(int)plugged byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set plugged = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,plugged,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set plugged = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,plugged,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改plugged失败",table);
@@ -1799,7 +1799,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithSetTemp:(int)setTemp byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set setTemp = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,setTemp,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set set_temp = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,setTemp,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改setTemp失败",table);
@@ -1812,7 +1812,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithFanSpeed:(int)fanSpeed byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set fanSpeed = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,fanSpeed,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set speed = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,fanSpeed,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改fanSpeed失败",table);
@@ -1825,7 +1825,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithMode:(int)mode byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set mode = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,mode,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set mode = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,mode,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改mode失败",table);
@@ -1838,7 +1838,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithCurrentTemp:(int)currentTemp byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set currentTemp = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,currentTemp,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set currentTemp = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,currentTemp,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改currentTemp失败",table);
@@ -1851,7 +1851,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 - (void)updateDeviceTableWithOffline:(int)offline byLongtooId:(NSString *)longtoo_id byEp:(int)ep byHomeId:(NSString *)home_id byUserId:(NSString *)user_id withTable:(NSString *)table
 {
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *sql = [NSString stringWithFormat:@"update %@ set offline = '%d' where longtoo_id = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,offline,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
+        NSString *sql = [NSString stringWithFormat:@"update %@ set offline = '%d' where ltid = '%@' and ep = '%@' and home_id = '%@' and user_id = '%@'",table,offline,longtoo_id,[NSNumber numberWithInt:ep],home_id,user_id];
         BOOL result = [db executeUpdate:sql];
         if (!result) {
             NSLog(@"%@修改offline失败",table);

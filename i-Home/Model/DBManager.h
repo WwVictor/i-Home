@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 //#import "iThingHeader.h"
+#import "MyFileHeader.h"
 #import "FMDatabaseModel.h"
 @interface DBManager : NSObject
 
