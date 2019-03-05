@@ -36,7 +36,7 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.backgroundColor =[UIColor lightGrayColor];
+    self.view.backgroundColor =[UIColor groupTableViewBackgroundColor];
     self.title = @"智能模式";
     [self loadData];
     [self createUI];
@@ -173,7 +173,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    return 85;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

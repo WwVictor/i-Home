@@ -1,24 +1,23 @@
 //
-//  RoomManagementController.m
+//  HomeManagerViewController.m
 //  i-Home
 //
-//  Created by Frank on 2019/3/1.
+//  Created by Frank on 2019/3/4.
 //  Copyright © 2019 Victor. All rights reserved.
 //
 
-#import "RoomManagementController.h"
+#import "HomeManagerViewController.h"
 #import "MyFileHeader.h"
 #import "RoomManageCell.h"
-#import "AddRoomViewController.h"
-#import "EditRoomViewController.h"
-@interface RoomManagementController ()<UITableViewDelegate,UITableViewDataSource>
+#import "AddHomeViewController.h"
+@interface HomeManagerViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *deviceListTableView;
 @property (nonatomic, strong) NSMutableArray *deviceListArray;
 @property (nonatomic, strong)UIButton *editBtn;
 
 @end
 
-@implementation RoomManagementController
+@implementation HomeManagerViewController
 #pragma mark - 懒加载
 - (NSMutableArray *)deviceListArray
 {
@@ -32,13 +31,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"房间管理";
-    self.deviceListArray = [NSMutableArray arrayWithObjects:@[@"客厅",@0],@[@"主卧",@1],@[@"书房",@5],@[@"厨房",@0],@[@"餐厅",@2],@[@"洗漱间",@3], nil];
-//    [self.deviceListArray addObjectsFromArray:@[@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间"]];
+    self.title = @"家庭管理";
+    self.deviceListArray = [NSMutableArray arrayWithObjects:@"我的家",@"LongTooth", nil];
+    //    [self.deviceListArray addObjectsFromArray:@[@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间"]];
     [self setUI];
 }
 - (void)setUI{
-    [self createNav];
+//    [self createNav];
     [self createTableView];
 }
 - (void)createNav{
@@ -78,7 +77,7 @@
         _deviceListTableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
         _deviceListTableView.delegate = self;
         _deviceListTableView.dataSource = self;
-//        _deviceListTableView.tableFooterView = [UIView new];
+        //        _deviceListTableView.tableFooterView = [UIView new];
         _deviceListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         [self.view addSubview:_deviceListTableView];
@@ -116,7 +115,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-       return self.deviceListArray.count;
+        return self.deviceListArray.count;
     }else{
         return 1;
     }
@@ -126,20 +125,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        static NSString *cellId = @"RoomManageCellID";
-        RoomManageCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        static NSString *cellId = @"UITableViewCellsID";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (cell == nil) {
-            cell = [[RoomManageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        NSArray *arr = self.deviceListArray[indexPath.row];
-        cell.roomNameLabel.text = arr[0];
-        if ([arr[1] intValue] == 0) {
-            cell.deviceNumLabel.text = @"";
-        }else{
-            cell.deviceNumLabel.text = [NSString stringWithFormat:@"%d个设备",[arr[1] intValue]];
-        }
-
+        cell.textLabel.text = self.deviceListArray[indexPath.row];
+        cell.textLabel.font = [UIFont systemFontOfSize:21];
+//        cell.deviceNumLabel.text = @"";
         return cell;
     }else{
         static NSString *cellId = @"RoomManageCell1ID";
@@ -148,7 +142,7 @@
             cell = [[RoomManageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.roomNameLabel.text = @"添加房间";
+        cell.roomNameLabel.text = @"添加家庭";
         cell.roomNameLabel.textColor = [UIColor colorWithHexString:@"28a7ff"];
         cell.deviceNumLabel.text = @"";
         return cell;
@@ -179,20 +173,20 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1) {
-        AddRoomViewController *addCtrl = [[AddRoomViewController alloc] init];
+        AddHomeViewController *addCtrl = [[AddHomeViewController alloc] init];
         [self.navigationController pushViewController:addCtrl animated:YES];
     }else{
-        NSArray *arr = self.deviceListArray[indexPath.row];
-        NSString *roomName = arr[0];
-        EditRoomViewController *editCtrl = [[EditRoomViewController alloc] init];
-        editCtrl.roomName = roomName;
-        [self.navigationController pushViewController:editCtrl animated:YES];
+//        NSArray *arr = self.deviceListArray[indexPath.row];
+//        NSString *roomName = arr[0];
+//        EditRoomViewController *editCtrl = [[EditRoomViewController alloc] init];
+//        editCtrl.roomName = roomName;
+//        [self.navigationController pushViewController:editCtrl animated:YES];
     }
-
+    
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    DeviceInformationModel *devModel = self.listDataArr[indexPath.row];
+    //    DeviceInformationModel *devModel = self.listDataArr[indexPath.row];
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"确定删除房间？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
@@ -208,7 +202,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath
 {
     if (indexPath.section == 0) {
-       return YES;
+        return YES;
     }else{
         return NO;
     }
@@ -232,20 +226,20 @@
     }
 }
 #pragma mark 设置可以移动
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath
-{
-    
-    if (indexPath.section == 0) {
-        return YES;
-    }else{
-        return NO;
-    }
-}
-#pragma mark 处理移动的情况
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
-{
-    
-}
+//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath
+//{
+//
+//    if (indexPath.section == 0) {
+//        return YES;
+//    }else{
+//        return NO;
+//    }
+//}
+//#pragma mark 处理移动的情况
+//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+//{
+//
+//}
 
 
 
@@ -258,6 +252,7 @@
 {
     return @"暂无数据";
 }
+
 /*
 #pragma mark - Navigation
 
