@@ -112,6 +112,9 @@
 		F2F25D3622251D240056A598 /* FMDatabaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D3222251D230056A598 /* FMDatabaseModel.m */; };
 		F2F25D39222774B30056A598 /* SmartTableVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D38222774B30056A598 /* SmartTableVCell.m */; };
 		F2F25D3C22290CD00056A598 /* AddSceneViewContorller.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D3B22290CD00056A598 /* AddSceneViewContorller.m */; };
+		F2F25D3F222D18080056A598 /* SceneCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D3E222D18080056A598 /* SceneCollectionCell.m */; };
+		F2F25D42222E4CC00056A598 /* ActionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D41222E4CC00056A598 /* ActionViewCell.m */; };
+		F2F25D48222E783F0056A598 /* ChooseActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D47222E783F0056A598 /* ChooseActionController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -339,6 +342,12 @@
 		F2F25D38222774B30056A598 /* SmartTableVCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SmartTableVCell.m; sourceTree = "<group>"; };
 		F2F25D3A22290CD00056A598 /* AddSceneViewContorller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddSceneViewContorller.h; sourceTree = "<group>"; };
 		F2F25D3B22290CD00056A598 /* AddSceneViewContorller.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddSceneViewContorller.m; sourceTree = "<group>"; };
+		F2F25D3D222D18080056A598 /* SceneCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneCollectionCell.h; sourceTree = "<group>"; };
+		F2F25D3E222D18080056A598 /* SceneCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneCollectionCell.m; sourceTree = "<group>"; };
+		F2F25D40222E4CC00056A598 /* ActionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionViewCell.h; sourceTree = "<group>"; };
+		F2F25D41222E4CC00056A598 /* ActionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionViewCell.m; sourceTree = "<group>"; };
+		F2F25D46222E783F0056A598 /* ChooseActionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseActionController.h; sourceTree = "<group>"; };
+		F2F25D47222E783F0056A598 /* ChooseActionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseActionController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -743,23 +752,18 @@
 		F2391C26221BA70E002B3B68 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F2F25D43222E4CDA0056A598 /* Scene&Mode */,
 				0128FC2F2227AFE10076879A /* 我的家 */,
 				F2391C27221BA78B002B3B68 /* MainViewController.h */,
 				F2391C28221BA78B002B3B68 /* MainViewController.m */,
 				F2391C33221BAEEA002B3B68 /* LTNavigationController.h */,
 				F2391C34221BAEEA002B3B68 /* LTNavigationController.m */,
-				F2391C2D221BAA51002B3B68 /* SmartViewController.h */,
-				F2391C2E221BAA51002B3B68 /* SmartViewController.m */,
 				F2391C30221BAAAF002B3B68 /* SettingViewController.h */,
 				F2391C31221BAAAF002B3B68 /* SettingViewController.m */,
 				F2391C73221D4DF6002B3B68 /* SetGesturePwdController.h */,
 				F2391C74221D4DF6002B3B68 /* SetGesturePwdController.m */,
 				F2391C76221D4E1F002B3B68 /* CheckGesturePwdController.h */,
 				F2391C77221D4E1F002B3B68 /* CheckGesturePwdController.m */,
-				F2F25D37222774B30056A598 /* SmartTableVCell.h */,
-				F2F25D38222774B30056A598 /* SmartTableVCell.m */,
-				F2F25D3A22290CD00056A598 /* AddSceneViewContorller.h */,
-				F2F25D3B22290CD00056A598 /* AddSceneViewContorller.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -833,6 +837,41 @@
 				F2F25D282223DDD70056A598 /* YBRectConst.m */,
 			);
 			path = YBPopupMenu;
+			sourceTree = "<group>";
+		};
+		F2F25D43222E4CDA0056A598 /* Scene&Mode */ = {
+			isa = PBXGroup;
+			children = (
+				F2F25D44222E4D190056A598 /* Controller */,
+				F2F25D45222E4D270056A598 /* View */,
+			);
+			path = "Scene&Mode";
+			sourceTree = "<group>";
+		};
+		F2F25D44222E4D190056A598 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				F2391C2D221BAA51002B3B68 /* SmartViewController.h */,
+				F2391C2E221BAA51002B3B68 /* SmartViewController.m */,
+				F2F25D3A22290CD00056A598 /* AddSceneViewContorller.h */,
+				F2F25D3B22290CD00056A598 /* AddSceneViewContorller.m */,
+				F2F25D46222E783F0056A598 /* ChooseActionController.h */,
+				F2F25D47222E783F0056A598 /* ChooseActionController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		F2F25D45222E4D270056A598 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				F2F25D37222774B30056A598 /* SmartTableVCell.h */,
+				F2F25D38222774B30056A598 /* SmartTableVCell.m */,
+				F2F25D40222E4CC00056A598 /* ActionViewCell.h */,
+				F2F25D41222E4CC00056A598 /* ActionViewCell.m */,
+				F2F25D3D222D18080056A598 /* SceneCollectionCell.h */,
+				F2F25D3E222D18080056A598 /* SceneCollectionCell.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -993,6 +1032,7 @@
 				F2F25D2C2223DDD70056A598 /* YBPopupMenuPath.m in Sources */,
 				0128FC192227792B0076879A /* NSString+SGPagingView.m in Sources */,
 				F2391C72221D4C32002B3B68 /* CALayer+TQAnimated.m in Sources */,
+				F2F25D48222E783F0056A598 /* ChooseActionController.m in Sources */,
 				0128FC2C2227AEF00076879A /* XYNoDataView.m in Sources */,
 				0128FC612227CE5B0076879A /* NSString+Extension.m in Sources */,
 				0128FBFC22268F4A0076879A /* View+MASAdditions.m in Sources */,
@@ -1017,6 +1057,7 @@
 				0128FC882228CB380076879A /* SVProgressAnimatedView.m in Sources */,
 				0128FC892228CB380076879A /* SVProgressHUD.m in Sources */,
 				F2391C5C221BD87D002B3B68 /* CommonTools.m in Sources */,
+				F2F25D3F222D18080056A598 /* SceneCollectionCell.m in Sources */,
 				F2F25D2D2223DDD70056A598 /* YBRectConst.m in Sources */,
 				0128FC8A2228CB380076879A /* SVIndefiniteAnimatedView.m in Sources */,
 				0128FC5F2227CE5B0076879A /* NSDate+YYAdd.m in Sources */,
@@ -1039,6 +1080,7 @@
 				0128FC1A2227792B0076879A /* UIButton+SGPagingView.m in Sources */,
 				0128FC752228C9040076879A /* GetDeviceNetworkIP.m in Sources */,
 				0128FC1D2227792B0076879A /* SGPageContentCollectionView.m in Sources */,
+				F2F25D42222E4CC00056A598 /* ActionViewCell.m in Sources */,
 				0128FC2D2227AEF00076879A /* UICollectionView+XY.m in Sources */,
 				F2391C78221D4E1F002B3B68 /* CheckGesturePwdController.m in Sources */,
 				0128FC1C2227792B0076879A /* SGPageContentScrollView.m in Sources */,
