@@ -236,6 +236,8 @@
 "tx_schedular_thu"="四";
 "tx_schedular_fr"="五";
 "tx_schedular_sa"="六";
+
+
 //我的
 "tx_self_mine"="我的";
 "tx_self_setting"="設置";

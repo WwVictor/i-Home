@@ -106,21 +106,24 @@
 }
 - (NSString *)getDeviceTableName:(DeviceInformationModel *)model
 {
-    if([model.type intValue] == 5 && [model.serial_type intValue] == 1){
-        return DimmerTabel;
-    }else if ([model.type intValue] == 5 && [model.serial_type intValue] == 4){
-        return BrightTempTabel;
-    }else if ([model.type intValue] == 5 && [model.serial_type intValue] == 2){
-        return BrightRBGTabel;
-    }else if ([model.type intValue] == 5 && [model.serial_type intValue] == 3){
-        return RGBTabel;
-    }else if ([model.type intValue] == 7 ){
+    if([model.type intValue] == 1){
+        if ([model.serial_type intValue] == 1) {
+            return DimmerTabel;
+        }else if ([model.serial_type intValue] == 2){
+            return BrightRBGTabel;
+        }else if ([model.serial_type intValue] == 3){
+            return RGBTabel;
+        }else{
+            return BrightTempTabel;
+        }
+        
+    }else if ([model.type intValue] == 2 ){
         return SocketTabel;
-    }else if ([model.type intValue] == 8){
+    }else if ([model.type intValue] == 3){
         return SwitchTabel;
-    }else if ([model.type intValue] == 13 || [model.type intValue] == 14){
+    }else if ([model.type intValue] == 4){
         return CurtainTabel;
-    }else if ([model.type intValue] == 21){
+    }else if ([model.type intValue] == 5){
         return AirCondiTabel;
     }else{
         return nil;
@@ -129,19 +132,9 @@
 
 - (NSString *)getDeviceIcon:(int)deviceType andSerialType:(int)serialType
 {
-    if (deviceType == ACCESSORY_CATEGORY_UNKNOWN) {
-        
-    }else if (deviceType == ACCESSORY_CATEGORY_OTHER){
-//        return @"device_aircon";
-    }else if (deviceType == ACCESSORY_CATEGORY_BRIDGE){
-//        return @"device_aircon";
-    }else if (deviceType == ACCESSORY_CATEGORY_FAN){
-//        return @"device_aircon";
-    }else if (deviceType == ACCESSORY_CATEGORY_GARAGE){
-//        return @"device_aircon";
-    }else if (deviceType == ACCESSORY_CATEGORY_LIGHTBULB){
+    if (deviceType == DEV_TYPE_LIGHTBULB) {
         if (serialType == 1) {
-            return @"device_light_sensor";
+           return @"device_light_sensor";
         }else if (serialType == 2){
             return @"device_rgb";
         }else if (serialType == 3){
@@ -149,116 +142,44 @@
         }else{
             return @"device_light_bulb";
         }
-    }else if (deviceType == ACCESSORY_CATEGORY_DOORLOCK){
-        return @"device_doorlock";
-    }else if (deviceType == ACCESSORY_CATEGORY_OUTLET){
+        
+    }else if (deviceType == DEV_TYPE_SOCKET){
         return @"device_socket";
-    }else if (deviceType == ACCESSORY_CATEGORY_SWITCH){
+    }else if (deviceType == DEV_TYPE_SWITCH){
         return @"device_power";
-    }else if (deviceType == ACCESSORY_CATEGORY_THERMOSTAT){
-        return @"device_thermometer";
-    }else if (deviceType == ACCESSORY_CATEGORY_SENSOR){
-        return @"device_sensor";
-    }else if (deviceType == ACCESSORY_CATEGORY_SECURITY_SYSTEM){
-        return @"device_sensor";
-    }else if (deviceType == ACCESSORY_CATEGORY_DOOR){
-        
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW){
+    }else if (deviceType == DEV_TYPE_CURTAIN){
         return @"device_curtains";
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW_COVER){
-        return @"device_curtains";
-    }else if (deviceType == ACCESSORY_CATEGORY_PROGRAMMABLE_SWITCH){
-        return @"device_power";
-    }else if (deviceType == ACCESSORY_CATEGORY_RANGE_EXTENDER){
-        
-    }else if (deviceType == ACCESSORY_CATEGORY_IP_CAMERA){
-        return @"device_camera";
-    }else if (deviceType == ACCESSORY_CATEGORY_VIDEO){
-        return @"device_camera";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_PURIFIER){
-        return @"device_gas_sensor";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HEATER){
-        return @"device_temperature";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_CONDITIONER){
+    }else if (deviceType == DEV_TYPE_AIR_COND){
         return @"device_aircon";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HUMIDIFIER){
-        return @"device_water";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_DEHUMIDIFIER){
-        return @"device_fire_sensor1";
     }else{
-        
+        return @"";
     }
-    return @"12";
 }
 - (NSString *)setDeviceName:(int)deviceType andSerialType:(int)serialType
 {
-    if (deviceType == ACCESSORY_CATEGORY_UNKNOWN) {
-        return [NSString stringWithFormat:@"Unknown%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_OTHER){
-        return [NSString stringWithFormat:@"Other%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_BRIDGE){
-        return [NSString stringWithFormat:@"Bridge%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_FAN){
-        return [NSString stringWithFormat:@"Fan%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_GARAGE){
-        return [NSString stringWithFormat:@"Garage%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_LIGHTBULB){
+    if (deviceType == DEV_TYPE_LIGHTBULB) {
         if (serialType == 1) {
-//            return [NSString stringWithFormat:@"%@%@",Localized(@"dimmer_device"),[self return3Number]];
             return [NSString stringWithFormat:@"Dimmer%@",[self return3Number]];
         }else if (serialType == 2){
-//            return [NSString stringWithFormat:@"%@%@",Localized(@"light_device"),[self return3Number]];
-//            return [NSString stringWithFormat:@"Lightbulb%@",[self return3Number]];
             return [NSString stringWithFormat:@"RGBW%@",[self return3Number]];
         }else if (serialType == 3){
-//            return [NSString stringWithFormat:@"%@%@",Localized(@"rgb_device"),[self return3Number]];
             return [NSString stringWithFormat:@"RGBW%@",[self return3Number]];
         }else{
-//            return [NSString stringWithFormat:@"%@%@",Localized(@"light_device"),[self return3Number]];
             return [NSString stringWithFormat:@"Lightbulb%@",[self return3Number]];
-            
         }
-    }else if (deviceType == ACCESSORY_CATEGORY_DOORLOCK){
-        return [NSString stringWithFormat:@"Door Lock%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_OUTLET){
+        
+    }else if (deviceType == DEV_TYPE_SOCKET){
 //        return [NSString stringWithFormat:@"%@%@",Localized(@"outlet_device"),[self return3Number]];
         return [NSString stringWithFormat:@"Outlet%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_SWITCH){
+    }else if (deviceType == DEV_TYPE_SWITCH){
 //        return [NSString stringWithFormat:@"%@%@",Localized(@"switch_device"),[self return3Number]];
         return [NSString stringWithFormat:@"Switch%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_THERMOSTAT){
-        return [NSString stringWithFormat:@"Thermostat%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_SENSOR){
-        return [NSString stringWithFormat:@"Sensor%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_SECURITY_SYSTEM){
-        return [NSString stringWithFormat:@"Security System%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_DOOR){
-        return [NSString stringWithFormat:@"Door%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW){
+    }else if (deviceType == DEV_TYPE_CURTAIN){
 //        return [NSString stringWithFormat:@"%@%@",Localized(@"curtain_device"),[self return3Number]];
         return [NSString stringWithFormat:@"Curtain%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW_COVER){
-//        return [NSString stringWithFormat:@"%@%@",Localized(@"curtain_device"),[self return3Number]];
-        return [NSString stringWithFormat:@"Curtain%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_PROGRAMMABLE_SWITCH){
-        return [NSString stringWithFormat:@"Programmable Switch%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_RANGE_EXTENDER){
-        return [NSString stringWithFormat:@"Range Extender%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_IP_CAMERA){
-        return [NSString stringWithFormat:@"IP Camera%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_VIDEO){
-        return [NSString stringWithFormat:@"Video%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_PURIFIER){
-        return [NSString stringWithFormat:@"Air Purifier%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HEATER){
-        return [NSString stringWithFormat:@"Air Heater%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_CONDITIONER){
+    }else if (deviceType == DEV_TYPE_AIR_COND){
 //        return [NSString stringWithFormat:@"%@%@",Localized(@"air_device"),[self return3Number]];
         return [NSString stringWithFormat:@"Air Conditioner%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HUMIDIFIER){
-        return [NSString stringWithFormat:@"Air Humidifier%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_DEHUMIDIFIER){
-        return [NSString stringWithFormat:@"Air Dehumidifier%@",[self return3Number]];
     }else{
         return [NSString stringWithFormat:@"Reserved%@",[self return3Number]];
     }
@@ -266,197 +187,82 @@
 }
 - (NSString *)getDeviceName:(int)deviceType andSerialType:(int)serialType
 {
-    if (deviceType == ACCESSORY_CATEGORY_UNKNOWN) {
-        return [NSString stringWithFormat:@"Unknown-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_OTHER){
-        return [NSString stringWithFormat:@"Other-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_BRIDGE){
-        return [NSString stringWithFormat:@"Bridge-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_FAN){
-        return [NSString stringWithFormat:@"Fan-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_GARAGE){
-        return [NSString stringWithFormat:@"Garage-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_LIGHTBULB){
+    if (deviceType == DEV_TYPE_LIGHTBULB) {
         if (serialType == 1) {
-           return [NSString stringWithFormat:@"%@-%@",Localized(@"dimmer_device"),[self return3Number]];
+            return [NSString stringWithFormat:@"%@-%@",Localized(@"dimmer_device"),[self return3Number]];
         }else if (serialType == 2){
-//         return [NSString stringWithFormat:@"%@-%@",Localized(@"light_device"),[self return3Number]];
             return [NSString stringWithFormat:@"%@-%@",Localized(@"rgb_device"),[self return3Number]];
         }else if (serialType == 3){
             return [NSString stringWithFormat:@"%@-%@",Localized(@"rgb_device"),[self return3Number]];
-            
         }else{
-          return [NSString stringWithFormat:@"%@-%@",Localized(@"light_device"),[self return3Number]];
-            
+            return [NSString stringWithFormat:@"%@-%@",Localized(@"light_device"),[self return3Number]];
         }
-    }else if (deviceType == ACCESSORY_CATEGORY_DOORLOCK){
-        return [NSString stringWithFormat:@"Door Lock-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_OUTLET){
+        
+    }else if (deviceType == DEV_TYPE_SOCKET){
+        //        return [NSString stringWithFormat:@"%@%@",Localized(@"outlet_device"),[self return3Number]];
         return [NSString stringWithFormat:@"%@-%@",Localized(@"outlet_device"),[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_SWITCH){
+    }else if (deviceType == DEV_TYPE_SWITCH){
+        //        return [NSString stringWithFormat:@"%@%@",Localized(@"switch_device"),[self return3Number]];
         return [NSString stringWithFormat:@"%@-%@",Localized(@"switch_device"),[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_THERMOSTAT){
-        return [NSString stringWithFormat:@"Thermostat-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_SENSOR){
-        return [NSString stringWithFormat:@"Sensor-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_SECURITY_SYSTEM){
-        return [NSString stringWithFormat:@"Security System-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_DOOR){
-        return [NSString stringWithFormat:@"Door-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW){
+    }else if (deviceType == DEV_TYPE_CURTAIN){
+        //        return [NSString stringWithFormat:@"%@%@",Localized(@"curtain_device"),[self return3Number]];
         return [NSString stringWithFormat:@"%@-%@",Localized(@"curtain_device"),[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW_COVER){
-        return [NSString stringWithFormat:@"%@-%@",Localized(@"curtain_device"),[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_PROGRAMMABLE_SWITCH){
-        return [NSString stringWithFormat:@"Programmable Switch-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_RANGE_EXTENDER){
-        return [NSString stringWithFormat:@"Range Extender-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_IP_CAMERA){
-        return [NSString stringWithFormat:@"IP Camera-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_VIDEO){
-        return [NSString stringWithFormat:@"Video-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_PURIFIER){
-        return [NSString stringWithFormat:@"Air Purifier-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HEATER){
-        return [NSString stringWithFormat:@"Air Heater-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_CONDITIONER){
+    }else if (deviceType == DEV_TYPE_AIR_COND){
+        //        return [NSString stringWithFormat:@"%@%@",Localized(@"air_device"),[self return3Number]];
         return [NSString stringWithFormat:@"%@-%@",Localized(@"air_device"),[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HUMIDIFIER){
-        return [NSString stringWithFormat:@"Air Humidifier-%@",[self return3Number]];
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_DEHUMIDIFIER){
-        return [NSString stringWithFormat:@"Air Dehumidifier-%@",[self return3Number]];
     }else{
-       return [NSString stringWithFormat:@"Reserved-%@",[self return3Number]];
+        return [NSString stringWithFormat:@"Reserved%@",[self return3Number]];
     }
+    
     
 }
 - (NSString *)getDeviceTypeName:(int)deviceType andSerialType:(int)serialType
 {
-    if (deviceType == ACCESSORY_CATEGORY_UNKNOWN) {
-        return @"未知";
-    }else if (deviceType == ACCESSORY_CATEGORY_OTHER){
-        return @"其他";
-    }else if (deviceType == ACCESSORY_CATEGORY_BRIDGE){
-        return @"桥接器";
-    }else if (deviceType == ACCESSORY_CATEGORY_FAN){
-        return @"风扇";
-    }else if (deviceType == ACCESSORY_CATEGORY_GARAGE){
-        return @"车库";
-    }else if (deviceType == ACCESSORY_CATEGORY_LIGHTBULB){
+    if (deviceType == DEV_TYPE_LIGHTBULB) {
         if (serialType == 1) {
             return Localized(@"dimmer_device");
         }else if (serialType == 2){
-            return Localized(@"light_device");
-        }else if (serialType == 4){
-            return Localized(@"light_device");
-        }else{
             return Localized(@"rgb_device");
+        }else if (serialType == 3){
+            return Localized(@"rgb_device");
+        }else{
+            return Localized(@"light_device");
         }
-    }else if (deviceType == ACCESSORY_CATEGORY_DOORLOCK){
-        return @"门锁";
-    }else if (deviceType == ACCESSORY_CATEGORY_OUTLET){
-        
+    }else if (deviceType == DEV_TYPE_SOCKET){
         return Localized(@"outlet_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_SWITCH){
+    }else if (deviceType == DEV_TYPE_SWITCH){
         return Localized(@"switch_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_THERMOSTAT){
-        return @"恒温器";
-    }else if (deviceType == ACCESSORY_CATEGORY_SENSOR){
-        return @"传感器";
-    }else if (deviceType == ACCESSORY_CATEGORY_SECURITY_SYSTEM){
-        return @"安全系统";
-    }else if (deviceType == ACCESSORY_CATEGORY_DOOR){
-        return @"门";
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW){
-        
+    }else if (deviceType == DEV_TYPE_CURTAIN){
         return Localized(@"curtain_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW_COVER){
-        return Localized(@"curtain_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_PROGRAMMABLE_SWITCH){
-        return @"安全系统";
-    }else if (deviceType == ACCESSORY_CATEGORY_RANGE_EXTENDER){
-        return @"增程器";
-    }else if (deviceType == ACCESSORY_CATEGORY_IP_CAMERA){
-        return @"网络摄像机";
-    }else if (deviceType == ACCESSORY_CATEGORY_VIDEO){
-        return @"录像";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_PURIFIER){
-        return @"空气净化器";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HEATER){
-        return @"空气加热器";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_CONDITIONER){
+    }else if (deviceType == DEV_TYPE_AIR_COND){
         return Localized(@"air_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HUMIDIFIER){
-        return @"空气增湿器";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_DEHUMIDIFIER){
-        return @"空气干燥器";
     }else{
         return @"预留";
     }
-    
 }
 -(NSString *)getDeviceType:(int)deviceType andSerialType:(int)serialType
 {
-    if (deviceType == ACCESSORY_CATEGORY_UNKNOWN) {
-        return @"未知";
-    }else if (deviceType == ACCESSORY_CATEGORY_OTHER){
-        return @"其他";
-    }else if (deviceType == ACCESSORY_CATEGORY_BRIDGE){
-        return @"桥接器";
-    }else if (deviceType == ACCESSORY_CATEGORY_FAN){
-        return @"风扇";
-    }else if (deviceType == ACCESSORY_CATEGORY_GARAGE){
-        return @"车库";
-    }else if (deviceType == ACCESSORY_CATEGORY_LIGHTBULB){
+    if (deviceType == DEV_TYPE_LIGHTBULB) {
         if (serialType == 1) {
             return Localized(@"dimmer_device");
         }else if (serialType == 2){
-            return Localized(@"light_device");
-        }else if (serialType == 4){
-            return Localized(@"light_device");
-        }else{
             return Localized(@"rgb_device");
+        }else if (serialType == 3){
+            return Localized(@"rgb_device");
+        }else{
+            return Localized(@"light_device");
         }
-    }else if (deviceType == ACCESSORY_CATEGORY_DOORLOCK){
-        return @"门锁";
-    }else if (deviceType == ACCESSORY_CATEGORY_OUTLET){
+    }else if (deviceType == DEV_TYPE_SOCKET){
         return Localized(@"outlet_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_SWITCH){
+    }else if (deviceType == DEV_TYPE_SWITCH){
         return Localized(@"switch_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_THERMOSTAT){
-        return @"恒温器";
-    }else if (deviceType == ACCESSORY_CATEGORY_SENSOR){
-        return @"传感器";
-    }else if (deviceType == ACCESSORY_CATEGORY_SECURITY_SYSTEM){
-        return @"安全系统";
-    }else if (deviceType == ACCESSORY_CATEGORY_DOOR){
-        return @"门";
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW){
+    }else if (deviceType == DEV_TYPE_CURTAIN){
         return Localized(@"curtain_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_WINDOW_COVER){
-        return Localized(@"curtain_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_PROGRAMMABLE_SWITCH){
-        return @"安全系统";
-    }else if (deviceType == ACCESSORY_CATEGORY_RANGE_EXTENDER){
-        return @"增程器";
-    }else if (deviceType == ACCESSORY_CATEGORY_IP_CAMERA){
-        return @"网络摄像机";
-    }else if (deviceType == ACCESSORY_CATEGORY_VIDEO){
-        return @"录像";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_PURIFIER){
-        return @"空气净化器";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HEATER){
-        return @"空气加热器";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_CONDITIONER){
+    }else if (deviceType == DEV_TYPE_AIR_COND){
         return Localized(@"air_device");
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_HUMIDIFIER){
-        return @"空气增湿器";
-    }else if (deviceType == ACCESSORY_CATEGORY_AIR_DEHUMIDIFIER){
-        return @"空气干燥器";
     }else{
         return @"预留";
     }
-    
 }
 #pragma mark 二进制转十进制
 - (int)convertDecimalSystemFromBinarySystem:(NSString *)binary

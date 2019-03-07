@@ -18,6 +18,8 @@
 #import "HomeManagerViewController.h"
 #import "AddHomeViewController.h"
 #define ADDSCENEBTTON_TAG 20180920
+#define VW(view) (view.frame.size.width)
+#define VH(view) (view.frame.size.height)
 #define TITLES @[@"我的家",@"Longtooth", @"家居管理"]
 #define ICONS  @[@"room_list",@"room_list",@"room_edit"]
 @interface MYHomeViewController ()<YBPopupMenuDelegate,SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
@@ -46,6 +48,7 @@
     NSInteger _selectType;
     NSInteger _selectIndex;
     NSInteger _selectNum;
+    BOOL _scrollviewTop;
 }
 #pragma mark-懒加载
 - (NSMutableArray *)titleArr
@@ -97,11 +100,13 @@
     NSDictionary * dic = [noti object];
     if ([dic[@"changeOffset"] isEqualToString:@"1"]) {
         [UIView animateWithDuration:0.25 animations:^{
-          self.bgScrollView.contentOffset = CGPointMake(0, 240);
+            _scrollviewTop = YES;
+            self.bgScrollView.contentOffset = CGPointMake(0, 240);
         }];
        
     }else{
         [UIView animateWithDuration:0.25 animations:^{
+            _scrollviewTop = NO;
             self.bgScrollView.contentOffset = CGPointMake(0, 0);
         }];
         
@@ -138,9 +143,14 @@
             _selectNum = 1;
             [self createNav];
             [self createBottomView];
+            
         }
     }
-    
+    if (_scrollviewTop) {
+        self.bgScrollView.contentOffset = CGPointMake(0, 240);
+    }else{
+        self.bgScrollView.contentOffset = CGPointMake(0, 0);
+    }
 }
 
 - (void)createBottomView
@@ -175,7 +185,9 @@
     [self.rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
     HomeInformationModel *homeinfo = KGetHome;
     UserMessageModel *usermodel = KGetUserMessage;
-    NSMutableArray *arr = [[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID];
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    [arr addObjectsFromArray:[[[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID] sortedArrayUsingFunction:nameSort1 context:NULL]];
     self.titleArr = [NSMutableArray new];
     for (RoomInformationModel *info in arr) {
         [self.titleArr addObject:info.name];
@@ -203,7 +215,15 @@
     _pageContentScrollView.delegatePageContentScrollView = self;
     [self.bgScrollView addSubview:_pageContentScrollView];
 }
-
+#pragma mark-字母排序
+NSInteger nameSort1(id infor1, id infor2, void *context)
+{
+    RoomInformationModel *info1;
+    RoomInformationModel *info2;
+    info1 = (RoomInformationModel *)infor1;
+    info2 = (RoomInformationModel *)infor2;
+    return [info1.icon_order localizedCompare:info2.icon_order];
+}
 - (void)rightBtnClick
 {
     RoomManagementController *selctCtrl = [[RoomManagementController alloc] init];
@@ -330,8 +350,7 @@
 - (void)addHomeButtonClick
 {
     _selectType = 0;
-#define TITLES @[@"我的家",@"Longtooth", @"家居管理"]
-#define ICONS  @[@"room_list",@"room_list",@"room_edit"]
+
     self.homeListArr = [NSMutableArray array];
     self.homeIconArr = [NSMutableArray array];
     NSMutableArray *homeArr = [[DBManager shareManager] selectFromHomeTable];
@@ -354,71 +373,6 @@
 //    _pageTitleView.resetSelectedIndex = [noti.object integerValue];
 //}
 
-- (void)createPagTitleView
-{
-    [self.rightBtn removeFromSuperview];
-    [self.pageTitleView removeFromSuperview];
-    [self.pageContentScrollView removeFromSuperview];
-    /// pageTitleView
-    SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
-    configure.indicatorHeight = 3;
-    configure.indicatorCornerRadius = 1.5;
-    configure.indicatorAdditionalWidth = 1; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
-    configure.showBottomSeparator = NO;
-    if (@available(iOS 8.2, *)) {
-        configure.titleSelectedFont = [UIFont systemFontOfSize:21.0 weight:UIFontWeightMedium];
-        configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
-    } else {
-        // Fallback on earlier versions
-        configure.titleSelectedFont = [UIFont systemFontOfSize:21.0];
-        configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
-    }
-    configure.titleColor = [UIColor lightGrayColor];
-    configure.titleSelectedColor = [UIColor blackColor];
-    configure.indicatorColor = [UIColor colorWithHexString:@"28a7ff"];
-    
-    
-    self.rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth-30-15, 7, 30, 30)];
-    self.rightBtn.backgroundColor = [UIColor whiteColor];
-    [self.rightBtn setImage:[UIImage imageNamed:@"gengduo"] forState:UIControlStateNormal];
-    [self.rightBtn setImageEdgeInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
-    self.rightBtn.layer.cornerRadius = 2;
-    self.rightBtn.layer.masksToBounds = YES;
-    [self.view addSubview:self.rightBtn];
-    [self.rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间", nil];
-    
-    /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(15, 0, KScreenWidth-30-15-15-10, 44) delegate:self titleNames:self.titleArr configure:configure];
-    self.pageTitleView.selectedIndex = _selectIndex;
-    [self.view addSubview:_pageTitleView];
-    
-    NSMutableArray *childArr = [NSMutableArray array];
-    for (int i=0; i<self.titleArr.count; i++) {
-        //            homePageHeaderModel *model = self.dataArr[i];
-        DeviceListViewController *vc = [[DeviceListViewController alloc]init];
-        //            vc.pageModel = self.dataArr[i];
-        //            vc.arr = model.releaseActivities;
-        [childArr addObject:vc];
-    }
-    
-    CGFloat ContentCollectionViewHeight = KScreenHeight - CGRectGetMaxY(_pageTitleView.frame);
-    
-    self.pageContentScrollView = [[SGPageContentScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pageTitleView.frame), KScreenWidth, ContentCollectionViewHeight) parentVC:self childVCs:childArr];
-    _pageContentScrollView.isAnimated = YES;
-    _pageContentScrollView.delegatePageContentScrollView = self;
-    [self.view addSubview:_pageContentScrollView];
-}
-// 指示当用户点击状态栏后，滚动视图是否能够滚动到顶部。需要设置滚动视图的属性：_scrollView.scrollsToTop=YES;
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
-    return YES;
-}
-// 当滚动视图滚动到最顶端后，执行该方法
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
-    
-    NSLog(@"scrollViewDidScrollToTop");
-}
 #pragma mark - pageTitleView代理方法
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex {
     [self.pageContentScrollView setPageContentScrollViewCurrentIndex:selectedIndex];

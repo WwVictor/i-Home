@@ -209,6 +209,7 @@
     roominfo.name = @"所有设备";
     roominfo.room_id = @"1000000000000";
     roominfo.is_defaultRoom = @"1";
+    roominfo.icon_order = @"0";
     [[DBManager shareManager] insertRoomTableWithFile:roominfo];
     
     for (int i = 0; i < self.listArray.count; i++) {
@@ -220,6 +221,8 @@
             roominfo.name = selectmodel.room_name;
             roominfo.room_id = [[DeviceTypeManager shareManager] get14Roomid];
             roominfo.is_defaultRoom = @"2";
+            roominfo.icon_order = [NSString stringWithFormat:@"%d",i+1];
+            roominfo.dev_num = 0;
             [[DBManager shareManager] insertRoomTableWithFile:roominfo];
         }
     }

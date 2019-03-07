@@ -64,7 +64,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         //创建home表
         NSString *createHomeTable = @"create table if not exists homes(user_id varchar(48),home_id varchar(48),home_name varchar(48),user_right varchar(48),is_default_home varchar(48),PRIMARY KEY(user_id,home_id))";
         // 创建room表
-        NSString *createRoomTable = @"create table if not exists rooms(user_id varchar(48),home_id varchar(48),room_id varchar(48),room_name varchar(48),icon_order varchar(48),icon_path varchar(48),is_default_room varchar(48),PRIMARY KEY (user_id,room_id,home_id))";
+        NSString *createRoomTable = @"create table if not exists rooms(user_id varchar(48),home_id varchar(48),room_id varchar(48),room_name varchar(48),icon_order varchar(48),icon_path varchar(48),is_default_room varchar(48),dev_num int,PRIMARY KEY (user_id,room_id,home_id))";
         // 创建scene表
         NSString *createSceneTable = @"create table if not exists scenes(user_id varchar(48),scene_id varchar(48),room_id varchar(48),home_id varchar(48),icon_order varchar(48),icon_path varchar(48),scene_name varchar(48),PRIMARY KEY (user_id,scene_id,room_id,home_id))";
         // 创建room device表
@@ -347,8 +347,8 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
     [[DBManager shareManager] deleteRoomTableWithWithRoomId:model.room_id andHomeId:model.home_id andUserId:model.user_id];
     //加队列
     [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
-        NSString *insertSql = @"insert into rooms(user_id,home_id,room_id,room_name,icon_order,icon_path,is_default_room)values (?,?,?,?,?,?,?)";
-        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.home_id,model.room_id,model.name,model.icon_order,model.icon_path,model.is_defaultRoom];
+        NSString *insertSql = @"insert into rooms(user_id,home_id,room_id,room_name,icon_order,icon_path,is_default_room,dev_num)values (?,?,?,?,?,?,?,?)";
+        BOOL issuccessed = [db executeUpdate:insertSql,model.user_id,model.home_id,model.room_id,model.name,model.icon_order,model.icon_path,model.is_defaultRoom,model.dev_num];
         if (issuccessed) {
             NSLog(@"room数据插入成功");
         }else {
@@ -377,7 +377,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 //            roomModel.last_update = [set stringForColumn:@"last_update"];
 //            roomModel.rgb_color = [set stringForColumn:@"rgb_color"];
             roomModel.is_defaultRoom = [set stringForColumn:@"is_default_room"];
-            
+            roomModel.dev_num = [set intForColumn:@"dev_num"];
         }
         [set close];
     }];
@@ -405,6 +405,7 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
 //            roomModel.last_update = [set stringForColumn:@"last_update"];
 //            roomModel.rgb_color = [set stringForColumn:@"rgb_color"];
             roomModel.is_defaultRoom = [set stringForColumn:@"is_default_room"];
+            roomModel.dev_num = [set intForColumn:@"dev_num"];
             [arr addObject:roomModel];
         }
         
@@ -531,7 +532,19 @@ NSString * const kdbManagerVersion = @"DBManagerVersion";
         }
     }];
 }
-
+//根据roomid修改dev_num
+- (void)updateRoomTableWithDev_num:(int)dev_num byRoomId:(NSString *)roomid byHomeId:(NSString *)home_id byUserId:(NSString *)user_id
+{
+    [[DBManager sharedQueue] inDatabase:^(FMDatabase *db){
+        NSString *sql = [NSString stringWithFormat:@"update rooms set dev_num = '%d' where room_id = '%@' and home_id = '%@' and user_id = '%@'",dev_num,roomid,home_id,user_id];
+        BOOL result = [db executeUpdate:sql];
+        if (!result) {
+            NSLog(@"dev_num修改失败");
+        } else {
+            NSLog(@"dev_num修改成功");
+        }
+    }];
+}
 
 #pragma mark ---- *********** scene表数据结构操作方法
 #pragma mark -  插入数据用的方法 参数是根据表里插入的字段决定的

@@ -11,8 +11,8 @@
 #import <NetworkExtension/NEHotspotConfigurationManager.h>
 #include <arpa/inet.h>
 #import "GetDeviceNetworkIP.h"
-//#import "SetUpViewController.h"
-//#import "ConnectSuccessController.h"
+#import "SetUpViewController.h"
+#import "ConnectSuccessController.h"
 @interface JoinNetworkController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UIScrollView *scrollView;
 @property (nonatomic, strong)UILabel *titleLabel;
@@ -167,8 +167,9 @@
 //    self.wifiTextField.text = @"longtooth";
     self.wifiTextField.font = [UIFont systemFontOfSize:18];
     self.wifiTextField.borderStyle = UITextBorderStyleRoundedRect;
-//    self.wifiTextField.text = [[GetDeviceNetworkIP shareManager] ssid];
-    self.wifiTextField.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"wifi_name"];
+//    NSString *wifiName = [[GetDeviceNetworkIP shareManager] ssid];
+    self.wifiTextField.text = [[GetDeviceNetworkIP shareManager] ssid];
+//    self.wifiTextField.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"wifi_name"];
     [self.scrollView addSubview:self.wifiTextField];
     self.wifiTextField.sd_layout
     .topSpaceToView(self.detailSecondLabel, 40)
@@ -193,7 +194,8 @@
     // wifi密码输入框
     self.pwTextField = [[TuYeTextField alloc] init];
     self.pwTextField.font = [UIFont systemFontOfSize:18];
-//    self.pwTextField.text = @"longtooth";
+    
+//    self.pwTextField.text = [[GetDeviceNetworkIP shareManager] ssid];
     self.pwTextField.borderStyle = UITextBorderStyleRoundedRect;
     self.pwTextField.secureTextEntry = YES;
     [self.scrollView addSubview:self.pwTextField];
@@ -303,11 +305,11 @@
 //                    [alert addAction:[UIAlertAction actionWithTitle:Localized(@"Cancel") style:UIAlertActionStyleCancel handler:nil]];
 //                    [alert addAction:[UIAlertAction actionWithTitle:Localized(@"tx_user_notice_con_device") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //                    self->_isConnectDeviceAP = 1;
-//                    SetUpViewController *jointrl = [[SetUpViewController alloc] init];
-//                    jointrl.wifiString = self.wifiTextField.text;
-//                    jointrl.passwordString = self.pwTextField.text;
-//                    jointrl.oldDeviceModel = self.deviceMessModel;
-//                    [self.navigationController pushViewController:jointrl animated:YES];
+                    SetUpViewController *jointrl = [[SetUpViewController alloc] init];
+                    jointrl.wifiString = self.wifiTextField.text;
+                    jointrl.passwordString = self.pwTextField.text;
+                    jointrl.oldDeviceModel = self.deviceMessModel;
+                    [self.navigationController pushViewController:jointrl animated:YES];
 //                        NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
 //                        if ([[UIApplication sharedApplication] canOpenURL:url]) {
 //                            [[UIApplication sharedApplication] openURL:url];

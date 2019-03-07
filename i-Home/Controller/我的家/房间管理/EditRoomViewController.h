@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MyFileHeader.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface EditRoomViewController : UIViewController
-@property (nonatomic, strong) NSString *roomName;
+@property (nonatomic, strong) RoomInformationModel *roominfo;
 @end
 
 NS_ASSUME_NONNULL_END

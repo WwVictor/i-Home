@@ -53,10 +53,25 @@
     if ([self.roomNameTextField.text length] == 0) {
         [SVProgressHUD doAnyRemindWithHUDMessage:@"请先输入房间名称" withDuration:1.5];
     }else{
-        SelectRoomModel *selectroommodel = [[SelectRoomModel alloc] init];
-        selectroommodel.room_name = self.roomNameTextField.text;
-        selectroommodel.isSelectRoom = 1;
-        KSaveSelectRoom(selectroommodel);
+        if (self.isCreateRoom) {
+            UserMessageModel *usermodel = KGetUserMessage;
+            HomeInformationModel *homeinfo = KGetHome;
+            RoomInformationModel *roominfo = [[RoomInformationModel alloc] init];
+            roominfo.user_id = usermodel.userID;
+            roominfo.home_id = homeinfo.homeID;
+            roominfo.name = self.roomNameTextField.text;
+            roominfo.room_id = [[DeviceTypeManager shareManager] get14Roomid];
+            roominfo.is_defaultRoom = @"2";
+            roominfo.icon_order = [NSString stringWithFormat:@"%ld",[[[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID] count]];
+            roominfo.dev_num = 0;
+            [[DBManager shareManager] insertRoomTableWithFile:roominfo];
+        }else{
+            SelectRoomModel *selectroommodel = [[SelectRoomModel alloc] init];
+            selectroommodel.room_name = self.roomNameTextField.text;
+            selectroommodel.isSelectRoom = 1;
+            KSaveSelectRoom(selectroommodel);
+        }
+        
 //        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC));
 //        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
            [self cancelBtnClick];

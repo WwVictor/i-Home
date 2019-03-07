@@ -50,10 +50,28 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     self.title = @"房间管理";
-    [self.existListArray addObjectsFromArray:@[@"智能彩灯-1",@"智能彩灯-2"]];
-    [self.inexistenceListArray addObjectsFromArray:@[@"智能彩灯-3",@"智能彩灯-4",@"智能彩灯-5",@"智能彩灯-6"]];
-    [self.listArray addObject:@[@"智能彩灯-1",@"智能彩灯-2"]];
-    [self.listArray addObject:@[@"智能彩灯-3",@"智能彩灯-4",@"智能彩灯-5",@"智能彩灯-6"]];
+    HomeInformationModel *homeInfo = KGetHome;
+    UserMessageModel *userModel = KGetUserMessage;
+    self.existListArray = [[DBManager shareManager] selectFromRoomDeviceTableWithRoomId:self.roominfo.room_id andHomeId:homeInfo.homeID andUserId:userModel.userID];
+//    [self.existListArray addObjectsFromArray:@[@"智能彩灯-1",@"智能彩灯-2"]];
+    NSMutableArray *arr = [NSMutableArray array];
+    NSMutableArray *allDevArr = [[DBManager shareManager] selectFromRoomDeviceWithHomeId:homeInfo.homeID andUserId:userModel.userID];
+    if (allDevArr.count != 0) {
+        for (DeviceInformationModel *info in allDevArr) {
+            if (self.existListArray.count == 0) {
+                [arr addObject:info];
+            }else{
+                for (int i = 0; i < self.existListArray.count; i++) {
+                    DeviceInformationModel *infos = self.existListArray[i];
+                    if (![info.dev_id isEqualToString:infos.dev_id] && ![info.home_id isEqualToString:infos.home_id] && ![info.user_id isEqualToString:infos.user_id] && ![info.name isEqualToString:infos.name]) {
+                    }
+                }
+            }
+        }
+        self.inexistenceListArray = arr ;
+        [self.listArray addObject:[[DBManager shareManager] selectFromRoomDeviceTableWithRoomId:self.roominfo.room_id andHomeId:homeInfo.homeID andUserId:userModel.userID]];
+        [self.listArray addObject:arr];
+    }
     [self setUI];
 }
 -(void)setUI
@@ -165,7 +183,7 @@
             cell = [[EditRoomNameCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.roomNameTextField.text = self.roomName;
+        cell.roomNameTextField.text = self.roominfo.name;
         
         return cell;
     }else {
@@ -175,8 +193,14 @@
             if (cell == nil) {
                 cell = [[RoomExistDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             }
+            
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.deviceNameLabel.text = self.existListArray[indexPath.row];
+            DeviceInformationModel *devInfo = self.existListArray[indexPath.row];
+            if (devInfo.icon_path.length == 0) {
+                devInfo.icon_path = [[DeviceTypeManager shareManager] getDeviceIcon:[devInfo.type intValue] andSerialType:[devInfo.serial_type intValue]];
+            }
+            cell.deviceNameLabel.text = devInfo.name;
+            cell.iconImageView.image = [UIImage imageNamed:devInfo.icon_path];
             return cell;
         }else if (self.existListArray.count == 0 && self.inexistenceListArray.count != 0){
             static NSString *cellId = @"RoomInexistenceDeviceCellID";
@@ -185,11 +209,16 @@
                 cell = [[RoomInexistenceDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             }
 //            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.deviceNameLabel.text = self.inexistenceListArray[indexPath.row];
+            DeviceInformationModel *devInfo = self.inexistenceListArray[indexPath.row];
+            if (devInfo.icon_path.length == 0) {
+                devInfo.icon_path = [[DeviceTypeManager shareManager] getDeviceIcon:[devInfo.type intValue] andSerialType:[devInfo.serial_type intValue]];
+            }
+            cell.deviceNameLabel.text = devInfo.name;
+            cell.iconImageView.image = [UIImage imageNamed:devInfo.icon_path];
             cell.roomNameLabel.text = @"次卧";
             [cell setAddDeviceBlock:^(NSString * _Nonnull string) {
-                [self.inexistenceListArray removeObject:string];
-                [self.existListArray addObject:string];
+                [self.inexistenceListArray removeObject:devInfo];
+                [self.existListArray addObject:devInfo];
                 [self.listArray removeAllObjects];
                 
                 [self.listArray addObject:self.existListArray];
@@ -208,7 +237,13 @@
                     cell = [[RoomExistDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
                 }
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.deviceNameLabel.text = self.existListArray[indexPath.row];
+                DeviceInformationModel *devInfo = self.existListArray[indexPath.row];
+                if (devInfo.icon_path.length == 0) {
+                    devInfo.icon_path = [[DeviceTypeManager shareManager] getDeviceIcon:[devInfo.type intValue] andSerialType:[devInfo.serial_type intValue]];
+                }
+                cell.deviceNameLabel.text = devInfo.name;
+                cell.iconImageView.image = [UIImage imageNamed:devInfo.icon_path];
+//                cell.deviceNameLabel.text = self.existListArray[indexPath.row];
                 return cell;
             }else{
                 static NSString *cellId = @"RoomInexistenceDeviceCellID";
@@ -217,11 +252,17 @@
                     cell = [[RoomInexistenceDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
                 }
 //                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.deviceNameLabel.text = self.inexistenceListArray[indexPath.row];
+//                cell.deviceNameLabel.text = self.inexistenceListArray[indexPath.row];
+                DeviceInformationModel *devInfo = self.inexistenceListArray[indexPath.row];
+                if (devInfo.icon_path.length == 0) {
+                    devInfo.icon_path = [[DeviceTypeManager shareManager] getDeviceIcon:[devInfo.type intValue] andSerialType:[devInfo.serial_type intValue]];
+                }
+                cell.deviceNameLabel.text = devInfo.name;
+                cell.iconImageView.image = [UIImage imageNamed:devInfo.icon_path];
                 cell.roomNameLabel.text = @"次卧";
                 [cell setAddDeviceBlock:^(NSString * _Nonnull string) {
-                    [self.inexistenceListArray removeObject:string];
-                    [self.existListArray addObject:string];
+                    [self.inexistenceListArray removeObject:devInfo];
+                    [self.existListArray addObject:devInfo];
                     [self.listArray removeAllObjects];
                     [self.listArray addObject:self.existListArray];
                     if (self.inexistenceListArray.count != 0) {
@@ -243,9 +284,9 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return 70;
+        return 60;
     }else{
-        return 80;
+        return 60;
     }
     
 }

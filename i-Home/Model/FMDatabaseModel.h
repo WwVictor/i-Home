@@ -56,6 +56,7 @@
 @property (nonatomic, strong) NSArray *devList;
 @property (nonatomic, strong) NSString *icon_order;
 @property (nonatomic, strong) NSString *icon_path;
+@property (nonatomic, assign) int dev_num;
 //@property (nonatomic, strong) NSString *is_icon_image;
 //@property (nonatomic, strong) NSString *last_update;
 @property (nonatomic, strong) NSString *name;

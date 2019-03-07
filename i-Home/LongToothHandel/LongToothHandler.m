@@ -52,6 +52,8 @@ static LongToothHandler *_instance;
         //注册本地服务
         [LongTooth addService:GET_DEVICE_INFO handleServiceRequestBy:[[LongToothBrocastRequestHandlerImpl alloc]init]];
         [LongTooth addService:DEV_LTID handleServiceRequestBy:[[LongToothBrocastRequestHandlerImpl alloc]init]];
+        [LongTooth addService:REPORT_DEV_LTID handleServiceRequestBy:[[LongToothBrocastRequestHandlerImpl alloc]init]];
+        
         [LongTooth addService:FW_REPORT handleServiceRequestBy:[[LongToothBrocastRequestHandlerImpl alloc]init]];
         [LongTooth addService:DEV_STATUS handleServiceRequestBy:[[LongToothBrocastRequestHandlerImpl alloc]init]];
         [LongTooth addService:SEARCH_DEVICE_INFO handleServiceRequestBy:[[LongToothBrocastRequestHandlerImpl alloc]init]];
@@ -237,7 +239,7 @@ static LongToothHandler *_instance;
         [[LongToothHandler sharedInstance] listeningSend:dict andServiceName:service];
         LongToothHandler *hand = [[LongToothHandler alloc] init];
         hand.sendDeviceMessageBlock(dict,service);
-    }else if ([service isEqualToString:DEV_LTID]){
+    }else if ([service isEqualToString:REPORT_DEV_LTID]){
         NSLog(@"dev_ltid === %@",dict);
         LongToothHandler *hand = [[LongToothHandler alloc] init];
         NSMutableDictionary *newDict = [NSMutableDictionary dictionary];

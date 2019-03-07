@@ -27,39 +27,31 @@
 #import "NSDate+Extension.h"
 #import "JohnAlertManager.h"
 #import "SVProgressHUD+DoAnythingAfter.h"
-#import "MJRefresh.h"
+#import "ConfigureDataController.h"
+#import "JoinNetworkController.h"
+//#import "MJRefresh.h"
 #import "GetDeviceNetworkIP.h"
 #import "DeviceTypeManager.h"
 #import "UIImage+Resize.h"
 #import "AppDelegate.h"
 #import "CommonTools.h"
+#import "LYTools.h"
+#import "SocketView.h"
+#import "SetBrightnessAndColorView.h"
+#import "SetRGBDeviceView.h"
+#import "CurtainView.h"
+#import "AirConditioningView.h"
+#import "DimmerView.h"
+#import "SwitchView.h"
+#import "ColorPickerView.h"
+
 //设备类型
 typedef NS_ENUM(NSUInteger, iThingDeviceType) {
-    ACCESSORY_CATEGORY_UNKNOWN = 0,
-    ACCESSORY_CATEGORY_OTHER = 1,
-    ACCESSORY_CATEGORY_BRIDGE = 2,
-    ACCESSORY_CATEGORY_FAN = 3,
-    ACCESSORY_CATEGORY_GARAGE = 4,
-    ACCESSORY_CATEGORY_LIGHTBULB = 5,
-    ACCESSORY_CATEGORY_DOORLOCK = 6,
-    ACCESSORY_CATEGORY_OUTLET = 7,
-    ACCESSORY_CATEGORY_SWITCH = 8,
-    ACCESSORY_CATEGORY_THERMOSTAT = 9,
-    ACCESSORY_CATEGORY_SENSOR = 10,
-    ACCESSORY_CATEGORY_SECURITY_SYSTEM = 11,
-    ACCESSORY_CATEGORY_DOOR = 12,
-    ACCESSORY_CATEGORY_WINDOW = 13,
-    ACCESSORY_CATEGORY_WINDOW_COVER = 14,
-    ACCESSORY_CATEGORY_PROGRAMMABLE_SWITCH = 15,
-    ACCESSORY_CATEGORY_RANGE_EXTENDER = 16,
-    ACCESSORY_CATEGORY_IP_CAMERA = 17,
-    ACCESSORY_CATEGORY_VIDEO = 18,
-    ACCESSORY_CATEGORY_AIR_PURIFIER = 19,
-    ACCESSORY_CATEGORY_AIR_HEATER = 20,
-    ACCESSORY_CATEGORY_AIR_CONDITIONER = 21,
-    ACCESSORY_CATEGORY_AIR_HUMIDIFIER = 22,
-    ACCESSORY_CATEGORY_AIR_DEHUMIDIFIER = 23,
-    ACCESSORY_CATEGORY_RESERVED = 24,
+    DEV_TYPE_LIGHTBULB = 1,
+    DEV_TYPE_SOCKET = 2,
+    DEV_TYPE_SWITCH = 3,
+    DEV_TYPE_CURTAIN = 4,
+    DEV_TYPE_AIR_COND = 5,
     
 };
 #define DimmerTabel @"ltdimmers"
@@ -170,11 +162,12 @@ static inline CGFloat TQSizeFitH(CGFloat value) {
 #define GET_DEVICE_INFO @"search/service/device_info"
 #define FW_UPDATE @"fw_update"
 #define FW_REPORT @"fw_report"
-#define DEV_LTID @"dev_ltid"
-#define DEV_STATUS @"dev_status"
+#define DEV_LTID @"get_dev_ltid"
+#define REPORT_DEV_LTID @"report_dev_ltid"
+#define DEV_STATUS @"get_dev_status"
 #define DEV_CONTROL @"dev_control"
-#define DEV_CHANGEWIFI @"changewifi"
-#define GET_DEVICEINFO @"get_deviceinfo"
+#define DEV_CHANGEWIFI @"dev_change_wifi"
+#define GET_DEVICEINFO @"get_dev_info"
 #define DEV_INFO @"dev_info"
 
 #define SCH_SET @"sch_set"

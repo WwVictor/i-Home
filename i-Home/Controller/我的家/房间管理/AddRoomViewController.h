@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MyFileHeader.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AddRoomViewController : UIViewController
-
+@property (nonatomic, assign) BOOL isCreateRoom;
 @end
 
 NS_ASSUME_NONNULL_END
