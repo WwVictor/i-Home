@@ -37,7 +37,13 @@
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIButton *rightBtn;
 
-
+@property (nonatomic, strong)SwitchView *switchView;//开关
+@property (nonatomic, strong)SetBrightnessAndColorView *brightColorview;//灯泡
+@property (nonatomic, strong)SetRGBDeviceView *rgbDeviceView;//rgb灯泡
+@property (nonatomic, strong)SocketView *sView;//插座
+@property (nonatomic, strong)CurtainView *curtainView;//窗帘
+@property (nonatomic, strong)AirConditioningView *airView;//空调
+@property (nonatomic, strong)DimmerView *dimmerView;//空调
 //@property (nonatomic, strong) NSMutableArray *roomListArr;
 //@property (nonatomic, strong) NSMutableArray *roomIconArr;
 
@@ -332,7 +338,7 @@ NSInteger nameSort1(id infor1, id infor2, void *context)
     
     self.addDeviceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     
-    [self.addDeviceBtn setImage:[UIImage imageNamed:@"加"] forState:UIControlStateNormal];
+    [self.addDeviceBtn setImage:[UIImage imageNamed:@"加号"] forState:UIControlStateNormal];
     [self.addDeviceBtn addTarget:self action:@selector(addDeviceBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addDeviceBtn];
     
@@ -434,7 +440,7 @@ NSInteger nameSort1(id infor1, id infor2, void *context)
             
             self.addDeviceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
             
-            [self.addDeviceBtn setImage:[UIImage imageNamed:@"加"] forState:UIControlStateNormal];
+            [self.addDeviceBtn setImage:[UIImage imageNamed:@"加号"] forState:UIControlStateNormal];
             [self.addDeviceBtn addTarget:self action:@selector(addDeviceBtnClick) forControlEvents:UIControlEventTouchUpInside];
             self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addDeviceBtn];
             

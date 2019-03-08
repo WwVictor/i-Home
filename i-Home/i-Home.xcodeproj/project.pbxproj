@@ -214,6 +214,7 @@
 		016F4EFE222FB7A10061B529 /* CurtainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 016F4EE9222FB7A10061B529 /* CurtainView.m */; };
 		016F4F02222FB88D0061B529 /* LYTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 016F4F01222FB88D0061B529 /* LYTools.m */; };
 		016F4F05222FBCE50061B529 /* ColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 016F4F04222FBCE50061B529 /* ColorPickerView.m */; };
+		016F4F0A223209600061B529 /* HomeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016F4F09223209600061B529 /* HomeKit.framework */; };
 		F20311B8221A7B210026336E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F20311B7221A7B210026336E /* AppDelegate.m */; };
 		F20311BB221A7B210026336E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F20311BA221A7B210026336E /* ViewController.m */; };
 		F20311BE221A7B220026336E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F20311BC221A7B220026336E /* Main.storyboard */; };
@@ -692,6 +693,7 @@
 		016F4F01222FB88D0061B529 /* LYTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYTools.m; sourceTree = "<group>"; };
 		016F4F03222FBCE50061B529 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
 		016F4F04222FBCE50061B529 /* ColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerView.m; sourceTree = "<group>"; };
+		016F4F09223209600061B529 /* HomeKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HomeKit.framework; path = System/Library/Frameworks/HomeKit.framework; sourceTree = SDKROOT; };
 		F20311B3221A7B200026336E /* i-Home.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "i-Home.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F20311B6221A7B210026336E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F20311B7221A7B210026336E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -817,6 +819,7 @@
 				016F4CA6222E09B60061B529 /* CoreTelephony.framework in Frameworks */,
 				016F4CA4222E09A90061B529 /* JavaScriptCore.framework in Frameworks */,
 				016F4CA2222E09A30061B529 /* CFNetwork.framework in Frameworks */,
+				016F4F0A223209600061B529 /* HomeKit.framework in Frameworks */,
 				016F4CA0222E099D0061B529 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -930,11 +933,11 @@
 			isa = PBXGroup;
 			children = (
 				0128FC2A2227AEF00076879A /* XYNoDataView.h */,
+				0128FC262227AEF00076879A /* XYNoDataView.m */,
+				0128FC292227AEF00076879A /* UICollectionView+XY.h */,
 				0128FC272227AEF00076879A /* UICollectionView+XY.m */,
 				0128FC2B2227AEF00076879A /* UITableView+XY.h */,
-				0128FC262227AEF00076879A /* XYNoDataView.m */,
 				0128FC282227AEF00076879A /* UITableView+XY.m */,
-				0128FC292227AEF00076879A /* UICollectionView+XY.h */,
 			);
 			path = "无数据时提示";
 			sourceTree = "<group>";
@@ -1128,6 +1131,7 @@
 		016F4C9E222E099D0061B529 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				016F4F09223209600061B529 /* HomeKit.framework */,
 				016F4EB6222F7BFE0061B529 /* ExternalAccessory.framework */,
 				016F4CBB222E0A2A0061B529 /* libiconv.tbd */,
 				016F4CB9222E0A1F0061B529 /* libsqlite3.tbd */,
@@ -2080,6 +2084,9 @@
 							com.apple.AccessWiFi = {
 								enabled = 1;
 							};
+							com.apple.HomeKit = {
+								enabled = 1;
+							};
 							com.apple.HotspotConfiguration = {
 								enabled = 1;
 							};
@@ -2584,7 +2591,7 @@
 				INFOPLIST_FILE = "i-Home/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yaochengshanghai.iThing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yaochengshanghai.iHome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2600,7 +2607,7 @@
 				INFOPLIST_FILE = "i-Home/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yaochengshanghai.iThing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yaochengshanghai.iHome;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
