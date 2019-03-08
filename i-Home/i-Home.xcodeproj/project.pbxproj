@@ -122,6 +122,7 @@
 		F2F25D3F222D18080056A598 /* SceneCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D3E222D18080056A598 /* SceneCollectionCell.m */; };
 		F2F25D42222E4CC00056A598 /* ActionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D41222E4CC00056A598 /* ActionViewCell.m */; };
 		F2F25D48222E783F0056A598 /* ChooseActionController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D47222E783F0056A598 /* ChooseActionController.m */; };
+		F2F25D4B222F765C0056A598 /* ModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2F25D4A222F765C0056A598 /* ModeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -369,6 +370,8 @@
 		F2F25D41222E4CC00056A598 /* ActionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionViewCell.m; sourceTree = "<group>"; };
 		F2F25D46222E783F0056A598 /* ChooseActionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseActionController.h; sourceTree = "<group>"; };
 		F2F25D47222E783F0056A598 /* ChooseActionController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChooseActionController.m; sourceTree = "<group>"; };
+		F2F25D49222F765C0056A598 /* ModeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModeViewController.h; sourceTree = "<group>"; };
+		F2F25D4A222F765C0056A598 /* ModeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModeViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -928,6 +931,8 @@
 			children = (
 				F2391C2D221BAA51002B3B68 /* SmartViewController.h */,
 				F2391C2E221BAA51002B3B68 /* SmartViewController.m */,
+				F2F25D49222F765C0056A598 /* ModeViewController.h */,
+				F2F25D4A222F765C0056A598 /* ModeViewController.m */,
 				F2F25D3A22290CD00056A598 /* AddSceneViewContorller.h */,
 				F2F25D3B22290CD00056A598 /* AddSceneViewContorller.m */,
 				F2F25D46222E783F0056A598 /* ChooseActionController.h */,
@@ -1108,6 +1113,7 @@
 				F2F25D2C2223DDD70056A598 /* YBPopupMenuPath.m in Sources */,
 				0128FC192227792B0076879A /* NSString+SGPagingView.m in Sources */,
 				01385ACC222CF9E20077BC2F /* AddHomeViewController.m in Sources */,
+				F2F25D4B222F765C0056A598 /* ModeViewController.m in Sources */,
 				F2391C72221D4C32002B3B68 /* CALayer+TQAnimated.m in Sources */,
 				F2F25D48222E783F0056A598 /* ChooseActionController.m in Sources */,
 				0128FC2C2227AEF00076879A /* XYNoDataView.m in Sources */,

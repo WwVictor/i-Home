@@ -11,6 +11,7 @@
 #import "SmartTableVCell.h"
 #import "AddSceneViewContorller.h"
 #import "MyFileHeader.h"
+#import "ModeViewController.h"
 
 @interface SmartViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UIButton *addNavBtn;//添加智能(导航栏)
@@ -19,6 +20,8 @@
 @property (nonatomic,strong) UIButton *editBtn;//有智能模式时的编辑按钮
 @property (nonatomic,strong) NSMutableArray *sceneArraylist;//场景数据源
 @property (nonatomic,strong) UITableView *sceneTabview;//场景列表
+@property (nonatomic,strong) UIView *bgView;
+
 
 @end
 
@@ -141,11 +144,18 @@
 
 - (void)addDeviceBtnAction{
     
-    
+    ModeViewController *modeView = [[ModeViewController alloc] init];
+    [self presentViewController:modeView animated:YES completion:nil];
 }
 
 
+
 - (void)editBtnAction{
+    
+    
+}
+
+- (void)addBtnClick{
     
     
 }
