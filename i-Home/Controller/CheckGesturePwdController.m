@@ -13,6 +13,7 @@
 #import "TQGestureLockToast.h"
 #import "CommonTools.h"
 #import "MainViewController.h"
+#import "MyFileHeader.h"
 @interface CheckGesturePwdController ()<TQGestureLockViewDelegate>
 @property (nonatomic, strong) TQGestureLockView *lockView;
 @property (nonatomic, strong) TQGestureLockHintLabel *hintLabel;

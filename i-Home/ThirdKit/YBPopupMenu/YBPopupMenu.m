@@ -10,6 +10,7 @@
 #import "YBPopupMenuPath.h"
 #import "FMDatabaseModel.h"
 #import "UIColor+YTExtension.h"
+#import "MyFileHeader.h"
 //#import "iThingHeader.h"
 #define YBScreenWidth [UIScreen mainScreen].bounds.size.width
 #define YBScreenHeight [UIScreen mainScreen].bounds.size.height
@@ -23,6 +24,7 @@
 @property (nonatomic, assign) BOOL isShowSeparator;
 @property (nonatomic, strong) UIColor * separatorColor;
 @property (nonatomic, strong) RoomInformationModel * roomInfoModel;
+@property (nonatomic, strong) HomeInformationModel * homeInfoModel;
 @end
 
 @implementation YBPopupMenuCell
@@ -186,7 +188,7 @@ UITableViewDataSource
         cell = [[YBPopupMenuCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
         cell.textLabel.numberOfLines = 0;
     }
-    cell.backgroundColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor colorWithWhite:0 alpha:0.8];
     cell.textLabel.textColor = _textColor;
     cell.textLabel.font = [UIFont systemFontOfSize:_fontSize];
     if ([_titles[indexPath.row] isKindOfClass:[NSAttributedString class]]) {
@@ -197,6 +199,17 @@ UITableViewDataSource
         cell.textLabel.text = model.name;
         RoomInformationModel *roomInfo = KGetRoom;
         if ([roomInfo.room_id isEqualToString:cell.roomInfoModel.room_id]) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            cell.tintColor = [UIColor whiteColor];
+        }else{
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    }else if ([_titles[indexPath.row] isKindOfClass:[HomeInformationModel class]]) {
+        HomeInformationModel *model = _titles[indexPath.row];
+        cell.homeInfoModel = model;
+        cell.textLabel.text = model.name;
+        HomeInformationModel *homeInfo = KGetHome;
+        if ([homeInfo.homeID isEqualToString:cell.homeInfoModel.homeID]) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
             cell.tintColor = [UIColor whiteColor];
         }else{
@@ -301,7 +314,8 @@ UITableViewDataSource
     _dismissOnSelected = YES;
     _dismissOnTouchOutside = YES;
     _fontSize = 15;
-    _textColor = [UIColor colorWithHexString:@"28a7ff"];
+//    _textColor = [UIColor colorWithHexString:@"28a7ff"];
+    _textColor = [UIColor whiteColor];
     _offset = 0.0;
     _relyRect = CGRectZero;
     _point = CGPointZero;
@@ -309,7 +323,7 @@ UITableViewDataSource
     _borderColor = [UIColor lightGrayColor];
     _arrowWidth = 15.0;
     _arrowHeight = 10.0;
-    _backColor = [UIColor whiteColor];
+    _backColor = [UIColor colorWithWhite:0 alpha:0.8];
     _type = YBPopupMenuTypeDefault;
     _arrowDirection = YBPopupMenuArrowDirectionTop;
     _priorityDirection = YBPopupMenuPriorityDirectionTop;

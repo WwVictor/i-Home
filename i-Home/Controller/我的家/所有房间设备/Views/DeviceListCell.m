@@ -43,9 +43,9 @@
     [_backView addSubview:_bgView];
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_backView).offset(20);
-        make.top.mas_equalTo(_backView).offset(20);
-        make.height.mas_equalTo(70);
-        make.width.mas_equalTo(70);
+        make.top.mas_equalTo(_backView).offset(15);
+        make.height.mas_equalTo(60);
+        make.width.mas_equalTo(60);
     }];
     _bgView.layer.borderWidth = 0.5;
     _bgView.layer.borderColor = [UIColor colorWithHexString:@"999999"].CGColor;
@@ -58,8 +58,8 @@
     [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(_bgView);
         make.centerY.mas_equalTo(_bgView);
-        make.height.mas_equalTo(40);
-        make.width.mas_equalTo(40);
+        make.height.mas_equalTo(30);
+        make.width.mas_equalTo(30);
     }];
     
     
@@ -74,7 +74,7 @@
     [_backView addSubview:_deviceNameLabel];
     [_deviceNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_bgView.mas_right).offset(15);
-        make.top.mas_equalTo(_backView).offset(20+15);
+        make.top.mas_equalTo(_backView).offset(25);
         make.right.mas_equalTo(_backView.mas_right).offset(-80);
         make.height.mas_equalTo(20);
     }];
@@ -103,7 +103,7 @@
     
     [_onoffButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(_backView.mas_right).offset(-15);
-        make.top.mas_equalTo(_backView).offset(30);
+        make.top.mas_equalTo(_backView).offset(20);
         make.height.mas_equalTo(50);
         make.width.mas_equalTo(50);
     }];
@@ -115,24 +115,74 @@
     
     
 }
+
+
+
 -(void)configWithInfo:(DeviceInformationModel *)devInfoModel andStatusModel:(DeviceStatusModel *)devStatusModel
 {
     _deviceNameLabel.text = devInfoModel.name;
+    
     if (devStatusModel.offline == 0) {
-        _devStatusLabel.text = @"离线";
-    }else{
-        if (devStatusModel.onoff == 1) {
-            _devStatusLabel.text = @"已打开";
+        if (devStatusModel.type == 21){
+            if (devStatusModel.mode == 0) {
+                
+                self.devStatusLabel.text = Localized(@"Closed");
+            }else{
+//                self.devStatusLabel.text = Localized(@"Opened");
+                if (devStatusModel.mode == 1) {
+                    self.devStatusLabel.text = Localized(@"Air_conditioner_cool");
+                }else if (devStatusModel.mode == 2){
+                    self.devStatusLabel.text = Localized(@"Air_conditioner_heat");
+                }else if (devStatusModel.mode == 3){
+                    self.devStatusLabel.text = Localized(@"Air_conditioner_fan");
+                }else{
+                    self.devStatusLabel.text = Localized(@"Air_conditioner_dry");
+                }
+                
+            }
+        }else if (devStatusModel.type == 13 || devStatusModel.type == 14){
+            
+            if (devStatusModel.onoff == 0) {
+                
+                self.devStatusLabel.text = Localized(@"Curtain_stop");
+            }else if (devStatusModel.onoff == 1){
+                self.devStatusLabel.text = Localized(@"Curtain_open");
+                
+            }else{
+                self.devStatusLabel.text = Localized(@"Curtain_close");
+                
+            }
         }else{
-            _devStatusLabel.text = @"已关闭";
+            if (devStatusModel.onoff == 0) {
+                self.devStatusLabel.text = Localized(@"Closed");
+            }else{
+                self.devStatusLabel.text = Localized(@"Opened");
+            }
         }
+        _onoffButton.userInteractionEnabled = YES;
+    }else{
+        self.devStatusLabel.text = Localized(@"tx_user_notice_device_status_offline");
+        _onoffButton.userInteractionEnabled = NO;
     }
+    
+    
+//    if (devStatusModel.offline == 0) {
+//        _devStatusLabel.text = @"离线";
+//        _onoffButton.userInteractionEnabled = NO;
+//    }else{
+//        _onoffButton.userInteractionEnabled = YES;
+//        if (devStatusModel.onoff == 1) {
+//            _devStatusLabel.text = @"已打开";
+//        }else{
+//            _devStatusLabel.text = @"已关闭";
+//        }
+//    }
     
 }
 
 - (void)onoffButtonAction
 {
-    
+    self.deviceBlock(self.deviceInfo, self.devStatus);
 }
 
 

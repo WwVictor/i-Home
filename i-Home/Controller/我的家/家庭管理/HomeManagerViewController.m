@@ -32,13 +32,20 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"家庭管理";
-    self.deviceListArray = [NSMutableArray arrayWithObjects:@"我的家",@"LongTooth", nil];
+    
+//    self.deviceListArray = [NSMutableArray arrayWithObjects:@"我的家",@"LongTooth", nil];
     //    [self.deviceListArray addObjectsFromArray:@[@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间"]];
     [self setUI];
 }
 - (void)setUI{
 //    [self createNav];
     [self createTableView];
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.deviceListArray = [[DBManager shareManager] selectFromHomeTable];
+    [self.deviceListTableView reloadData];
 }
 - (void)createNav{
     self.editBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
@@ -131,7 +138,8 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text = self.deviceListArray[indexPath.row];
+        HomeInformationModel *infomodel = self.deviceListArray[indexPath.row];
+        cell.textLabel.text = infomodel.name;
         cell.textLabel.font = [UIFont systemFontOfSize:21];
 //        cell.deviceNumLabel.text = @"";
         return cell;

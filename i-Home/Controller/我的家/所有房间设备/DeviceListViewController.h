@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MyFileHeader.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeviceListViewController : UIViewController
-
+@property (nonatomic, strong)RoomInformationModel *roomInfo;
 @end
 
 NS_ASSUME_NONNULL_END

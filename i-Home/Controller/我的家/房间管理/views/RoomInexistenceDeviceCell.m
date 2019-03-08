@@ -49,7 +49,7 @@
     [_deviceNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.contentView).offset(10);
         make.left.mas_equalTo(_iconImageView.mas_right).offset(30);
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(20);
     }];
     
     _roomNameLabel = [UILabel new];
@@ -59,7 +59,7 @@
     [_roomNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_deviceNameLabel.mas_bottom).offset(0);
         make.left.mas_equalTo(_iconImageView.mas_right).offset(30);
-        make.height.mas_equalTo(30);
+        make.height.mas_equalTo(20);
     }];
     
 }

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 //#import "iThingHeader.h"
+#import "MyFileHeader.h"
 #import "FMDatabaseModel.h"
 @interface DBManager : NSObject
 
@@ -70,6 +71,9 @@
 - (void)updateRoomTableWithRoomOrder:(NSString *)roomorder byRoomid:(NSString *)roomid byHomeId:(NSString *)home_id byUserId:(NSString *)user_id;
 //根据roomid修改is_defaultHome
 - (void)updateRoomTableWithDefaultRoom:(NSString *)is_defaultRoom byRoomId:(NSString *)roomid byHomeId:(NSString *)home_id byUserId:(NSString *)user_id;
+
+//根据roomid修改dev_num
+- (void)updateRoomTableWithDev_num:(int)dev_num byRoomId:(NSString *)roomid byHomeId:(NSString *)home_id byUserId:(NSString *)user_id;
 /**
  @brief scene表数据结构操作方法
  */

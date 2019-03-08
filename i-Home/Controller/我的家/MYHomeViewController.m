@@ -9,16 +9,20 @@
 #import "MYHomeViewController.h"
 #import "RoomManagementController.h"
 #import "YBPopupMenu.h"
+#import "CustomTestCell.h"
 #import "RoomControl.h"
 #import "Masonry.h"
 #import "MyFileHeader.h"
 #import "SGPagingView.h"
 #import "DeviceListViewController.h"
 #import "HomeManagerViewController.h"
+#import "AddHomeViewController.h"
 #define ADDSCENEBTTON_TAG 20180920
+#define VW(view) (view.frame.size.width)
+#define VH(view) (view.frame.size.height)
 #define TITLES @[@"我的家",@"Longtooth", @"家居管理"]
 #define ICONS  @[@"room_list",@"room_list",@"room_edit"]
-@interface MYHomeViewController ()<YBPopupMenuDelegate,SGPageTitleViewDelegate, SGPageContentScrollViewDelegate,UIScrollViewDelegate>
+@interface MYHomeViewController ()<YBPopupMenuDelegate,SGPageTitleViewDelegate, SGPageContentScrollViewDelegate>
 @property (nonatomic, strong) SGPageTitleView *pageTitleView;
 @property (nonatomic, strong) SGPageContentScrollView *pageContentScrollView;
 @property (nonatomic, strong) YBPopupMenu *popupMenu;
@@ -32,12 +36,19 @@
 @property (nonatomic, strong) NSMutableArray*titleArr;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIButton *rightBtn;
+
+
+//@property (nonatomic, strong) NSMutableArray *roomListArr;
+//@property (nonatomic, strong) NSMutableArray *roomIconArr;
+
 @end
 
 @implementation MYHomeViewController
 {
     NSInteger _selectType;
     NSInteger _selectIndex;
+    NSInteger _selectNum;
+    BOOL _scrollviewTop;
 }
 #pragma mark-懒加载
 - (NSMutableArray *)titleArr
@@ -76,12 +87,31 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeOffset:)name:@"changeOffset"object:nil];
+    if ([[[DBManager shareManager] selectFromHomeTable] count] == 0 ) {
+         AddHomeViewController*homemanagerCtrl = [[AddHomeViewController alloc] init];
+        [self.navigationController pushViewController:homemanagerCtrl animated:YES];
+    }
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeSelectedIndex:) name:@"changeSelectedIndex" object:nil];
     [self setUI];
 }
 #pragma mark - tableview offset_y下滑改动的偏移量
 -(void)changeOffset:(NSNotification *)noti
 {
+    NSDictionary * dic = [noti object];
+    if ([dic[@"changeOffset"] isEqualToString:@"1"]) {
+        [UIView animateWithDuration:0.25 animations:^{
+            _scrollviewTop = YES;
+            self.bgScrollView.contentOffset = CGPointMake(0, 240);
+        }];
+       
+    }else{
+        [UIView animateWithDuration:0.25 animations:^{
+            _scrollviewTop = NO;
+            self.bgScrollView.contentOffset = CGPointMake(0, 0);
+        }];
+        
+    }
+    
 //    self.bgScrollView.sd_layout
 //    .leftSpaceToView(self.view, 0)
 //    .topSpaceToView(self.view, 0)
@@ -99,10 +129,30 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeOffset" object:nil];
 }
 - (void)setUI{
-    [self createNav];
+//    [self createNav];
     [self createBgScrollView];
-    [self createBottomView];
+//    [self createBottomView];
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    HomeInformationModel *homeinfo = KGetHome;
+    if (_selectNum == 0) {
+        if ([homeinfo.homeID length] != 0) {
+            _selectNum = 1;
+            [self createNav];
+            [self createBottomView];
+            
+        }
+    }
+    if (_scrollviewTop) {
+        self.bgScrollView.contentOffset = CGPointMake(0, 240);
+    }else{
+        self.bgScrollView.contentOffset = CGPointMake(0, 0);
+    }
+}
+
 - (void)createBottomView
 {
 //    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 44)];
@@ -133,8 +183,16 @@
     self.rightBtn.layer.masksToBounds = YES;
     [self.bgScrollView addSubview:self.rightBtn];
     [self.rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    HomeInformationModel *homeinfo = KGetHome;
+    UserMessageModel *usermodel = KGetUserMessage;
     
-    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间", nil];
+    NSMutableArray *arr = [NSMutableArray array];
+    [arr addObjectsFromArray:[[[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID] sortedArrayUsingFunction:nameSort1 context:NULL]];
+    self.titleArr = [NSMutableArray new];
+    for (RoomInformationModel *info in arr) {
+        [self.titleArr addObject:info.name];
+    }
+//    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间", nil];
     
     /// pageTitleView
     self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(15, 240+10, KScreenWidth-30-15-15-10, 44) delegate:self titleNames:self.titleArr configure:configure];
@@ -144,7 +202,7 @@
     for (int i=0; i<self.titleArr.count; i++) {
         //            homePageHeaderModel *model = self.dataArr[i];
         DeviceListViewController *vc = [[DeviceListViewController alloc]init];
-        
+        vc.roomInfo = arr[i];
         //            vc.pageModel = self.dataArr[i];
         //            vc.arr = model.releaseActivities;
         [childArr addObject:vc];
@@ -157,7 +215,15 @@
     _pageContentScrollView.delegatePageContentScrollView = self;
     [self.bgScrollView addSubview:_pageContentScrollView];
 }
-
+#pragma mark-字母排序
+NSInteger nameSort1(id infor1, id infor2, void *context)
+{
+    RoomInformationModel *info1;
+    RoomInformationModel *info2;
+    info1 = (RoomInformationModel *)infor1;
+    info2 = (RoomInformationModel *)infor2;
+    return [info1.icon_order localizedCompare:info2.icon_order];
+}
 - (void)rightBtnClick
 {
     RoomManagementController *selctCtrl = [[RoomManagementController alloc] init];
@@ -173,8 +239,8 @@
     self.bgScrollView = [[UIScrollView alloc] init];
     self.bgScrollView.showsVerticalScrollIndicator = NO;
     self.bgScrollView.showsHorizontalScrollIndicator = NO;
-    self.bgScrollView.delegate = self;
-    self.bgScrollView.contentSize = CGSizeMake(KScreenWidth, KScreenHeight-SafeAreaTopHeight-SafeAreaBottomHeight);
+//    self.bgScrollView.delegate = self;
+    self.bgScrollView.contentSize = CGSizeMake(KScreenWidth, KScreenHeight-SafeAreaTopHeight-SafeAreaBottomHeight-45);
     self.bgScrollView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.bgScrollView];
     self.bgScrollView.sd_layout
@@ -256,10 +322,10 @@
 }
 
 - (void)createNav{
-    
-    self.addHomeButton = [[RoomControl alloc] initWithFrame:CGRectMake(0, 0, [self widthLabelWithModel:@"添加家居"]+15, 30)];
+    HomeInformationModel *homeinfo = KGetHome;
+    self.addHomeButton = [[RoomControl alloc] initWithFrame:CGRectMake(0, 0, [self widthLabelWithModel:homeinfo.name]+15, 30)];
     self.addHomeButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    self.addHomeButton.titleLabel.text = @"添加家居";
+    self.addHomeButton.titleLabel.text = homeinfo.name;
     self.addHomeButton.titleImageView.image = [UIImage imageNamed:@"指示图标"];
     [self.addHomeButton addTarget:self action:@selector(addHomeButtonClick) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addHomeButton];
@@ -284,91 +350,29 @@
 - (void)addHomeButtonClick
 {
     _selectType = 0;
+
+    self.homeListArr = [NSMutableArray array];
+    self.homeIconArr = [NSMutableArray array];
+    NSMutableArray *homeArr = [[DBManager shareManager] selectFromHomeTable];
+    for (int i = 0; i < homeArr.count; i++) {
+        HomeInformationModel *homeinfo = homeArr[i];
+        [self.homeListArr addObject:homeinfo];
+        [self.homeIconArr addObject:@"room_list"];
+    }
+    
+    HomeInformationModel *homeinfo = [HomeInformationModel new];
+    homeinfo.name = @"家居管理";
+    [self.homeListArr addObject:homeinfo];
+    [self.homeIconArr addObject:@"room_edit"];
 //     [YBPopupMenu showRelyOnView:self.addHomeButton titles:self.homeListArr icons:self.homeIconArr menuWidth:200 delegate:self];
-    [YBPopupMenu showRelyOnView:self.addHomeButton titles:TITLES icons:ICONS menuWidth:200 delegate:self];
+    [YBPopupMenu showRelyOnView:self.addHomeButton titles:self.homeListArr icons:self.homeIconArr menuWidth:200 delegate:self];
 }
 
 
 //- (void)changeSelectedIndex:(NSNotification *)noti {
 //    _pageTitleView.resetSelectedIndex = [noti.object integerValue];
 //}
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView == self.bgScrollView) {
-        NSLog(@"%lf",self.bgScrollView.contentOffset.y);
-        if (scrollView.contentOffset.y>=60) {
-//            [self.headerView removeFromSuperview];
-//
-//            [self createPagTitleView];
-        }
 
-    }
-}
-- (void)createPagTitleView
-{
-    [self.rightBtn removeFromSuperview];
-    [self.pageTitleView removeFromSuperview];
-    [self.pageContentScrollView removeFromSuperview];
-    /// pageTitleView
-    SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
-    configure.indicatorHeight = 3;
-    configure.indicatorCornerRadius = 1.5;
-    configure.indicatorAdditionalWidth = 1; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
-    configure.showBottomSeparator = NO;
-    if (@available(iOS 8.2, *)) {
-        configure.titleSelectedFont = [UIFont systemFontOfSize:21.0 weight:UIFontWeightMedium];
-        configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
-    } else {
-        // Fallback on earlier versions
-        configure.titleSelectedFont = [UIFont systemFontOfSize:21.0];
-        configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
-    }
-    configure.titleColor = [UIColor lightGrayColor];
-    configure.titleSelectedColor = [UIColor blackColor];
-    configure.indicatorColor = [UIColor colorWithHexString:@"28a7ff"];
-    
-    
-    self.rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth-30-15, 7, 30, 30)];
-    self.rightBtn.backgroundColor = [UIColor whiteColor];
-    [self.rightBtn setImage:[UIImage imageNamed:@"gengduo"] forState:UIControlStateNormal];
-    [self.rightBtn setImageEdgeInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
-    self.rightBtn.layer.cornerRadius = 2;
-    self.rightBtn.layer.masksToBounds = YES;
-    [self.view addSubview:self.rightBtn];
-    [self.rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间", nil];
-    
-    /// pageTitleView
-    self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(15, 0, KScreenWidth-30-15-15-10, 44) delegate:self titleNames:self.titleArr configure:configure];
-    self.pageTitleView.selectedIndex = _selectIndex;
-    [self.view addSubview:_pageTitleView];
-    
-    NSMutableArray *childArr = [NSMutableArray array];
-    for (int i=0; i<self.titleArr.count; i++) {
-        //            homePageHeaderModel *model = self.dataArr[i];
-        DeviceListViewController *vc = [[DeviceListViewController alloc]init];
-        //            vc.pageModel = self.dataArr[i];
-        //            vc.arr = model.releaseActivities;
-        [childArr addObject:vc];
-    }
-    
-    CGFloat ContentCollectionViewHeight = KScreenHeight - CGRectGetMaxY(_pageTitleView.frame);
-    
-    self.pageContentScrollView = [[SGPageContentScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pageTitleView.frame), KScreenWidth, ContentCollectionViewHeight) parentVC:self childVCs:childArr];
-    _pageContentScrollView.isAnimated = YES;
-    _pageContentScrollView.delegatePageContentScrollView = self;
-    [self.view addSubview:_pageContentScrollView];
-}
-// 指示当用户点击状态栏后，滚动视图是否能够滚动到顶部。需要设置滚动视图的属性：_scrollView.scrollsToTop=YES;
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
-    return YES;
-}
-// 当滚动视图滚动到最顶端后，执行该方法
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView{
-    
-    NSLog(@"scrollViewDidScrollToTop");
-}
 #pragma mark - pageTitleView代理方法
 - (void)pageTitleView:(SGPageTitleView *)pageTitleView selectedIndex:(NSInteger)selectedIndex {
     [self.pageContentScrollView setPageContentScrollViewCurrentIndex:selectedIndex];
@@ -409,9 +413,85 @@
             [self.navigationController pushViewController:selctCtrl animated:YES];
         }
     }else{
-        if (index == TITLES.count-1) {
+        if (index == self.homeIconArr.count-1) {
             HomeManagerViewController *homemanagerCtrl = [[HomeManagerViewController alloc] init];
             [self.navigationController pushViewController:homemanagerCtrl animated:YES];
+        }else{
+            [self.addHomeButton removeFromSuperview];
+            [self.pageTitleView removeFromSuperview];
+            [self.pageContentScrollView removeFromSuperview];
+            [self.addDeviceBtn removeFromSuperview];
+            
+            
+            HomeInformationModel *homeinfo = self.homeListArr[index];
+            KSaveHome(homeinfo);
+            self.addHomeButton = [[RoomControl alloc] initWithFrame:CGRectMake(0, 0, [self widthLabelWithModel:homeinfo.name]+15, 30)];
+            self.addHomeButton.titleLabel.font = [UIFont systemFontOfSize:15];
+            self.addHomeButton.titleLabel.text = homeinfo.name;
+            self.addHomeButton.titleImageView.image = [UIImage imageNamed:@"指示图标"];
+            [self.addHomeButton addTarget:self action:@selector(addHomeButtonClick) forControlEvents:UIControlEventTouchUpInside];
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addHomeButton];
+            
+            self.addDeviceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+            
+            [self.addDeviceBtn setImage:[UIImage imageNamed:@"加"] forState:UIControlStateNormal];
+            [self.addDeviceBtn addTarget:self action:@selector(addDeviceBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.addDeviceBtn];
+            
+            SGPageTitleViewConfigure *configure = [SGPageTitleViewConfigure pageTitleViewConfigure];
+            configure.indicatorHeight = 3;
+            configure.indicatorCornerRadius = 1.5;
+            configure.indicatorAdditionalWidth = 1; // 说明：指示器额外增加的宽度，不设置，指示器宽度为标题文字宽度；若设置无限大，则指示器宽度为按钮宽度
+            configure.showBottomSeparator = NO;
+            if (@available(iOS 8.2, *)) {
+                configure.titleSelectedFont = [UIFont systemFontOfSize:21.0 weight:UIFontWeightMedium];
+                configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+            } else {
+                // Fallback on earlier versions
+                configure.titleSelectedFont = [UIFont systemFontOfSize:21.0];
+                configure.titleFont = [UIFont systemFontOfSize:18.0 weight:UIFontWeightMedium];
+            }
+            configure.titleColor = [UIColor lightGrayColor];
+            configure.titleSelectedColor = [UIColor blackColor];
+            configure.indicatorColor = [UIColor colorWithHexString:@"28a7ff"];
+            
+            
+            self.rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(KScreenWidth-30-15, 240+10+7, 30, 30)];
+            self.rightBtn.backgroundColor = [UIColor whiteColor];
+            [self.rightBtn setImage:[UIImage imageNamed:@"gengduo"] forState:UIControlStateNormal];
+            [self.rightBtn setImageEdgeInsets:UIEdgeInsetsMake(2, 2, 2, 2)];
+            self.rightBtn.layer.cornerRadius = 2;
+            self.rightBtn.layer.masksToBounds = YES;
+            [self.bgScrollView addSubview:self.rightBtn];
+            [self.rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
+            UserMessageModel *usermodel = KGetUserMessage;
+            NSMutableArray *arr = [[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID];
+            self.titleArr = [NSMutableArray new];
+            for (RoomInformationModel *info in arr) {
+                [self.titleArr addObject:info.name];
+            }
+            //    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间", nil];
+            
+            /// pageTitleView
+            self.pageTitleView = [SGPageTitleView pageTitleViewWithFrame:CGRectMake(15, 240+10, KScreenWidth-30-15-15-10, 44) delegate:self titleNames:self.titleArr configure:configure];
+            [self.bgScrollView addSubview:_pageTitleView];
+            
+            NSMutableArray *childArr = [NSMutableArray array];
+            for (int i=0; i<self.titleArr.count; i++) {
+                //            homePageHeaderModel *model = self.dataArr[i];
+                DeviceListViewController *vc = [[DeviceListViewController alloc]init];
+                vc.roomInfo = arr[i];
+                //            vc.pageModel = self.dataArr[i];
+                //            vc.arr = model.releaseActivities;
+                [childArr addObject:vc];
+            }
+            
+            CGFloat ContentCollectionViewHeight = KScreenHeight - CGRectGetMaxY(_pageTitleView.frame);
+            
+            self.pageContentScrollView = [[SGPageContentScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pageTitleView.frame), KScreenWidth, ContentCollectionViewHeight) parentVC:self childVCs:childArr];
+            _pageContentScrollView.isAnimated = YES;
+            _pageContentScrollView.delegatePageContentScrollView = self;
+            [self.bgScrollView addSubview:_pageContentScrollView];
         }
     }
 }
@@ -433,9 +513,9 @@
 //    if (!cell) {
 //        cell = [[[NSBundle mainBundle] loadNibNamed:@"CustomTestCell" owner:self options:nil] firstObject];
 //    }
-//    RoomInformationModel *roomModel = self.roomListArr[index];
+//    HomeInformationModel *roomModel = self.homeListArr[index];
 //    cell.titleLabel.text = roomModel.name;
-//    cell.iconImageView.image = [UIImage imageNamed:self.roomIconArr[index]];
+//    cell.iconImageView.image = [UIImage imageNamed:self.homeIconArr[index]];
     
     return nil;
 }

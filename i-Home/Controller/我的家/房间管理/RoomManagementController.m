@@ -33,10 +33,43 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"房间管理";
-    self.deviceListArray = [NSMutableArray arrayWithObjects:@[@"客厅",@0],@[@"主卧",@1],@[@"书房",@5],@[@"厨房",@0],@[@"餐厅",@2],@[@"洗漱间",@3], nil];
+    
+
+//    self.deviceListArray = [NSMutableArray arrayWithObjects:@[@"客厅",@0],@[@"主卧",@1],@[@"书房",@5],@[@"厨房",@0],@[@"餐厅",@2],@[@"洗漱间",@3], nil];
 //    [self.deviceListArray addObjectsFromArray:@[@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间"]];
     [self setUI];
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    HomeInformationModel *homeinfo = KGetHome;
+    UserMessageModel *usermodel = KGetUserMessage;
+    NSMutableArray *arr = [[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID];
+    [arr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        RoomInformationModel *roomModel = (RoomInformationModel *)obj;
+        if ([roomModel.room_id isEqualToString:@"1000000000000"]) {
+            *stop = YES;
+            if (*stop == YES) {
+                [arr removeObjectAtIndex:idx];
+            }
+        }
+        if (*stop) {
+        }
+    }];
+    self.deviceListArray = [NSMutableArray arrayWithArray:[arr sortedArrayUsingFunction:nameSort context:NULL]];
+    [self.deviceListTableView reloadData];
+}
+
+#pragma mark-字母排序
+NSInteger nameSort(id infor1, id infor2, void *context)
+{
+    RoomInformationModel *info1;
+    RoomInformationModel *info2;
+    info1 = (RoomInformationModel *)infor1;
+    info2 = (RoomInformationModel *)infor2;
+    return [info1.icon_order localizedCompare:info2.icon_order];
+}
+
 - (void)setUI{
     [self createNav];
     [self createTableView];
@@ -132,12 +165,12 @@
             cell = [[RoomManageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        NSArray *arr = self.deviceListArray[indexPath.row];
-        cell.roomNameLabel.text = arr[0];
-        if ([arr[1] intValue] == 0) {
+        RoomInformationModel *roominfo = self.deviceListArray[indexPath.row];
+        cell.roomNameLabel.text = roominfo.name;
+        if (roominfo.dev_num == 0) {
             cell.deviceNumLabel.text = @"";
         }else{
-            cell.deviceNumLabel.text = [NSString stringWithFormat:@"%d个设备",[arr[1] intValue]];
+            cell.deviceNumLabel.text = [NSString stringWithFormat:@"%d个设备",roominfo.dev_num];
         }
 
         return cell;
@@ -180,23 +213,30 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1) {
         AddRoomViewController *addCtrl = [[AddRoomViewController alloc] init];
+        addCtrl.isCreateRoom = YES;
         [self.navigationController pushViewController:addCtrl animated:YES];
     }else{
-        NSArray *arr = self.deviceListArray[indexPath.row];
-        NSString *roomName = arr[0];
+        RoomInformationModel *roominfo = self.deviceListArray[indexPath.row];
+        
         EditRoomViewController *editCtrl = [[EditRoomViewController alloc] init];
-        editCtrl.roomName = roomName;
+        editCtrl.roominfo = roominfo;
         [self.navigationController pushViewController:editCtrl animated:YES];
     }
 
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    DeviceInformationModel *devModel = self.listDataArr[indexPath.row];
+    RoomInformationModel *roomModel = self.deviceListArray[indexPath.row];
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"确定删除房间？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
         [alertCtrl addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            HomeInformationModel *homeinfo = KGetHome;
+            UserMessageModel *usermodel = KGetUserMessage;
+            // 1. 更新数据
+            [[DBManager shareManager] deleteRoomTableWithWithRoomId:roomModel.room_id andHomeId:homeinfo.homeID andUserId:usermodel.userID];
+            [self.deviceListArray removeObject:roomModel];
+            [self.deviceListTableView reloadData];
         }]];
         [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
@@ -244,6 +284,18 @@
 #pragma mark 处理移动的情况
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath*)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
+    HomeInformationModel *homeinfo = KGetHome;
+    UserMessageModel *usermodel = KGetUserMessage;
+    // 1. 更新数据
+    RoomInformationModel *roomInfo =self.deviceListArray[sourceIndexPath.row];
+    [self.deviceListArray removeObject:roomInfo];
+    [self.deviceListArray insertObject:roomInfo atIndex:destinationIndexPath.row];
+    //2. 更新UI
+    [tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:destinationIndexPath];
+    for (int i = 0 ; i < self.deviceListArray.count; i++) {
+        RoomInformationModel *roommodel = self.deviceListArray[i];
+        [[DBManager shareManager] updateRoomTableWithRoomOrder:[NSString stringWithFormat:@"%d",i+1] byRoomid:roommodel.room_id byHomeId:homeinfo.homeID byUserId:usermodel.userID];
+    }
     
 }
 

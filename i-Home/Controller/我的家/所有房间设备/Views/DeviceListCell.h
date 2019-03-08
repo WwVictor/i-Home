@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong)UIButton *onoffButton;
 @property (nonatomic, strong)DeviceInformationModel *deviceInfo;
 @property (nonatomic, strong)DeviceStatusModel *devStatus;
+@property (nonatomic, strong)void(^deviceBlock)(DeviceInformationModel *devInfo,DeviceStatusModel *devSta);
 -(void)configWithInfo:(DeviceInformationModel *)devInfoModel andStatusModel:(DeviceStatusModel *)devStatusModel;
 @end
 
