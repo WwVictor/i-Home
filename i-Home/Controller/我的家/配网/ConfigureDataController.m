@@ -58,9 +58,9 @@
     self.longtoothHandler = [LongToothHandler sharedInstance];
     [[LongToothHandler sharedInstance] configHandleEventDelegate:self];
     self.view.backgroundColor = [UIColor whiteColor];
-    UIView *backgroundView = [self.navigationController.navigationBar subviews].firstObject;
-    _navBarHairlineImageView = backgroundView.subviews.firstObject;
-    _navBarHairlineImageView.hidden = YES;
+//    UIView *backgroundView = [self.navigationController.navigationBar subviews].firstObject;
+//    _navBarHairlineImageView = backgroundView.subviews.firstObject;
+//    _navBarHairlineImageView.hidden = YES;
     [self createLeftBtn];
     [self createUI];
     
@@ -221,6 +221,11 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    _navBarHairlineImageView.hidden = YES;
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHexString:@"ffffff"]];
+    self.navigationController.navigationBar.translucent = NO;
     _researchLtidNum = 0;
     _researchTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(researchBtnTimerAction) userInfo:nil repeats:YES];
     [self broadcast8266Handel];
@@ -390,6 +395,12 @@
             [self.navigationController popToViewController:myControl animated:YES];
         }
     });
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    //如果不想让其他页面的导航栏变为透明 需要重置
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHexString:@"28a7ff"]];
 }
 - (void)viewDidAppear:(BOOL)animated
 {

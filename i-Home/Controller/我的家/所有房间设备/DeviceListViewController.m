@@ -1186,17 +1186,55 @@
         [window addSubview:self.sView];
     }
 }
-- (UIImage  *)xy_noDataViewImage
+//- (UIImage  *)xy_noDataViewImage
+//{
+//    return [UIImage imageNamed:@"缺省-暂无"];
+//}
+//- (NSString *)xy_noDataViewMessage
+//{
+//    return @"暂无数据";
+//}
+//- (NSNumber *)xy_noDataViewCenterYOffset
+//{
+//    return [NSNumber numberWithFloat:-20];
+//}
+- (UIView   *)xy_noDataView
 {
-    return [UIImage imageNamed:@"缺省-暂无"];
-}
-- (NSString *)xy_noDataViewMessage
-{
-    return @"暂无数据";
-}
-- (NSNumber *)xy_noDataViewCenterYOffset
-{
-    return [NSNumber numberWithFloat:-20];
+    UIView *bgView = [[UIView alloc] init];
+    bgView.backgroundColor = [UIColor clearColor];
+    bgView.sd_layout
+    .centerXEqualToView(self.view)
+    .centerYEqualToView(self.view)
+    .widthIs(KScreenWidth-80)
+    .heightIs(self.view.bounds.size.height);
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.text = @"暂无设备, 请添加";
+    titleLabel.textColor = [UIColor colorWithHexString:@"999999"];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont systemFontOfSize:17];
+    [bgView addSubview:titleLabel];
+    titleLabel.sd_layout
+    .topSpaceToView(bgView, (bgView.bounds.size.height-20-20-40)/2)
+    .centerXEqualToView(bgView)
+    .widthIs(KScreenWidth-80)
+    .heightIs(20);
+    
+    UIButton *addButton = [[UIButton alloc] init];
+    [addButton setTitle:@"添加设备" forState:UIControlStateNormal];
+    [addButton setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    [bgView addSubview:addButton];
+    addButton.sd_layout
+    .topSpaceToView(titleLabel, 20)
+    .centerXEqualToView(bgView)
+    .widthIs(140)
+    .heightIs(40);
+    addButton.layer.borderWidth = 0.5;
+    addButton.layer.borderColor = [UIColor colorWithHexString:@"666666"].CGColor;
+    addButton.layer.cornerRadius = 5;
+    addButton.layer.masksToBounds = YES;
+    
+    return bgView;
 }
 /*
 #pragma mark - Navigation
