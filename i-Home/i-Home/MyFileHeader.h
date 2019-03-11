@@ -180,8 +180,8 @@ static inline CGFloat TQSizeFitH(CGFloat value) {
 #define POWER_LAST_2MONTH @"power_last_2month"
 #define POWER_LAST_YEAR @"power_last_year"
 
-#define SEARCH_DEVICE_INFO @"search/networked/device_info"
-#define SEARCH_DEVICE @"search_device"
+#define SEARCH_DEVICE_INFO @"search_dev_info"
+#define SEARCH_DEVICE @"search_dev"
 #define SEARCH_WIFILIST @"bs_scan"
 
 #define LEAVE_HOME_SET @"leave_home_set"

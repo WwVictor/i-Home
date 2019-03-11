@@ -8,6 +8,7 @@
 
 #import "GetDeviceController.h"
 #import "MyFileHeader.h"
+#import "SearchDevicesController.h"
 #import "JoinNetworkController.h"
 #import <QuartzCore/QuartzCore.h>
 @interface GetDeviceController ()
@@ -36,6 +37,7 @@
     NSInteger _isConnectDeviceAP;
     NSInteger _isConnectWifi;
     NSInteger _isHotConnect;
+    BOOL _isWifiConnect;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -465,8 +467,14 @@
 }
 - (void)nextButtonAction
 {
-    JoinNetworkController *joinCtrl = [[JoinNetworkController alloc] init];
-    [self.navigationController pushViewController:joinCtrl animated:YES];
+    if (_isHotConnect == 1) {
+        JoinNetworkController *joinCtrl = [[JoinNetworkController alloc] init];
+        [self.navigationController pushViewController:joinCtrl animated:YES];
+    }else{
+        SearchDevicesController *searchCtrl = [[SearchDevicesController alloc] init];
+        [self presentViewController:searchCtrl animated:YES completion:nil];
+    }
+    
 }
 - (void)createLeftBtn
 {

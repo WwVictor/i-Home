@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSMutableArray *listArray;
 @property (nonatomic, strong) NSMutableArray *existListArray;
 @property (nonatomic, strong) NSMutableArray *inexistenceListArray;
-
+@property (nonatomic, strong) EditRoomNameCell *editCell;
 @end
 
 @implementation EditRoomViewController
@@ -64,6 +64,7 @@
                 for (int i = 0; i < self.existListArray.count; i++) {
                     DeviceInformationModel *infos = self.existListArray[i];
                     if (![info.dev_id isEqualToString:infos.dev_id] && ![info.home_id isEqualToString:infos.home_id] && ![info.user_id isEqualToString:infos.user_id] && ![info.name isEqualToString:infos.name]) {
+                        [arr addObject:info];
                     }
                 }
             }
@@ -140,7 +141,26 @@
 }
 - (void)saveBtnClick
 {
-    
+    HomeInformationModel *homeInfo = KGetHome;
+    UserMessageModel *userModel = KGetUserMessage;
+    if ([self.editCell.roomNameTextField.text length] == 0) {
+        [SVProgressHUD doAnyRemindWithHUDMessage:@"请先输入房间名称" withDuration:1.5];
+    }else{
+        [[DBManager shareManager] updateRoomTableWithRoomName:self.editCell.roomNameTextField.text byRoomid:self.roominfo.room_id byHomeId:homeInfo.homeID byUserId:userModel.userID];
+        
+        for (DeviceInformationModel *devInfo in self.existListArray) {
+            if (![devInfo.room_id isEqualToString:self.roominfo.room_id]) {
+                [[DBManager shareManager] updateRoomDeviceTableWithRoomid:self.roominfo.room_id byDeviceId:devInfo.dev_id byHomeId:devInfo.home_id byUserId:devInfo.user_id];
+            }
+        }
+        
+        for (DeviceInformationModel *devInfo in self.inexistenceListArray) {
+            if ([devInfo.room_id isEqualToString:self.roominfo.room_id]) {
+                [[DBManager shareManager] updateRoomDeviceTableWithRoomid:@"1000000000000" byDeviceId:devInfo.dev_id byHomeId:devInfo.home_id byUserId:devInfo.user_id];
+            }
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 #pragma mark - tableview代理方法
 //- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -168,24 +188,17 @@
     }else{
         return [self.listArray[section-1] count];
     }
-    
-    
-    
-    
-    
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         static NSString *cellId = @"EditRoomNameCellID";
-        EditRoomNameCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (cell == nil) {
-            cell = [[EditRoomNameCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        self.editCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        if (self.editCell == nil) {
+            self.editCell = [[EditRoomNameCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         }
-//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.roomNameTextField.text = self.roominfo.name;
-        
-        return cell;
+        self.editCell.roomNameTextField.text = self.roominfo.name;
+        return self.editCell;
     }else {
         if (self.existListArray.count != 0 && self.inexistenceListArray.count == 0) {
             static NSString *cellId = @"RoomExistDeviceCellID";
@@ -193,7 +206,6 @@
             if (cell == nil) {
                 cell = [[RoomExistDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             }
-            
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             DeviceInformationModel *devInfo = self.existListArray[indexPath.row];
             if (devInfo.icon_path.length == 0) {
@@ -208,14 +220,14 @@
             if (cell == nil) {
                 cell = [[RoomInexistenceDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
             }
-//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             DeviceInformationModel *devInfo = self.inexistenceListArray[indexPath.row];
             if (devInfo.icon_path.length == 0) {
                 devInfo.icon_path = [[DeviceTypeManager shareManager] getDeviceIcon:[devInfo.type intValue] andSerialType:[devInfo.serial_type intValue]];
             }
             cell.deviceNameLabel.text = devInfo.name;
             cell.iconImageView.image = [UIImage imageNamed:devInfo.icon_path];
-            cell.roomNameLabel.text = @"次卧";
+            RoomInformationModel *roomModel = [[DBManager shareManager] selectFromRoomTableWithRoomId:devInfo.room_id andHomeId:devInfo.home_id andUserId:devInfo.user_id];
+            cell.roomNameLabel.text = roomModel.name;
             [cell setAddDeviceBlock:^(NSString * _Nonnull string) {
                 [self.inexistenceListArray removeObject:devInfo];
                 [self.existListArray addObject:devInfo];
@@ -243,7 +255,6 @@
                 }
                 cell.deviceNameLabel.text = devInfo.name;
                 cell.iconImageView.image = [UIImage imageNamed:devInfo.icon_path];
-//                cell.deviceNameLabel.text = self.existListArray[indexPath.row];
                 return cell;
             }else{
                 static NSString *cellId = @"RoomInexistenceDeviceCellID";
@@ -251,15 +262,14 @@
                 if (cell == nil) {
                     cell = [[RoomInexistenceDeviceCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
                 }
-//                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//                cell.deviceNameLabel.text = self.inexistenceListArray[indexPath.row];
                 DeviceInformationModel *devInfo = self.inexistenceListArray[indexPath.row];
                 if (devInfo.icon_path.length == 0) {
                     devInfo.icon_path = [[DeviceTypeManager shareManager] getDeviceIcon:[devInfo.type intValue] andSerialType:[devInfo.serial_type intValue]];
                 }
                 cell.deviceNameLabel.text = devInfo.name;
                 cell.iconImageView.image = [UIImage imageNamed:devInfo.icon_path];
-                cell.roomNameLabel.text = @"次卧";
+                RoomInformationModel *roomModel = [[DBManager shareManager] selectFromRoomTableWithRoomId:devInfo.room_id andHomeId:devInfo.home_id andUserId:devInfo.user_id];
+                cell.roomNameLabel.text = roomModel.name;
                 [cell setAddDeviceBlock:^(NSString * _Nonnull string) {
                     [self.inexistenceListArray removeObject:devInfo];
                     [self.existListArray addObject:devInfo];
@@ -275,10 +285,7 @@
         }else{
             return nil;
         }
-        
     }
-    
-    
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -321,12 +328,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.001;
-    
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, KScreenWidth, 0.001)];
     footerView.backgroundColor = [UIColor clearColor];
     return footerView;
@@ -335,27 +340,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.existListArray.count != 0) {
         UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             UIAlertController *alertCtrl = [UIAlertController alertControllerWithTitle:@"确定删除设备吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            
             [alertCtrl addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
+                DeviceInformationModel *infos = self.existListArray[indexPath.row];
+//                [[DBManager shareManager] updateRoomDeviceTableWithRoomid:infos.room_id byDeviceId:infos.dev_id byHomeId:infos.home_id byUserId:infos.user_id];
+                [self.inexistenceListArray addObject:infos];
                 [self.existListArray removeObjectAtIndex:indexPath.row];
                 [self.listArray removeAllObjects];
                 if (self.existListArray.count != 0) {
                     [self.listArray addObject:self.existListArray];
                 }
-                
                 if (self.inexistenceListArray.count != 0) {
                     [self.listArray addObject:self.inexistenceListArray];
                 }
-                
                 [self.listTableView reloadData];
             }]];
             [alertCtrl addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -367,8 +369,6 @@
     }else{
         return nil;
     }
-    //    DeviceInformationModel *devModel = self.listDataArr[indexPath.row];
-    
 }
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath
 {
@@ -384,9 +384,7 @@
         }else{
             return NO;
         }
-        
     }
-    
 }
 
 #pragma mark 设置编辑的样式
@@ -399,16 +397,13 @@
 {
     if (editingStyle ==UITableViewCellEditingStyleDelete) {
         // 1.更新数据
-        
         // 2.更新UI
-        
         //        [tableView deleteRowsAtIndexPaths:@[indexPath]withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 #pragma mark 设置可以移动
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath*)indexPath
 {
-    
     if (indexPath.section == 0) {
         return NO;
     }else{
@@ -421,7 +416,6 @@
         }else{
             return NO;
         }
-        
     }
 }
 #pragma mark 处理移动的情况
@@ -429,8 +423,16 @@
 {
     
 }
+-(NSIndexPath*)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
+{
+    if (proposedDestinationIndexPath.section == 0 || proposedDestinationIndexPath.section == 2) {
+        return sourceIndexPath;
+    }else{
+        return proposedDestinationIndexPath;
+    }
+    
+}
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -438,6 +440,6 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end
