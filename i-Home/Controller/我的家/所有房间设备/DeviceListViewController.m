@@ -215,6 +215,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *cellId = @"DeviceListCellID";
     DeviceListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
@@ -1233,8 +1234,14 @@
     addButton.layer.borderColor = [UIColor colorWithHexString:@"666666"].CGColor;
     addButton.layer.cornerRadius = 5;
     addButton.layer.masksToBounds = YES;
+    [addButton addTarget:self action:@selector(addDeviceAction) forControlEvents:UIControlEventTouchUpInside];
     
     return bgView;
+}
+- (void)addDeviceAction
+{
+    SelectDeviceTypeController *selctCtrl = [[SelectDeviceTypeController alloc] init];
+    [self.navigationController pushViewController:selctCtrl animated:YES];
 }
 /*
 #pragma mark - Navigation

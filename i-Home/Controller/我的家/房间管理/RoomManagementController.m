@@ -167,10 +167,11 @@ NSInteger nameSort(id infor1, id infor2, void *context)
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         RoomInformationModel *roominfo = self.deviceListArray[indexPath.row];
         cell.roomNameLabel.text = roominfo.name;
-        if (roominfo.dev_num == 0) {
+        NSMutableArray *arr = [[DBManager shareManager] selectFromRoomDeviceTableWithRoomId:roominfo.room_id andHomeId:roominfo.home_id andUserId:roominfo.user_id];
+        if (arr.count == 0) {
             cell.deviceNumLabel.text = @"";
         }else{
-            cell.deviceNumLabel.text = [NSString stringWithFormat:@"%d个设备",roominfo.dev_num];
+            cell.deviceNumLabel.text = [NSString stringWithFormat:@"%ld个设备",arr.count];
         }
 
         return cell;

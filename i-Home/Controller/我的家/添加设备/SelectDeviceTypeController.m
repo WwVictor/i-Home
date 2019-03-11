@@ -14,10 +14,18 @@
 @interface SelectDeviceTypeController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *deviceListTableView;
 @property (nonatomic, strong) NSMutableArray *deviceListArray;
-
+@property (nonatomic, strong) NSMutableArray *deviceIconArray;
 @end
 
 @implementation SelectDeviceTypeController
+- (NSMutableArray *)deviceIconArray
+{
+    if (_deviceIconArray == nil) {
+        _deviceIconArray = [NSMutableArray array];
+        
+    }
+    return _deviceIconArray;
+}
 - (NSMutableArray *)deviceListArray
 {
     if (_deviceListArray == nil) {
@@ -32,6 +40,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"添加设备";
     [self.deviceListArray addObjectsFromArray:@[@"照明",@"插座",@"开关",@"窗帘",@"空调"]];
+    [self.deviceIconArray addObjectsFromArray:@[@"device_light_bulb",@"device_socket",@"device_power",@"device_curtains",@"device_aircon"]];
     [self setUI];
 }
 - (void)setUI{
@@ -98,7 +107,8 @@
     }
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.deviceNameLabel.text = self.deviceListArray[indexPath.row];
-    cell.iconImageView.image = [UIImage imageNamed:@"灯泡"];
+    NSString *str = self.deviceIconArray[indexPath.row];
+    cell.iconImageView.image = [UIImage imageNamed:str];
     return cell;
     
 }

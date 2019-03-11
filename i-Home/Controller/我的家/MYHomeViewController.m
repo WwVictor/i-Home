@@ -34,6 +34,7 @@
 @property (nonatomic, strong) UIScrollView *bgScrollView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray*titleArr;
+@property (nonatomic, strong) NSMutableArray*roomListArr;
 @property (nonatomic, strong) UIView *headerView;
 @property (nonatomic, strong) UIButton *rightBtn;
 
@@ -57,6 +58,14 @@
     BOOL _scrollviewTop;
 }
 #pragma mark-懒加载
+- (NSMutableArray *)roomListArr
+{
+    if (_roomListArr == nil) {
+        _roomListArr = [NSMutableArray array];
+        
+    }
+    return _roomListArr;
+}
 - (NSMutableArray *)titleArr
 {
     if (_titleArr == nil) {
@@ -92,6 +101,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"room.data"];
+    [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeOffset:)name:@"changeOffset"object:nil];
     if ([[[DBManager shareManager] selectFromHomeTable] count] == 0 ) {
          AddHomeViewController*homemanagerCtrl = [[AddHomeViewController alloc] init];
@@ -143,6 +154,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHexString:@"28a7ff"]];
     HomeInformationModel *homeinfo = KGetHome;
     if (_selectNum == 0) {
         if ([homeinfo.homeID length] != 0) {
@@ -192,12 +206,16 @@
     HomeInformationModel *homeinfo = KGetHome;
     UserMessageModel *usermodel = KGetUserMessage;
     
-    NSMutableArray *arr = [NSMutableArray array];
-    [arr addObjectsFromArray:[[[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID] sortedArrayUsingFunction:nameSort1 context:NULL]];
+    self.roomListArr = [NSMutableArray array];
+    [self.roomListArr addObjectsFromArray:[[[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID] sortedArrayUsingFunction:nameSort1 context:NULL]];
     self.titleArr = [NSMutableArray new];
-    for (RoomInformationModel *info in arr) {
+    for (RoomInformationModel *info in self.roomListArr) {
         [self.titleArr addObject:info.name];
     }
+//    if (self.titleArr.count != 0) {
+        [self.titleArr insertObject:@"所有设备" atIndex:0];
+//    }
+    //    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间", nil];
 //    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间", nil];
     
     /// pageTitleView
@@ -205,10 +223,16 @@
     [self.bgScrollView addSubview:_pageTitleView];
     
     NSMutableArray *childArr = [NSMutableArray array];
+    
     for (int i=0; i<self.titleArr.count; i++) {
         //            homePageHeaderModel *model = self.dataArr[i];
         DeviceListViewController *vc = [[DeviceListViewController alloc]init];
-        vc.roomInfo = arr[i];
+        if (i== 0) {
+            vc.roomInfo = [[RoomInformationModel alloc] init];
+        }else{
+            vc.roomInfo = self.roomListArr[i-1];
+        }
+        
         //            vc.pageModel = self.dataArr[i];
         //            vc.arr = model.releaseActivities;
         [childArr addObject:vc];
@@ -390,6 +414,14 @@ NSInteger nameSort1(id infor1, id infor2, void *context)
 
 - (void)pageContentScrollView:(SGPageContentScrollView *)pageContentScrollView index:(NSInteger)index {
     _selectIndex = index;
+    if (index == 0) {
+        RoomInformationModel *info = [[RoomInformationModel alloc] init];
+        KSaveRoom(info);
+    }else{
+       RoomInformationModel *info = self.roomListArr[index-1];
+        KSaveRoom(info);
+    }
+    
     if (index == 1 || index == 5) {
         [_pageTitleView removeBadgeForIndex:index];
     }
@@ -427,7 +459,8 @@ NSInteger nameSort1(id infor1, id infor2, void *context)
             [self.pageTitleView removeFromSuperview];
             [self.pageContentScrollView removeFromSuperview];
             [self.addDeviceBtn removeFromSuperview];
-            
+            NSString *filePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"room.data"];
+            [[NSFileManager defaultManager] removeItemAtPath:filePath error:nil];
             
             HomeInformationModel *homeinfo = self.homeListArr[index];
             KSaveHome(homeinfo);
@@ -471,11 +504,16 @@ NSInteger nameSort1(id infor1, id infor2, void *context)
             [self.bgScrollView addSubview:self.rightBtn];
             [self.rightBtn addTarget:self action:@selector(rightBtnClick) forControlEvents:UIControlEventTouchUpInside];
             UserMessageModel *usermodel = KGetUserMessage;
-            NSMutableArray *arr = [[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID];
+            self.roomListArr = [NSMutableArray array];
+            [self.roomListArr addObjectsFromArray:[[[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID] sortedArrayUsingFunction:nameSort1 context:NULL]];
+//            NSMutableArray *arr = [[DBManager shareManager] selectFromRoomWithHomeId:homeinfo.homeID andUserId:usermodel.userID];
             self.titleArr = [NSMutableArray new];
-            for (RoomInformationModel *info in arr) {
+            for (RoomInformationModel *info in self.roomListArr) {
                 [self.titleArr addObject:info.name];
             }
+//            if (self.titleArr.count != 0) {
+                [self.titleArr insertObject:@"所有设备" atIndex:0];
+//            }
             //    self.titleArr = [NSMutableArray arrayWithObjects:@"所有设备",@"客厅",@"主卧",@"书房",@"厨房",@"餐厅",@"洗漱间", nil];
             
             /// pageTitleView
@@ -486,7 +524,12 @@ NSInteger nameSort1(id infor1, id infor2, void *context)
             for (int i=0; i<self.titleArr.count; i++) {
                 //            homePageHeaderModel *model = self.dataArr[i];
                 DeviceListViewController *vc = [[DeviceListViewController alloc]init];
-                vc.roomInfo = arr[i];
+                if (i== 0) {
+                    vc.roomInfo = [[RoomInformationModel alloc] init];
+                }else{
+                   vc.roomInfo = self.roomListArr[i-1];
+                }
+                
                 //            vc.pageModel = self.dataArr[i];
                 //            vc.arr = model.releaseActivities;
                 [childArr addObject:vc];

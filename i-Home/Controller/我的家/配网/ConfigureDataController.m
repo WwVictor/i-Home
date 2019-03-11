@@ -303,7 +303,11 @@
         NSLog(@"%@",self.deviceMessModel);
         HomeInformationModel *homeInfo = KGetHome;
         UserMessageModel *userModel = KGetUserMessage;
-        RoomInformationModel *roomInfo = [[DBManager shareManager] selectFromRoomTableWithRoomId:@"1000000000000" andHomeId:homeInfo.homeID andUserId:userModel.userID];
+        RoomInformationModel *roomInfo = KGetRoom;
+        if ([roomInfo.room_id intValue] == 0) {
+            roomInfo.room_id = @"1000000000000";
+        }
+//        RoomInformationModel *roomInfo = [[DBManager shareManager] selectFromRoomTableWithRoomId:@"1000000000000" andHomeId:homeInfo.homeID andUserId:userModel.userID];
         
         if ([self.deviceMessModel.no_of_ep intValue] == 1) {
             
