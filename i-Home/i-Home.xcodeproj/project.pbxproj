@@ -64,6 +64,9 @@
 		01385AC9222CF9C90077BC2F /* HomeManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01385AC8222CF9C90077BC2F /* HomeManagerViewController.m */; };
 		01385ACC222CF9E20077BC2F /* AddHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01385ACB222CF9E20077BC2F /* AddHomeViewController.m */; };
 		01385ACF222CFFEB0077BC2F /* HomeRoomListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01385ACE222CFFEB0077BC2F /* HomeRoomListCell.m */; };
+		0154CF3222360845005762F9 /* SearchDevicesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0154CF3122360845005762F9 /* SearchDevicesController.m */; };
+		0154CF35223608A6005762F9 /* DeviceSceneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0154CF34223608A5005762F9 /* DeviceSceneCell.m */; };
+		0154CF37223611EB005762F9 /* device_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 0154CF36223611EA005762F9 /* device_search.png */; };
 		016F4C99222E091F0061B529 /* Language.strings in Resources */ = {isa = PBXBuildFile; fileRef = 016F4C9B222E091F0061B529 /* Language.strings */; };
 		016F4CA0222E099D0061B529 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016F4C9F222E099D0061B529 /* Security.framework */; };
 		016F4CA2222E09A30061B529 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016F4CA1222E09A30061B529 /* CFNetwork.framework */; };
@@ -411,6 +414,11 @@
 		01385ACB222CF9E20077BC2F /* AddHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddHomeViewController.m; sourceTree = "<group>"; };
 		01385ACD222CFFEB0077BC2F /* HomeRoomListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeRoomListCell.h; sourceTree = "<group>"; };
 		01385ACE222CFFEB0077BC2F /* HomeRoomListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeRoomListCell.m; sourceTree = "<group>"; };
+		0154CF3022360844005762F9 /* SearchDevicesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchDevicesController.h; sourceTree = "<group>"; };
+		0154CF3122360845005762F9 /* SearchDevicesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchDevicesController.m; sourceTree = "<group>"; };
+		0154CF33223608A5005762F9 /* DeviceSceneCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceSceneCell.h; sourceTree = "<group>"; };
+		0154CF34223608A5005762F9 /* DeviceSceneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceSceneCell.m; sourceTree = "<group>"; };
+		0154CF36223611EA005762F9 /* device_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = device_search.png; sourceTree = "<group>"; };
 		016F4C95222E09090061B529 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		016F4C96222E09090061B529 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		016F4C97222E09150061B529 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -1047,6 +1055,11 @@
 				016F4EA7222F6B670061B529 /* SetUpViewController.m */,
 				016F4EA5222F6B670061B529 /* ConnectSuccessController.h */,
 				016F4EA6222F6B670061B529 /* ConnectSuccessController.m */,
+				0154CF3022360844005762F9 /* SearchDevicesController.h */,
+				0154CF3122360845005762F9 /* SearchDevicesController.m */,
+				0154CF36223611EA005762F9 /* device_search.png */,
+				0154CF33223608A5005762F9 /* DeviceSceneCell.h */,
+				0154CF34223608A5005762F9 /* DeviceSceneCell.m */,
 			);
 			path = "配网";
 			sourceTree = "<group>";
@@ -2159,6 +2172,7 @@
 				0128FC8B2228CB380076879A /* SVProgressHUD.bundle in Resources */,
 				0128FC0022268F4A0076879A /* README.md in Resources */,
 				016F4C99222E091F0061B529 /* Language.strings in Resources */,
+				0154CF37223611EB005762F9 /* device_search.png in Resources */,
 				F2391C21221BA6F9002B3B68 /* 灰色椭圆.png in Resources */,
 				016F4DE5222E0C880061B529 /* bannertips_success@2x.png in Resources */,
 				F2F25D2A2223DDD70056A598 /* CustomTestCell.xib in Resources */,
@@ -2258,6 +2272,7 @@
 				016F4E66222E0DAA0061B529 /* XAnimation.m in Sources */,
 				016F4EAC222F6B950061B529 /* ConfigureDataController.m in Sources */,
 				0128FBFE22268F4A0076879A /* MASViewConstraint.m in Sources */,
+				0154CF3222360845005762F9 /* SearchDevicesController.m in Sources */,
 				016F4CF1222E0A760061B529 /* longtooth.m in Sources */,
 				0128FC642227CE5B0076879A /* UIButton+Extension.m in Sources */,
 				0128FC5B2227CE5B0076879A /* NSString+MD5Addition.m in Sources */,
@@ -2412,6 +2427,7 @@
 				016F4D37222E0C160061B529 /* Reachability.m in Sources */,
 				016F4EF0222FB7A10061B529 /* MouthElectricityRecordCell.m in Sources */,
 				0128FC1B2227792B0076879A /* UIView+SGPagingView.m in Sources */,
+				0154CF35223608A6005762F9 /* DeviceSceneCell.m in Sources */,
 				016F4DC4222E0C330061B529 /* SDWebImageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

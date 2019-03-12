@@ -296,6 +296,7 @@
 @property (nonatomic, strong) NSString *serial_type;
 @property (nonatomic, strong) NSString *sw_ver;
 @property (nonatomic, strong) NSString *type;
+@property (nonatomic, strong) NSString *device_type_name;
 @end
 
 @interface SceneDeviceStatusModel : NSObject

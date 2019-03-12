@@ -9,7 +9,7 @@
 #import "DeviceListViewController.h"
 #import "Masonry.h"
 #import "DeviceListCell.h"
-@interface DeviceListViewController ()<UITableViewDelegate,UITableViewDataSource,HandleEventDelegate,HandleSendDelegate>
+@interface DeviceListViewController ()<UITableViewDelegate,UITableViewDataSource,HandleEventDelegate,HandleSendDelegate,HandleGetDeviceStatusDelegate>
 @property (nonatomic, strong) UITableView *deviceListTableView;
 @property (nonatomic, strong) NSMutableArray *deviceListArray;
 @property (nonatomic, strong) LongToothHandler *longtoothHandler;
@@ -48,6 +48,7 @@
     self.longtoothHandler = [LongToothHandler sharedInstance];
     [[LongToothHandler sharedInstance] configHandleEventDelegate:self];
     [[LongToothHandler sharedInstance] configHandleSendDelegate:self];
+    [[LongToothHandler sharedInstance] configHandleGetDeviceStatusDelegate:self];
     [self setUI];
     [self startTimer];
     NSLog(@"name === %@",self.roomInfo.name);
@@ -62,11 +63,20 @@
     NSLog(@"roomInfo === %@",self.roomInfo.name);
     HomeInformationModel *homeInfo = KGetHome;
     UserMessageModel *userModel = KGetUserMessage;
-    self.deviceListArray = [[DBManager shareManager] selectFromRoomDeviceTableWithRoomId:self.roomInfo.room_id andHomeId:homeInfo.homeID andUserId:userModel.userID];
-    [self.deviceListTableView reloadData];
-    for (DeviceInformationModel *info in self.deviceListArray) {
-        [self getDeviceStatus:info andandWithDeviceNum:1 andSelectNum:1];
+    if ([self.roomInfo.room_id intValue] == 0) {
+        self.deviceListArray = [[DBManager shareManager] selectFromRoomDeviceWithHomeId:homeInfo.homeID andUserId:userModel.userID];
+        [self.deviceListTableView reloadData];
+        for (DeviceInformationModel *info in self.deviceListArray) {
+            [self getDeviceStatus:info andandWithDeviceNum:1 andSelectNum:1];
+        }
+    }else{
+        self.deviceListArray = [[DBManager shareManager] selectFromRoomDeviceTableWithRoomId:self.roomInfo.room_id andHomeId:homeInfo.homeID andUserId:userModel.userID];
+        [self.deviceListTableView reloadData];
+        for (DeviceInformationModel *info in self.deviceListArray) {
+            [self getDeviceStatus:info andandWithDeviceNum:1 andSelectNum:1];
+        }
     }
+   
 }
 - (void)startTimer
 {
@@ -102,7 +112,38 @@
     }];
 }
 
-
+- (void)handleSendNotification:(id)objc andServiceName:(NSString *)serviceName
+{
+//    if ([serviceName isEqualToString:DEV_STATUS]) {
+//        NSDictionary *dict = (NSDictionary *)objc;
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            DeviceStatusModel *devStatusModel = [DeviceStatusModel mj_objectWithKeyValues:dict];
+//            NSInteger indexPath_row = 0;
+//            for (int i = 0; i < self.deviceDataArray.count; i++) {
+//                DeviceInformationModel *info = self.deviceDataArray[i];
+//                if ([info.longtoo_id isEqualToString:devStatusModel.longtoo_id] && [info.ep intValue]==devStatusModel.ep) {
+//                    indexPath_row = i;
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        if (self.totalLastTime.count != 0) {
+//                            [self.totalLastTime enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//                                NSInteger index = [[[self.totalLastTime objectAtIndex:idx] objectForKey:@"indexPath"] integerValue];
+//                                if (index == indexPath_row) {
+//                                    [self.totalLastTime removeObjectAtIndex:idx];
+//                                    *stop = YES;
+//                                }
+//                            }];
+//                        }
+//                        [self updateDeviceCotrolUI:info deviceStatus:devStatusModel];
+//                        [UIView performWithoutAnimation:^{
+//                            [self.collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObjects:[NSIndexPath indexPathForRow:indexPath_row inSection:0], nil]];
+//                        }];
+//
+//                    });
+//                }
+//            }
+//        });
+//    }
+}
 - (void)getDeviceStatus:(DeviceInformationModel *)devModel andandWithDeviceNum:(NSInteger)devNum andSelectNum:(NSInteger)selectNum
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -215,6 +256,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     static NSString *cellId = @"DeviceListCellID";
     DeviceListCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
@@ -1233,8 +1275,14 @@
     addButton.layer.borderColor = [UIColor colorWithHexString:@"666666"].CGColor;
     addButton.layer.cornerRadius = 5;
     addButton.layer.masksToBounds = YES;
+    [addButton addTarget:self action:@selector(addDeviceAction) forControlEvents:UIControlEventTouchUpInside];
     
     return bgView;
+}
+- (void)addDeviceAction
+{
+    SelectDeviceTypeController *selctCtrl = [[SelectDeviceTypeController alloc] init];
+    [self.navigationController pushViewController:selctCtrl animated:YES];
 }
 /*
 #pragma mark - Navigation

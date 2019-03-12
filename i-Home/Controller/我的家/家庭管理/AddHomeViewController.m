@@ -203,14 +203,14 @@
 - (void)addRoomData:(HomeInformationModel *)model
 {
     UserMessageModel *usermodel = KGetUserMessage;
-    RoomInformationModel *roominfo = [[RoomInformationModel alloc] init];
-    roominfo.user_id = usermodel.userID;
-    roominfo.home_id = model.homeID;
-    roominfo.name = @"所有设备";
-    roominfo.room_id = @"1000000000000";
-    roominfo.is_defaultRoom = @"1";
-    roominfo.icon_order = @"0";
-    [[DBManager shareManager] insertRoomTableWithFile:roominfo];
+//    RoomInformationModel *roominfo = [[RoomInformationModel alloc] init];
+//    roominfo.user_id = usermodel.userID;
+//    roominfo.home_id = model.homeID;
+//    roominfo.name = @"所有设备";
+//    roominfo.room_id = @"1000000000000";
+//    roominfo.is_defaultRoom = @"1";
+//    roominfo.icon_order = @"0";
+//    [[DBManager shareManager] insertRoomTableWithFile:roominfo];
     
     for (int i = 0; i < self.listArray.count; i++) {
         SelectRoomModel *selectmodel = self.listArray[i];
